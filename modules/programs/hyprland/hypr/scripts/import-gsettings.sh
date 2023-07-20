@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # origin: https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
 # usage: import-gsettings
 config="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"

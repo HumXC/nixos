@@ -218,11 +218,11 @@
             "clock#m"
         ],
         "clock#h": {
-            "format": "<span face=\"monospace\">{:%H}</span>",
+            "format": "<span face=\"MiSans\">{:%H}</span>",
             "tooltip-format": "<span size=\"x-large\">{:%m/%d %A}</span>"
         },
         "clock#m": {
-            "format": "<span face=\"monospace\">{:%M}</span>",
+            "format": "<span face=\"MiSans\">{:%M}</span>",
             "tooltip-format": "<span size=\"x-large\">{:%m/%d %A}</span>"
         }
     },

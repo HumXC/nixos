@@ -6,7 +6,7 @@
 #
 # NOTE: this script is in bash (not posix shell), because the RANDOM variable
 # we use is not defined in posix
-dir=$HOME/.config/hypr/wallpaper
+dir=$HOME/Pictures/wallpaper
 # Edit bellow to control the images transition
 export SWWW_TRANSITION_FPS=60
 export SWWW_TRANSITION_STEP=2

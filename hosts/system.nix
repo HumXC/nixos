@@ -1,5 +1,4 @@
 { config, pkgs, lib, inputs, user, ... }:
-
 {
   nixpkgs.system = "x86_64-linux";
 
@@ -16,17 +15,15 @@
     };
   };
   time.timeZone = "Asia/Shanghai";
-  
+  i18n.supportedLocales = [ "zh_CN.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
   i18n.defaultLocale = "en_US.UTF-8";
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs; [
-      noto-fonts
-      source-han-sans
-      source-han-serif
-      source-code-pro
-      fira-code
-    ];
+    fonts = (with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    ])++(with config.nur.repos;[
+      humxc.misans
+    ]);
   };
   services = {
     openssh = {
@@ -38,10 +35,13 @@
     # binsh = "${pkgs.dash}/bin/dash";
     # shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
+      trashy
       git
       helix
       wget
       neofetch
+      psmisc
+      btop
     ];
   };
   nix = {

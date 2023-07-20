@@ -15,8 +15,8 @@
     };
 
     nur.url = "github:nix-community/NUR";
-
-    };
+    
+  };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {

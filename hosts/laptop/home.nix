@@ -5,10 +5,9 @@
     username = "${username}";
     homeDirectory = "/home/${username}";
     packages = (with pkgs; [
-      # go-cqhttp      
       
     ]) ++ (with config.nur.repos;[
-      linyinfeng.clash-premium
+    
     ]);
   };
   programs = {

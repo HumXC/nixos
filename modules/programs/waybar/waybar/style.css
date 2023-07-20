@@ -1,7 +1,8 @@
 * {
     border: none;
-    font-family: "MiSans", "FiraCode Nerd Font", Retina;
+    font-family: "MiSans", "Fira Code", Retina;
     font-size: 16px;
+    color: #dcdcdc;
 }
 
 /* top-bar */

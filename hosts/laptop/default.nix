@@ -12,7 +12,8 @@ in
     initialHashedPassword = "$6$b7mGXpPXuF9LA1GB$TbTTOYkPTu4CP5OxjF8yvH2l/TYPn50N1.OQjTQ70YS8lPpWdhxiaR11.vPJa9Jw/H3Mvn5DBdPZzB0BVekF6/";
   };
   networking = {
-    hostName = "HumXC"; # Define your hostname.
+    hostName = "HumXC"; # 主机名
+    # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
     proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
@@ -74,11 +75,11 @@ in
   };
 
   console.useXkbConfig = true;
-
+  programs.light.enable = true; # 用于控制屏幕背光
   services = {
-    xserver.xkbOptions = "caps:escape";
+    # xserver.xkbOptions = "caps:escape";
     dbus.packages = [ pkgs.gcr ];
-    getty.autologinUser = "${username}";
+    getty.autologinUser = "${username}"; # 自动登录
     # gvfs.enable = true;
     pipewire = {
       enable = true;
