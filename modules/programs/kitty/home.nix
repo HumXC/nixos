@@ -1,8 +1,9 @@
 { config, lib, pkgs, username, ... }:
 let 
+# TODO: 貌似不正确的使用
   themes = builtins.fetchGit {
-    url = "https://github.com/dexpota/kitty-themes.git";
-    rev = "b1abdd54ba655ef34f75a568d78625981bf1722c";
+    url = "https://github.com/kovidgoyal/kitty-themes.git";
+    rev = "9a30b1b123c6d076aedcb1b6f1dbc55c35b4e5d1";
   };
 in
 {

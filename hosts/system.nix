@@ -5,7 +5,6 @@
   nixpkgs.config.allowUnfree = true;
 
   networking = {
-
     networkmanager.enable = true;
     hosts = {
       "185.199.109.133" = [ "raw.githubusercontent.com" ];
@@ -25,6 +24,7 @@
       humxc.misans
     ]);
   };
+
   services = {
     openssh = {
       enable = true;
@@ -32,18 +32,16 @@
     dbus.enable = true;
   };
   environment = {
-    # binsh = "${pkgs.dash}/bin/dash";
-    # shells = with pkgs; [ zsh ];
     systemPackages = with pkgs; [
       trashy
       git
-      helix
       wget
       neofetch
       psmisc
       btop
     ];
   };
+  environment.shells = with pkgs; [ zsh ];
   nix = {
     settings = {
       auto-optimise-store = true; # Optimise syslinks

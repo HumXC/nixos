@@ -8,6 +8,8 @@
     ../programs/dunst
     ../programs/kitty
     ../programs/clash-premium
+    ../programs/zsh
+    ../programs/helix
   ];
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;

@@ -27,14 +27,15 @@ in
     ../programs/rofi/home.nix
     ../programs/kitty/home.nix
     ../programs/clash-premium/home.nix
+    ../programs/zsh/home.nix
+    ../programs/helix/home.nix
   ];
   
   home.packages = (with pkgs; [
-    kitty
     xdg-utils
     rnix-lsp # nix 的 lsp，vscode 的 nix 扩展依赖
     qq
-    gnome.nautilus
+    gnome.nautilus openssl
     easyeffects
     ark
     vscode
@@ -54,9 +55,9 @@ in
         "Exec=${qq}/bin/qq --force-device-scale-factor=1.2 %U"
       ])
     (patchDesktop pkgs.vscode "code"[
-        "Exec=${vscode}/bin/code %U"
+        "Exec=code %F"
       ] [
-        "Exec=${vscode}/bin/code --force-device-scale-factor=1.2 %U"
+        "Exec=${vscode}/bin/code --force-device-scale-factor=1.2 %F"
       ])
   ];
   programs.google-chrome = {
