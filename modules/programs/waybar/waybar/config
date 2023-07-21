@@ -165,48 +165,6 @@
         }
     },
     {
-        "name": "updates",
-        "margin-top": 228,
-        "margin-left": 12,
-        "height": 60,
-        "layer": "bottom",
-        "exclusive": false,
-        "position": "top",
-        "modules-left": [
-            "custom/check",
-            "custom/icon",
-            "custom/num"
-        ],
-        "custom/check": {
-            "exec": "num=`checkupdates | wc -l`;echo $num > .config/waybar/update",
-            "interval": 3600
-        },
-        "custom/num": {
-            "format": "{}",
-            "exec": "cat .config/waybar/update",
-            "exec-if": "[[ `cat .config/waybar/update` != 0 ]]",
-            "interval": 63,
-            "signal": 8,
-            "on-click": "kitty --hold -e paru -Syu; echo 0 > .config/waybar/update; notify-send 'The system has been updated'; pkill -SIGRTMIN+8 waybar"
-        },
-        "custom/icon": {
-            "format": "{}",
-            "exec": "echo 󰁟",
-            "interval": 63,
-            "signal": 8,
-            "exec-if": "[[ `cat .config/waybar/update` != 0 ]]",
-            "on-click": "kitty -e paru -Syu; echo 0 > .config/waybar/update; notify-send 'The system has been updated'; pkill -SIGRTMIN+8 waybar"
-        },
-        "custom/num-other": {
-            "format": "<span size=\"xx-large\" >󰁟 </span><span size=\"large\">{}</span>",
-            "exec": "cat .config/waybar/update",
-            "exec-if": "[[ `cat .config/waybar/update` != 0 ]]",
-            "interval": 63,
-            "signal": 8,
-            "on-click": "kitty -e paru -Syu; notify-send 'The system has been updated'; echo 0 > .config/waybar/update; pkill -SIGRTMIN+8 waybar"
-        }
-    },
-    {
         "name": "time",
         "margin-top": 50,
         "margin-right": 60,

@@ -132,32 +132,6 @@
     font-size: 24px;
 }
 
-/* update-bar */
-.updates {
-    background-color: transparent;
-}
-.updates #custom-icon,
-#custom-num {
-    background-color: #52d546;
-    border-color: aliceblue;
-    color: aliceblue;
-    border-style: solid;
-}
-.updates #custom-icon {
-    border-radius: 20px 0 0 20px;
-    padding-right: 16px;
-    padding-left: 8px;
-    font-size: 40px;
-    border-width: 4px 0 4px 4px;
-}
-.updates #custom-num {
-    border-radius: 0 20px 20px 0;
-    padding-right: 12px;
-    padding-left: 4px;
-    font-weight: bold;
-    font-size: 26px;
-    border-width: 4px 4px 4px 0;
-}
 /* time */
 .time {
     background-color: transparent;
