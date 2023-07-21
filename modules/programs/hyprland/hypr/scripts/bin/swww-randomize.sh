@@ -7,9 +7,10 @@
 # NOTE: this script is in bash (not posix shell), because the RANDOM variable
 # we use is not defined in posix
 dir=$HOME/Pictures/wallpaper
+swwwargs='--transition-type wipe --transition-angle 30'
 # Edit bellow to control the images transition
-export SWWW_TRANSITION_FPS=60
-export SWWW_TRANSITION_STEP=2
+export SWWW_TRANSITION_FPS=160
+export SWWW_TRANSITION_STEP=160
 # This controls (in seconds) when to switch to the next image
 INTERVAL=120
 once="once"
@@ -22,8 +23,9 @@ if [ "$1" == "$once" ]; then
 		done |
 		sort -n | cut -d':' -f2- |
 		while read -r img; do
-			echo "$img"
-			swww img "$img"
+			set -x
+			swww img $swwwargs "$img"
+			set +x
 			break
 		done
 
@@ -39,7 +41,7 @@ else
 			sort -n | cut -d':' -f2- |
 			while read -r img; do
 				echo "$img"
-				swww img "$img"
+				swww img $swwwargs "$img"
 				sleep $INTERVAL
 			done
 	done

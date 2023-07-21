@@ -1,4 +1,17 @@
-{ config, lib, pkgs, ... }:{
+{ config, lib, pkgs, ... }:
+let 
+  icon = import ./icon.nix {
+    lib=lib;
+    stdenvNoCC=pkgs.stdenvNoCC;
+    fetchFromGitHub=pkgs.fetchFromGitHub;
+    gtk3=pkgs.gtk3;
+    gnome-themes-extra=pkgs.gnome-themes-extra;
+    gtk-engine-murrine=pkgs.gtk-engine-murrine;
+    sassc=pkgs.sassc;
+  };
+  
+in
+{
   home.packages = (with pkgs; [
     glib
   ]) ++ (with config.nur.repos;[
@@ -12,10 +25,10 @@
         name = "Fluent-Dark";
         package = config.nur.repos.meain.fluent-theme;
       };
-      # iconTheme = {
-      #   name = "Papirus-Dark";
-      #   package = pkgs.papirus-icon-theme;
-      # };
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
+      };
 
       gtk3.extraConfig = {
         Settings = ''
