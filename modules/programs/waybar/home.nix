@@ -1,8 +1,7 @@
 { config, lib, pkgs, username, ... }:{
-
   home.packages = with pkgs; [
       waybar
-    ];
+  ];
   home.file.".config/waybar" = {
     source = ./waybar;
     recursive = true;   # 递归整个文件夹

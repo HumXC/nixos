@@ -1,3 +1,1 @@
-{ system, self, nixpkgs, inputs, ... }:{
-  
-}
+{...}:{}

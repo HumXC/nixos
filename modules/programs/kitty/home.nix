@@ -7,7 +7,6 @@ let
   };
 in
 {
-
   home.packages = with pkgs; [
       kitty
   ];
@@ -19,5 +18,4 @@ in
     source = themes.outPath + "/themes";
     recursive = true;   # 递归整个文件夹
   };
-
 }

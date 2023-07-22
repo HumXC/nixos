@@ -1,5 +1,4 @@
 { system, self, nixpkgs, inputs, ... }:
-
 let
   pkgs = import nixpkgs {
     inherit system;

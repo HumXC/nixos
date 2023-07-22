@@ -1,5 +1,4 @@
-{ config, lib, pkgs, username, ... }:
-{
+{ config, lib, pkgs, username, ... }:{
   imports = [ (import ../../modules/desktop/home.nix) ];
   home = {
     username = "${username}";

@@ -1,5 +1,4 @@
-{ config, pkgs, lib, inputs, user, ... }:
-{
+{ config, pkgs, lib, inputs, user, ... }:{
   nixpkgs.system = "x86_64-linux";
 
   nixpkgs.config.allowUnfree = true;

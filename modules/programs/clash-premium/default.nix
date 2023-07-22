@@ -6,7 +6,6 @@
     serviceConfig = {
       Type="simple";
       ExecStart="${config.nur.repos.linyinfeng.clash-premium}/bin/clash-premium -d /etc/clash";
-
     };
     wantedBy=[ "multi-user.target" ];  
   };
