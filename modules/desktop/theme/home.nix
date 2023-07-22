@@ -1,33 +1,40 @@
 { config, lib, pkgs, ... }:
-let 
-  icon = import ./icon.nix {
-    lib=lib;
-    stdenvNoCC=pkgs.stdenvNoCC;
-    fetchFromGitHub=pkgs.fetchFromGitHub;
-    gtk3=pkgs.gtk3;
-    gnome-themes-extra=pkgs.gnome-themes-extra;
-    gtk-engine-murrine=pkgs.gtk-engine-murrine;
-    sassc=pkgs.sassc;
-  };
-  
-in
 {
   home.packages = (with pkgs; [
     glib
-  ]) ++ (with config.nur.repos;[
-    
   ]);
+  home.pointerCursor = 
+    let 
+      getFrom = url: hash: name: {
+          gtk.enable = true;
+          x11.enable = true;
+          name = name;
+          size = 28;
+          package = 
+            pkgs.runCommand "moveUp" {} ''
+              mkdir -p $out/share/icons
+              ln -s ${pkgs.fetchzip {
+                url = url;
+                hash = hash;
+              }} $out/share/icons/${name}
+          '';
+        };
+    in
+      getFrom 
+        "https://github.com/ful1e5/fuchsia-cursor/releases/download/v2.0.0/Fuchsia-Pop.tar.gz"
+        "sha256-BvVE9qupMjw7JRqFUj1J0a4ys6kc9fOLBPx2bGaapTk="
+        "Fuchsia-Pop";
   gtk = {
       enable = true;
       font.name = "MiSans";
       theme = {
         # 同步修改 hyprland 配置中的环境变量 GTK_THEME = "Fluent-Dark";
         name = "Fluent-Dark";
-        package = config.nur.repos.meain.fluent-theme;
+        package = pkgs.fluent-gtk-theme;
       };
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme;
+        name = "Fluent-dark";
+        package = pkgs.fluent-icon-theme;
       };
 
       gtk3.extraConfig = {
