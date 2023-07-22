@@ -29,6 +29,7 @@ in
     ../programs/clash-premium/home.nix
     ../programs/zsh/home.nix
     ../programs/helix/home.nix
+    ../programs/fcitx5/home.nix
   ];
   
   home.packages = (with pkgs; [
