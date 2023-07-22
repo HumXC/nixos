@@ -30,13 +30,15 @@ in
   };
   users.users.${username} = {
     initialHashedPassword = "$6$CG8wqnmdLVw0sjvX$u6mKfSlSQc9hXFsgkirB3.4LaTGRJtcWcdHgWvggUcn1Ff0Bd.NcyBPLZ.C288gNQqP4hzpoDW8NNzm2jNYzb1";
-    # shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" ];
   };
   boot = {
     supportedFilesystems = [ "ntfs" ];
-    # kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    initrd.kernelModules = [ "amdgpu" ];
+    initrd.verbose = false;
+
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
     # bootspec.enable = true;
     loader = {
       # systemd-boot = (lib.mkIf config.boot.lanzaboote.enable) {
@@ -58,29 +60,25 @@ in
     # };
     kernelParams = [
       "quiet"
-      # "splash"
+      "splash"
     ];
     consoleLogLevel = 0;
-    # initrd.verbose = false;
   };
 
 
   environment = {
     systemPackages = (with pkgs; [
-      direnv # 暂时不知道有什么用
       linux-firmware
-    ]) ++ (with config.nur.repos;[
-      linyinfeng.clash-premium
     ]);
   };
 
   console.useXkbConfig = true;
   programs.light.enable = true; # 用于控制屏幕背光
   services = {
-    # xserver.xkbOptions = "caps:escape";
+    xserver.xkbOptions = "caps:escape";
     dbus.packages = [ pkgs.gcr ];
     getty.autologinUser = "${username}"; # 自动登录
-    # gvfs.enable = true;
+    gvfs.enable = true; # gnome.nautilus 包的回收站功能需要 See: https://github.com/NixOS/nixpkgs/issues/140860#issuecomment-942769882
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -91,21 +89,21 @@ in
   };
 
   systemd = {
-    # user.services.polkit-gnome-authentication-agent-1 = {
-    #   description = "polkit-gnome-authentication-agent-1";
-    #   wantedBy = [ "graphical-session.target" ];
-    #   wants = [ "graphical-session.target" ];
-    #   after = [ "graphical-session.target" ];
-    #   serviceConfig = {
-    #     Type = "simple";
-    #     ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-    #     Restart = "on-failure";
-    #     RestartSec = 1;
-    #     TimeoutStopSec = 10;
-    #   };
-    # };
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
   };
-  # security.polkit.enable = true;
+  security.polkit.enable = true;
   security.doas = {
     enable = true;
     extraConfig = ''

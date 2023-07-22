@@ -4,7 +4,7 @@
     username = "${username}";
     homeDirectory = "/home/${username}";
     packages = (with pkgs; [
-      
+      direnv # 暂时不知道有什么用
     ]) ++ (with config.nur.repos;[
     
     ]);

@@ -19,5 +19,4 @@ in
   home.packages = with pkgs; [
       rofi
   ];
-
 }

@@ -40,7 +40,6 @@ in
     ark
     vscode
     wl-clipboard cliphist # 剪贴板功能
-    polkit
     swww
     wineWowPackages.wayland # wine
     grim slurp swappy # 截图功能
