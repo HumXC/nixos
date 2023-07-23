@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/adi1090x/widgets/blob/main/eww/dashboard/scripts/music_info
 ## Get data
