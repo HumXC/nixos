@@ -11,6 +11,7 @@
     ../programs/zsh
     ../programs/helix
     ../programs/fcitx5
+    ../programs/mpd
   ];
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;

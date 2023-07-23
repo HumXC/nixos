@@ -30,6 +30,7 @@ in
     ../programs/zsh/home.nix
     ../programs/helix/home.nix
     ../programs/fcitx5/home.nix
+    ../programs/mpd/home.nix
   ];
   
   home.packages = (with pkgs; [
