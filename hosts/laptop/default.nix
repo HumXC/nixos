@@ -6,6 +6,7 @@ in
   imports =[
       ./hardware-configuration.nix
       ../../modules/desktop
+      ../../modules/hardware/bluetooth # 开启蓝牙功能
     ];
   users.mutableUsers = false;
   users.users.root = {
