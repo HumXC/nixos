@@ -5,6 +5,7 @@
     homeDirectory = "/home/${username}";
     packages = (with pkgs; [
       direnv # 暂时不知道有什么用
+      ffmpeg
     ]) ++ (with config.nur.repos;[
     
     ]);

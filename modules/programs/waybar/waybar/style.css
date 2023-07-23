@@ -169,17 +169,17 @@
 }
 .mpd-control #custom-prev {
     font-size: 50px;
-    padding: 0 14px 0 20px;
+    padding: 0 15px 0 20px;
     border-radius: 0 0 0 20px;
 }
 .mpd-control #custom-next {
     font-size: 50px;
-    padding: 0 34px 0 14px;
+    padding: 0 30px 0 10px;
     border-radius: 0 0 20px 0;
 }
 .mpd-control #custom-status {
     font-size: 60px;
-    padding: 0 18px 0 16px;
+    padding: 0 13px 0 16px;
 }
 
 /* botom-bar */

@@ -218,7 +218,7 @@
         ],
         "custom/prev": {
             "format": "<span>󰙣</span>",
-            "on-click": "mpc prev;echo kkd",
+            "on-click": "mpc prev",
             "tooltip": false
         },
         "custom/next": {
