@@ -24,6 +24,7 @@
     '';
     shellAliases = {
       ll = "ls -l";
+      icat = "kitty +kitten icat";
       os-update = "cd /etc/nixos;doas nix flake update";
       os-build = "cd /etc/nixos;doas nixos-rebuild switch --flake .#laptop";
     };

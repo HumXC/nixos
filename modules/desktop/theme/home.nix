@@ -1,7 +1,26 @@
-{ config, lib, pkgs, ... }:{
+{ config, lib, pkgs, ... }:
+let 
+  fluent-kde = pkgs.fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = "Fluent-kde";
+    rev = "2021-11-04";
+    sha256 = "sha256-7frKNgaX3xSr8bapzWlusNss463RTmPbAfg+N66o44A=";
+  };
+in{
   home.packages = (with pkgs; [
     glib
+    libsForQt5.qtstyleplugin-kvantum
   ]);
+  xdg.configFile = {
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=FluentDark
+    '';
+    "Kvantum/Fluent" = {
+      source = fluent-kde.outPath + "/Kvantum/Fluent";
+    };
+  };
+
   home.pointerCursor = 
     let 
       getFrom = url: hash: name: {
