@@ -10,11 +10,11 @@ in
   home.packages = with pkgs; [
       kitty
   ];
-  home.file.".config/kitty" = {
+  xdg.configFile."kitty" = {
     source = ./kitty;
     recursive = true;   # 递归整个文件夹
   };
-  home.file.".config/kitty/themes" = {
+  xdg.configFile."kitty/themes" = {
     source = themes.outPath + "/themes";
     recursive = true;   # 递归整个文件夹
   };

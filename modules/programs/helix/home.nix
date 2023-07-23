@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
       helix
     ];
-  home.file.".config/helix" = {
+  xdg.configFile."helix" = {
     source = ./helix;
     recursive = true;
   };
