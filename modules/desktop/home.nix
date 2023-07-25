@@ -45,6 +45,7 @@ in
     swww
     wineWowPackages.wayland # wine
     grim slurp swappy # 截图功能
+    telegram-desktop
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     YisuiMilena.hmcl-bin

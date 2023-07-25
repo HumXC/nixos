@@ -11,7 +11,7 @@ in
   laptop = lib.nixosSystem {
     # Laptop profile
     inherit system;
-    specialArgs = { inherit inputs; };
+    specialArgs = { inherit inputs; username="humxc";};
     modules = [
       ./system.nix
       ./laptop

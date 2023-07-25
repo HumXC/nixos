@@ -1,6 +1,6 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, username, ... }:
 let 
-  username = "humxc";
+  hostName = "HumXC";
 in
 {
   imports =[
@@ -13,7 +13,7 @@ in
     initialHashedPassword = "$6$b7mGXpPXuF9LA1GB$TbTTOYkPTu4CP5OxjF8yvH2l/TYPn50N1.OQjTQ70YS8lPpWdhxiaR11.vPJa9Jw/H3Mvn5DBdPZzB0BVekF6/";
   };
   networking = {
-    hostName = "HumXC"; # 主机名
+    hostName = hostName; # 主机名
     # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
     proxy.noProxy = "127.0.0.1,localhost,internal.domain";

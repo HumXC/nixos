@@ -6,6 +6,8 @@
     packages = (with pkgs; [
       direnv # 暂时不知道有什么用
       ffmpeg
+      p7zip
+      cowsay
     ]) ++ (with config.nur.repos;[
     
     ]);

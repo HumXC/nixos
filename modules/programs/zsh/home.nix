@@ -25,8 +25,11 @@
     shellAliases = {
       ll = "ls -l";
       icat = "kitty +kitten icat";
-      os-update = "cd /etc/nixos;doas nix flake update";
+      os-update = ''cd /etc/nixos;now=$(date +"%Y-%m-%d-%H-%M-%S");cp flake.lock backup/flake.lock.$now.bak;doas nix flake update'';
       os-build = "cd /etc/nixos;doas nixos-rebuild switch --flake .#laptop";
+      Tp = "trash put";
+      Tl = "trash list";
+      rm = "cowsay 不要使用 rm 使用 Tp";
     };
     history = {
       size = 10000;

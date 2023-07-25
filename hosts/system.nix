@@ -40,7 +40,6 @@
       btop
     ];
   };
-  environment.shells = with pkgs; [ zsh ];
   nix = {
     settings = {
       auto-optimise-store = true; # Optimise syslinks
