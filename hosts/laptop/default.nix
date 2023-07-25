@@ -1,6 +1,9 @@
 { config, pkgs, inputs, lib, username, ... }:
 let 
   hostName = "HumXC";
+  waybarConfig = {
+    cpuTemperatureHwmonPath = ''"/sys/class/hwmon/hwmon1/in0_input"'';
+  };
 in
 {
   imports =[
@@ -21,7 +24,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit username; };
+    extraSpecialArgs = { inherit username waybarConfig; };
     users.${username} = {
       imports = [
         (import ./home.nix)

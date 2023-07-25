@@ -21,20 +21,13 @@
             "battery"
         ],
         "network#2": {
-            "interface": "wlan0",
+            "interface": "wlp1s0",
             "interval": 3,
             "format": "  {bandwidthUpBytes}    {bandwidthDownBytes}"
         },
-        "temperature#1": {
-            "thermal-zone": 1,
-            "hwmon-path": "/sys/class/hwmon/hwmon1/in0_input",
-            "critical-threshold": 80,
-            "format-critical": "<b>{temperatureC}°C </b>",
-            "format": "{temperatureC}°C "
-        },
         "temperature#4": {
             "thermal-zone": 4,
-            "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+            "hwmon-path": "/sys/class/hwmon/hwmon4/in0_input",
             "critical-threshold": 80,
             "format-critical": "<span color=\"#fd5757\"> <b>{temperatureC}°C</b></span>",
             "format": "<b> {temperatureC}°C</b>"
