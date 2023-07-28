@@ -8,6 +8,9 @@
       ffmpeg
       p7zip
       cowsay
+      file
+      python3
+      autojump
     ]) ++ (with config.nur.repos;[
     
     ]);

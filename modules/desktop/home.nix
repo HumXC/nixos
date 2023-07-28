@@ -43,7 +43,7 @@ in
     vscode
     wl-clipboard cliphist # 剪贴板功能
     swww
-    wineWowPackages.wayland # wine
+    wineWowPackages.wayland winetricks # wine
     grim slurp swappy # 截图功能
     telegram-desktop
   ]) ++ (with config.nur.repos;[

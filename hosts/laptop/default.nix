@@ -2,7 +2,7 @@
 let 
   hostName = "HumXC";
   waybarConfig = {
-    cpuTemperatureHwmonPath = ''"/sys/class/hwmon/hwmon1/in0_input"'';
+    cpuTemperatureHwmonPath = ''"/sys/class/hwmon/hwmon3/temp1_input"'';
   };
 in
 {

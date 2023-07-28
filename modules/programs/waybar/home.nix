@@ -39,9 +39,9 @@
             "format": "  {bandwidthUpBytes}    {bandwidthDownBytes}"
         },
         "temperature#4": {
-            "thermal-zone": 4,
             "hwmon-path": ${waybarConfig.cpuTemperatureHwmonPath},
             "critical-threshold": 80,
+            "interval": 3,
             "format-critical": "<span color=\"#fd5757\"> <b>{temperatureC}°C</b></span>",
             "format": "<b> {temperatureC}°C</b>"
         },
