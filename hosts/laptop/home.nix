@@ -10,7 +10,7 @@
       cowsay
       file
       python3
-      autojump
+      obs-studio
     ]) ++ (with config.nur.repos;[
     
     ]);
