@@ -17,7 +17,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   fonts = {
     fontDir.enable = true;
-    fonts = (with pkgs; [
+    packages = (with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ])++(with config.nur.repos;[
       humxc.misans
