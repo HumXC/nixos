@@ -16,6 +16,10 @@
 
     nur.url = "github:nix-community/NUR";
     
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:

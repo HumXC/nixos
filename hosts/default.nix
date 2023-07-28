@@ -16,6 +16,8 @@ in
       ./system.nix
       ./laptop
       ]++[
+      inputs.nix-ld.nixosModules.nix-ld
+      {programs.nix-ld.dev.enable = true;}
       inputs.nur.nixosModules.nur
       inputs.hyprland.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
