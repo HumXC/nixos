@@ -29,7 +29,7 @@
       os-build = "cd /etc/nixos;doas nixos-rebuild switch --flake .#laptop";
       Tp = "trash put";
       Tl = "trash list";
-      rm = "cowsay 不要使用 rm 使用 Tp";
+      rm = "function norm() {cowsay -f sodomized \"Fuck rm! Use Tp (trash put)\"};norm";
     };
     history = {
       size = 10000;
