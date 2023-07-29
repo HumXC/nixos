@@ -11,7 +11,8 @@ in
   laptop = lib.nixosSystem {
     # Laptop profile
     inherit system;
-    specialArgs = { inherit inputs; username="humxc";};
+    # profilename 是这个配置的名称，此处的 laptop 就是向上数 3 行的那个 laptop
+    specialArgs = { inherit inputs; profilename = "laptop"; username="humxc";};
     modules = [
       ./system.nix
       ./laptop

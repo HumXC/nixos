@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:{
+{ config, lib, pkgs, profilename, ... }:{
   home.file.".p10k.zsh" = {
     source = ./.p10k.zsh;
   };
@@ -22,15 +22,42 @@
         source "$(fzf-share)/key-bindings.zsh"
         source "$(fzf-share)/completion.zsh"
       fi
+
+      # Functions
+      # 禁用 rm 命令
+      function rm() {cowsay -f sodomized "Fuck rm! Use Tp (trash put)"}
+
+      # 更新系统
+      function os-update() {
+        cd /etc/nixos
+        now=$(date +"%Y-%m-%d-%H-%M-%S")
+        cp flake.lock backup/flake.lock.$now.bak
+        doas nix flake update
+      }
+    
+      # 重新构建系统
+      function os-build() {
+        cd /etc/nixos
+        doas nixos-rebuild switch --flake .#${profilename}
+      }
+
+      # 尝试单独构建某个包
+      function nix-callpkg() {
+        if [ "$#" -ne 1 ]; then
+          echo "Usage: nix-callpkg <path-to-package>"
+          echo "Tip: Don't forget to prepend \"./\" if <path-to-package> is a local file."
+          echo "Origin: nix-build -E \"with import <nixpkgs> {}; callPackage path-to-package {}\""
+          return 1
+        fi
+
+        nix-build -E "with import <nixpkgs> {}; callPackage $1 {}"
+      }
     '';
     shellAliases = {
       ll = "ls -l";
       icat = "kitty +kitten icat";
-      os-update = ''cd /etc/nixos;now=$(date +"%Y-%m-%d-%H-%M-%S");cp flake.lock backup/flake.lock.$now.bak;doas nix flake update'';
-      os-build = "cd /etc/nixos;doas nixos-rebuild switch --flake .#laptop";
       Tp = "trash put";
       Tl = "trash list";
-      rm = "function norm() {cowsay -f sodomized \"Fuck rm! Use Tp (trash put)\"};norm";
     };
     history = {
       size = 10000;

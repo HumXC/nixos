@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, username, ... }:
+{ config, pkgs, inputs, lib, profilename, username, ... }:
 let 
   hostName = "HumXC";
   waybarConfig = {
@@ -24,7 +24,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit username waybarConfig; };
+    extraSpecialArgs = { inherit profilename username waybarConfig; };
     users.${username} = {
       imports = [
         (import ./home.nix)
