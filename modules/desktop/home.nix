@@ -48,7 +48,7 @@ in
     telegram-desktop
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
-    YisuiMilena.hmcl-bin
+    humxc.hmcl-bin
   ]) ++ [
     # patch desktop entry
     (patchDesktop pkgs.qq "qq"[
@@ -62,6 +62,14 @@ in
         "Exec=${vscode}/bin/code --force-device-scale-factor=1.2 %F"
       ])
   ];
+  xdg.desktopEntries."mc" = {
+    name="Minecraft";
+    icon="minecraft";
+    exec = "/home/${username}/mc.sh";
+    comment = "Minecraft";
+    categories = [ "Game" ];
+  };
+
   programs.google-chrome = {
     enable = true;
     commandLineArgs = ["--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime"]; 
