@@ -1,7 +1,8 @@
 { config, lib, pkgs, username, waybarConfig, ... }:{
   home.packages = with pkgs; [
-      waybar
+      waybar-hyprland
   ];
+  
   xdg.configFile."waybar" = {
     source = ./waybar;
     recursive = true;   # 递归整个文件夹
