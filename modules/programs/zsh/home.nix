@@ -1,4 +1,4 @@
-{ config, lib, pkgs, profilename, ... }:{
+{ config, lib, pkgs, profilename, xwaylandScale, ... }:{
   home.file.".p10k.zsh" = {
     source = ./.p10k.zsh;
   };
@@ -7,6 +7,7 @@
   ];
   programs.zsh = {
     enable = true;
+    # 此选项与 default.nix 中的默认值重复，如果不关闭会严重拖慢启动速度
     enableCompletion = false;
     initExtraBeforeCompInit = ''
       # p10k instant prompt
@@ -14,6 +15,7 @@
       [[ ! -r "$P10K_INSTANT_PROMPT" ]] || source "$P10K_INSTANT_PROMPT"
     '';
     initExtra = ''
+      export PATH=$HOME/go/bin:$PATH
       # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -27,18 +29,27 @@
       # 禁用 rm 命令
       function rm() {cowsay -f sodomized "Fuck rm! Use Tp (trash put)"}
 
+      # 编辑系统
+      function os-edit() {
+        code /etc/nixos
+      }
+
       # 更新系统
       function os-update() {
+        pwd=$(pwd)
         cd /etc/nixos
         now=$(date +"%Y-%m-%d-%H-%M-%S")
         cp flake.lock backup/flake.lock.$now.bak
         doas nix flake update
+        cd "$pwd"
       }
     
       # 重新构建系统
       function os-build() {
+        pwd=$(pwd)
         cd /etc/nixos
         doas nixos-rebuild switch --flake .#${profilename}
+        cd "$pwd"
       }
 
       # 尝试单独构建某个包
@@ -58,6 +69,7 @@
       icat = "kitty +kitten icat";
       Tp = "trash put";
       Tl = "trash list";
+      code = "${pkgs.vscode}/bin/code --force-device-scale-factor=${xwaylandScale}";
     };
     history = {
       size = 10000;

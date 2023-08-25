@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, ... }:
+{ config, lib, pkgs, username, xwaylandScale, ... }:
 with pkgs; let
   # From: https://www.reddit.com/r/NixOS/comments/scf0ui/comment/j3dfk27/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
   patchDesktop = pkg: appName: from: to:
@@ -43,9 +43,10 @@ in
     vscode
     wl-clipboard cliphist # 剪贴板功能
     swww
-    wineWowPackages.wayland winetricks # wine
     grim slurp swappy # 截图功能
     telegram-desktop
+    go wails upx
+    nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
@@ -54,14 +55,20 @@ in
     (patchDesktop pkgs.qq "qq"[
         "Exec=${qq}/bin/qq %U"
       ] [
-        "Exec=${qq}/bin/qq --force-device-scale-factor=1.2 %U"
+        "Exec=${qq}/bin/qq --force-device-scale-factor=${xwaylandScale} %U"
       ])
     (patchDesktop pkgs.vscode "code"[
         "Exec=code %F"
       ] [
-        "Exec=${vscode}/bin/code --force-device-scale-factor=1.2 %F"
+        "Exec=${vscode}/bin/code --force-device-scale-factor=${xwaylandScale} %F"
       ])
   ];
+  programs.zsh = {
+    initExtraBeforeCompInit = ''
+      export PATH=$HOME/.npm-packages/bin:$PATH
+      export NODE_PATH=~/.npm-packages/lib/node_modules
+    '';
+  };
   xdg.desktopEntries."mc" = {
     name="Minecraft";
     icon="minecraft";

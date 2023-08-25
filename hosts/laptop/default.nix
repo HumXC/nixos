@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, profilename, username, ... }:
+{ config, pkgs, inputs, lib, profilename, username, xwaylandScale, ... }:
 let 
   hostName = "HumXC";
   waybarConfig = {
@@ -24,7 +24,12 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit profilename username waybarConfig; };
+    extraSpecialArgs = { inherit 
+      profilename
+      username
+      waybarConfig
+      xwaylandScale
+    ; };
     users.${username} = {
       imports = [
         (import ./home.nix)
@@ -35,7 +40,7 @@ in
   users.users.${username} = {
     initialHashedPassword = "$6$CG8wqnmdLVw0sjvX$u6mKfSlSQc9hXFsgkirB3.4LaTGRJtcWcdHgWvggUcn1Ff0Bd.NcyBPLZ.C288gNQqP4hzpoDW8NNzm2jNYzb1";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout"];
   };
   boot = {
     supportedFilesystems = [ "ntfs" ];
