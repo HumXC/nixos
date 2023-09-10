@@ -1,6 +1,6 @@
 { config, lib, pkgs, username, waybarConfig, ... }:{
   home.packages = with pkgs; [
-      waybar-hyprland
+      waybar
   ];
   
   xdg.configFile."waybar" = {
