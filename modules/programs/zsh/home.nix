@@ -51,6 +51,14 @@
         doas nixos-rebuild switch --flake .#${profilename}
         cd "$pwd"
       }
+      # 尝试评估构建系统
+      function os-try-build() {
+        local flake_identifier=$''+''{1:-${profilename}}  
+        local pwd=$(pwd)
+        cd /etc/nixos
+        doas nixos-rebuild dry-build --flake .#$flake_identifier
+        cd "$pwd"
+      }
 
       # 尝试单独构建某个包
       function nix-callpkg() {
