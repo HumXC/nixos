@@ -11,13 +11,26 @@ let
   dataDir = ".local/share/fcitx5/rime";
 in
 {
+  xdg.configFile."fcitx5" = {
+    recursive = true;
+    source = ./fcitx5;
+  };
   home.file = {
+    ".local/share/fcitx5/themes/just-dark" = {
+      source = ./just-dark;
+    };
     "${dataDir}"={
       recursive = true;
       source = clover-schema;
     };
-    "${dataDir}/default.custom.yaml" = {
-      source = ./default.custom.yaml;
-    };
+    "${dataDir}/default.custom.yaml".text=''
+      patch:
+      "menu/page_size": 8
+      schema_list:
+          - schema: clover
+      switcher:
+          hotkeys:
+              - F4
+    '';
   };
 }
