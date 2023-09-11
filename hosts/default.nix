@@ -1,10 +1,5 @@
 { system, self, nixpkgs, inputs, ... }:
 let
-  pkgs = import nixpkgs {
-    inherit system;
-    config.allowUnfree = true; # Allow proprietary software
-  };
-
   lib = nixpkgs.lib;
 in
 {
@@ -13,7 +8,7 @@ in
     inherit system;
     # profilename 是这个配置的名称，此处的 laptop 就是向上数 3 行的那个 laptop
     # 在此处添加的参数还需要在对应 profile 文件夹的 default.nix 的 home-manager.extraSpecialArgs
-    specialArgs = { inherit inputs; 
+    specialArgs = { inherit inputs nixpkgs system; 
       profilename = "laptop"; 
       username="humxc";
       scale="1.25"; # 屏幕缩放

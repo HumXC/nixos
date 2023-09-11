@@ -12,6 +12,7 @@
     ../programs/helix
     ../programs/fcitx5
     ../programs/mpd
+    ../programs/lemurs
   ];
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;

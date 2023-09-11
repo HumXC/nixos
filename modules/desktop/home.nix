@@ -31,6 +31,7 @@ in
     ../programs/helix/home.nix
     ../programs/fcitx5/home.nix
     ../programs/mpd/home.nix
+    ../programs/lemurs/home.nix
   ];
   
   home.packages = (with pkgs; [
