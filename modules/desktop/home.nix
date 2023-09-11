@@ -1,4 +1,4 @@
-{ config, lib, pkgs, username, xwaylandScale, ... }:
+{ config, lib, pkgs, username, scale, ... }:
 with pkgs; let
   # From: https://www.reddit.com/r/NixOS/comments/scf0ui/comment/j3dfk27/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
   patchDesktop = pkg: appName: from: to:
@@ -55,12 +55,12 @@ in
     (patchDesktop pkgs.qq "qq"[
         "Exec=${qq}/bin/qq %U"
       ] [
-        "Exec=${qq}/bin/qq --force-device-scale-factor=${xwaylandScale} %U"
+        "Exec=${qq}/bin/qq --force-device-scale-factor=${scale} %U"
       ])
     (patchDesktop pkgs.vscode "code"[
         "Exec=code %F"
       ] [
-        "Exec=${vscode}/bin/code --force-device-scale-factor=${xwaylandScale} %F"
+        "Exec=${vscode}/bin/code --force-device-scale-factor=${scale} %F"
       ])
   ];
   programs.zsh = {

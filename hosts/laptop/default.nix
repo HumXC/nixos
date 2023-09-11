@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, profilename, username, xwaylandScale, ... }:
+{ config, pkgs, inputs, lib, profilename, username, scale, ... }:
 let 
   hostName = "HumXC";
   waybarConfig = {
@@ -28,7 +28,7 @@ in
       profilename
       username
       waybarConfig
-      xwaylandScale
+      scale
     ; };
     users.${username} = {
       imports = [

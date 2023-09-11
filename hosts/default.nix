@@ -16,7 +16,7 @@ in
     specialArgs = { inherit inputs; 
       profilename = "laptop"; 
       username="humxc";
-      xwaylandScale="1.2";  
+      scale="1.25"; # 屏幕缩放
     };
     modules = [
       ./system.nix
