@@ -1,4 +1,4 @@
-{ config, lib, pkgs, profilename, xwaylandScale, ... }:{
+{ config, lib, pkgs, profilename, scale, ... }:{
   home.file.".p10k.zsh" = {
     source = ./.p10k.zsh;
   };
@@ -69,7 +69,7 @@
       icat = "kitty +kitten icat";
       Tp = "trash put";
       Tl = "trash list";
-      code = "${pkgs.vscode}/bin/code --force-device-scale-factor=${xwaylandScale}";
+      code = "${pkgs.vscode}/bin/code --force-device-scale-factor=${scale}";
     };
     history = {
       size = 10000;
