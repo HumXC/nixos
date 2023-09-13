@@ -1,4 +1,8 @@
-{ config, lib, pkgs, username, scale, ... }:{
+{ config, lib, pkgs, os, ... }:
+let 
+  userName = os.userName;
+  scale = os.desktop.scale;
+in{
   home.packages = with pkgs; [
       hyprpicker
       # 解决部分窗口中，鼠标指针显示为 “X” 的情况

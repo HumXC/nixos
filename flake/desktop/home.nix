@@ -22,7 +22,7 @@ with pkgs; let
   userName = os.userName;
 in 
 {
-  # imports = [ ./theme/home.nix ];
+  imports = [ ./theme/home.nix ];
   home.packages = (with pkgs; [
     xdg-utils
     rnix-lsp # nix 的 lsp，vscode 的 nix 扩展依赖

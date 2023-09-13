@@ -7,7 +7,10 @@ in {
   os.userName = userName;
   os.hostName = hostName;
   os.profileName = profileName;
-  os.desktop.enable = true;
+  os.desktop = {
+    enable = true;
+    scale = "1.25";
+  };
   os.programs.waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
   os.programs.mpd.musicDirectory = "/disk/files/HumXC/Music";
   os.hardware.bluetooth = {

@@ -25,6 +25,7 @@ in {
       "dunst"
       "fcitx5"
       "helix"
+      "hyprland"
       "kitty"
       "lemurs"
       "mpd"

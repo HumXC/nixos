@@ -37,6 +37,14 @@
     };
     wantedBy=[ "multi-user.target" ];  
   };
+  fonts = {
+    fontDir.enable = true;
+    packages = (with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    ])++(with config.nur.repos;[
+      humxc.misans
+    ]);
+  };
   nix = {
     settings.auto-optimise-store = true; # Optimise syslinks
     gc = {

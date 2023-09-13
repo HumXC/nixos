@@ -57,7 +57,7 @@ in {
       }
       # 尝试评估构建系统
       function os-try-build() {
-        local flake_identifier=$''+''{1:-${profilename}}  
+        local flake_identifier=$''+''{1:-${profileName}}  
         local pwd=$(pwd)
         cd /etc/nixos
         doas nixos-rebuild dry-build --flake .#$flake_identifier
