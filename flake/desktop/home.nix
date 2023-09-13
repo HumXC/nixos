@@ -1,4 +1,4 @@
-{ config, lib, pkgs, os, nur, ... }:
+{ config, lib, pkgs, os, ... }:
 with pkgs; let
   # From: https://www.reddit.com/r/NixOS/comments/scf0ui/comment/j3dfk27/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
   patchDesktop = pkg: appName: from: to:
@@ -37,7 +37,7 @@ in
     telegram-desktop
     go wails upx
     nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
-  ]) ++ (with nur.repos;[
+  ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
   ]) ++ [

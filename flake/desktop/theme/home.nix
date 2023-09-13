@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nur, ... }:
+{ config, lib, pkgs, ... }:
 let 
   fluent-kde = pkgs.fetchFromGitHub {
     owner = "vinceliuice";
@@ -26,7 +26,7 @@ in{
     x11.enable = true;
     name = "Fluent-cursors-dark";
     size = 28;
-    package = nur.repos.humxc.fluent-cursors-theme;
+    package = config.nur.repos.humxc.fluent-cursors-theme;
   };
 
   gtk = {

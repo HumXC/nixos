@@ -17,10 +17,7 @@ in {
     enable = true;
     autoStart = true;
   };
-  home-manager.extraSpecialArgs = {
-    os = config.os;
-    nur = config.nur;
-  };
+
   home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;
   users.users.root = {

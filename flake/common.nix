@@ -1,13 +1,15 @@
-{ config, ...}:{
+{ config, inputs, ... }: {
   nixpkgs.config.allowUnfree = true;
   networking.hostName = config.os.hostName;
-  home-manager={
+  home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
       os = config.os;
-      nur = config.nur;
     };
-    users.${config.os.userName}.home.stateVersion = "22.11";
+    users.${config.os.userName} = {
+      imports = [ inputs.nur.hmModules.nur ];
+      home.stateVersion = "22.11";
+    };
   };
 }
