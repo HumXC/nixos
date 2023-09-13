@@ -6,6 +6,7 @@ in {
   options.os.hardware.bluetooth.autoStart= lib.mkEnableOption "auto unblock bluetooth";
   
   config = lib.mkIf cfg.enable {
+    hardware.bluetooth.enable = true;
     services.blueman.enable = true;
     systemd.services.rfkill-unblock-bluethhth = {
       enable = cfg.autoStart;
