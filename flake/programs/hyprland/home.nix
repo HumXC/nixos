@@ -1,13 +1,14 @@
 { config, lib, pkgs, os, ... }:
-let 
+let
   userName = os.userName;
   scale = os.desktop.scale;
-in{
+in
+{
   home.packages = with pkgs; [
-      hyprpicker
-      # 解决部分窗口中，鼠标指针显示为 “X” 的情况
-      # 在 hyprland 配置中 exec-once = xsetroot -cursor_name left_ptr
-      xorg.xsetroot 
+    hyprpicker
+    # 解决部分窗口中，鼠标指针显示为 “X” 的情况
+    # 在 hyprland 配置中 exec-once = xsetroot -cursor_name left_ptr
+    xorg.xsetroot
   ];
 
   # 自启动 hyprland
@@ -19,8 +20,8 @@ in{
 
   xdg.configFile."hypr" = {
     source = ./hypr;
-    recursive = true;   # 递归整个文件夹
-    executable = true;  # 将其中所有文件添加「执行」权限
+    recursive = true; # 递归整个文件夹
+    executable = true; # 将其中所有文件添加「执行」权限
   };
   xdg.configFile."hypr/hyprland.conf".text = ''
     # 脚本目录

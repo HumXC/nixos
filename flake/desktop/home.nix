@@ -17,41 +17,47 @@ with pkgs; let
          ${pkg}/share/applications/${appName}.desktop \
          > $out/share/applications/${appName}.desktop
       '');
-  
+
   scale = os.desktop.scale;
   userName = os.userName;
-in 
+in
 {
   imports = [ ./theme/home.nix ];
   home.packages = (with pkgs; [
     xdg-utils
     rnix-lsp # nix 的 lsp，vscode 的 nix 扩展依赖
     qq
-    gnome.nautilus openssl
+    gnome.nautilus
+    openssl
     easyeffects
     ark
     vscode
-    wl-clipboard cliphist # 剪贴板功能
+    wl-clipboard
+    cliphist # 剪贴板功能
     swww
-    grim slurp swappy # 截图功能
+    grim
+    slurp
+    swappy # 截图功能
     telegram-desktop
-    go wails upx
+    go
+    wails
+    upx
     nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
   ]) ++ [
     # patch desktop entry
-    (patchDesktop pkgs.qq "qq"[
-        "Exec=${qq}/bin/qq %U"
-      ] [
-        "Exec=${qq}/bin/qq --force-device-scale-factor=${scale} %U"
-      ])
-    (patchDesktop pkgs.vscode "code"[
-        "Exec=code %F"
-      ] [
-        "Exec=${vscode}/bin/code --force-device-scale-factor=${scale} %F"
-      ])
+    (patchDesktop pkgs.qq "qq" [
+      "Exec=${qq}/bin/qq %U"
+    ] [
+      "Exec=${qq}/bin/qq --force-device-scale-factor=${scale} %U"
+    ])
+    (patchDesktop pkgs.vscode "code" [
+      "Exec=code %F"
+    ] [
+      "Exec=${vscode}/bin/code --force-device-scale-factor=${scale} %F"
+    ])
   ];
   programs.zsh = {
     initExtraBeforeCompInit = ''
@@ -60,8 +66,8 @@ in
     '';
   };
   xdg.desktopEntries."mc" = {
-    name="Minecraft";
-    icon="minecraft";
+    name = "Minecraft";
+    icon = "minecraft";
     exec = "/home/${userName}/.mc.sh";
     comment = "Minecraft";
     categories = [ "Game" ];
@@ -69,24 +75,24 @@ in
 
   programs.google-chrome = {
     enable = true;
-    commandLineArgs = ["--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime"]; 
+    commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
   };
 
   # 隐藏图标，我不会写函数
   xdg.desktopEntries."org.fcitx.Fcitx5" = {
-    name="";
+    name = "";
     noDisplay = true;
   };
   xdg.desktopEntries."org.fcitx.fcitx5-migrator" = {
-    name="";
+    name = "";
     noDisplay = true;
   };
   xdg.desktopEntries."kbd-layout-viewer5" = {
-    name="";
+    name = "";
     noDisplay = true;
   };
   xdg.desktopEntries."nixos-manual" = {
-    name="";
+    name = "";
     noDisplay = true;
   };
 

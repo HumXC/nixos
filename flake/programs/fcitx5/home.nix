@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
-let 
+let
   # See: https://github.com/fkxxyz/rime-cloverpinyin/wiki/linux#%E5%AE%89%E8%A3%85%E8%AF%A5%E8%BE%93%E5%85%A5%E6%96%B9%E6%A1%88
   version = "1.1.4";
   clover-schema = pkgs.fetchzip {
@@ -20,11 +20,11 @@ in
     ".local/share/fcitx5/themes/just-dark" = {
       source = ./just-dark;
     };
-    "${dataDir}"={
+    "${dataDir}" = {
       recursive = true;
       source = clover-schema;
     };
-    "${dataDir}/default.custom.yaml".text=''
+    "${dataDir}/default.custom.yaml".text = ''
       patch:
       "menu/page_size": 8
       schema_list:

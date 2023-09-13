@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:{
+{ config, lib, pkgs, ... }: {
   home.packages = with pkgs; [
-      dunst
+    dunst
   ];
   xdg.configFile."dunst/dunstrc".source = ./dunstrc;
 }

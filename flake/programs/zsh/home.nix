@@ -1,13 +1,14 @@
 { config, lib, pkgs, os, ... }:
-let 
+let
   profileName = os.profileName;
   scale = os.desktop.scale;
-in {
+in
+{
   home.file.".p10k.zsh" = {
     source = ./.p10k.zsh;
   };
   home.packages = with pkgs; [
-      fzf
+    fzf
   ];
   programs.zsh = {
     enable = true;
@@ -57,7 +58,7 @@ in {
       }
       # 尝试评估构建系统
       function os-try-build() {
-        local flake_identifier=$''+''{1:-${profileName}}  
+        local flake_identifier=$'' + ''{1:-${profileName}}  
         local pwd=$(pwd)
         cd /etc/nixos
         doas nixos-rebuild dry-build --flake .#$flake_identifier

@@ -1,5 +1,5 @@
 { nixpkgs, system, lib, cfg, ... }:
-let 
+let
   overlays = self: super: {
     lemurs = super.lemurs.overrideAttrs (oldAttrs: {
       postInstall = ''
@@ -7,15 +7,15 @@ let
       '' + (oldAttrs.postInstall or "");
     });
   };
-  pkgs = import nixpkgs { overlays = [ overlays ]; system = system;};
+  pkgs = import nixpkgs { overlays = [ overlays ]; system = system; };
   lemurs = pkgs.lemurs;
 in
 {
   options.os.programs.lemurs.enable = lib.mkEnableOption "lemurs";
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ 
-        pkgs.lemurs 
+      systemPackages = [
+        pkgs.lemurs
       ];
       etc = {
         "lemurs/config.toml".source = "${lemurs}/extra/config.toml";
@@ -27,27 +27,27 @@ in
         '';
       };
     };
-    security.pam={
-    u2f.enable = true;
+    security.pam = {
+      u2f.enable = true;
     };
 
     systemd.services.lemurs = {
-    enable = true;
-    description="Lemurs";
-    after=[
-      "systemd-user-sessions.service"
-      "getty@tty2.service"
-    ];
-    # wantedBy = [ "display-manager.service" ];
-    aliases = [ "display-manager.service" ];
-    serviceConfig = {
-      ExecStart="${lemurs}/bin/lemurs";
-      StandardInput="tty";
-      TTYPath="/dev/tty2";
-      TTYReset="yes";
-      TTYVHangup="yes";
-      Type="idle";
-    };
+      enable = true;
+      description = "Lemurs";
+      after = [
+        "systemd-user-sessions.service"
+        "getty@tty2.service"
+      ];
+      # wantedBy = [ "display-manager.service" ];
+      aliases = [ "display-manager.service" ];
+      serviceConfig = {
+        ExecStart = "${lemurs}/bin/lemurs";
+        StandardInput = "tty";
+        TTYPath = "/dev/tty2";
+        TTYReset = "yes";
+        TTYVHangup = "yes";
+        Type = "idle";
+      };
     };
   };
 }

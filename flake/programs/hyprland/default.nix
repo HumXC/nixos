@@ -1,9 +1,9 @@
 { lib, config, ... }:
-let 
+let
   cfg = config.os.programs.hyprland;
 in
 {
-  options.os.programs.hyprland ={
+  options.os.programs.hyprland = {
     enable = lib.mkEnableOption "hyprland";
   };
   config = lib.mkIf cfg.enable {

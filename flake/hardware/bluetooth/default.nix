@@ -1,10 +1,11 @@
-{ lib, config, pkgs, ...}:
-let 
+{ lib, config, pkgs, ... }:
+let
   cfg = config.os.hardware.bluetooth;
-in {
+in
+{
   options.os.hardware.bluetooth.enable = lib.mkEnableOption "bluetooth";
-  options.os.hardware.bluetooth.autoStart= lib.mkEnableOption "auto unblock bluetooth";
-  
+  options.os.hardware.bluetooth.autoStart = lib.mkEnableOption "auto unblock bluetooth";
+
   config = lib.mkIf cfg.enable {
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;

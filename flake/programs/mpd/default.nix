@@ -1,8 +1,9 @@
 { lib, config, cfg, importHm, ... }:
-let 
+let
   userName = config.os.userName;
   musicDirectory = config.os.programs.mpd.musicDirectory;
-in {
+in
+{
   options.os.programs.mpd.enable = lib.mkEnableOption "mpd";
   options.os.programs.mpd.musicDirectory = lib.mkOption {
     type = lib.types.str;
@@ -27,8 +28,8 @@ in {
       startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
     };
     systemd.services.mpd.environment = {
-        # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
-        XDG_RUNTIME_DIR = "/run/user/1000"; # User-id 1000 must match above user. MPD will look inside this directory for the PipeWire socket.
+      # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/609
+      XDG_RUNTIME_DIR = "/run/user/1000"; # User-id 1000 must match above user. MPD will look inside this directory for the PipeWire socket.
     };
   };
 }

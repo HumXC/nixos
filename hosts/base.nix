@@ -1,5 +1,5 @@
-{ config, pkgs, lib, inputs, profileName, ... }:{
-  imports = [./${profileName}/hardware-configuration.nix];
+{ config, pkgs, lib, inputs, profileName, ... }: {
+  imports = [ ./${profileName}/hardware-configuration.nix ];
   programs.nix-ld.dev.enable = true;
   networking = {
     networkmanager.enable = true;
@@ -29,19 +29,19 @@
   ]);
   systemd.services.clash-premium = {
     enable = true;
-    description="Clash daemon, A rule-based proxy in Go.";
-    after= [ "network-online.target" ];
+    description = "Clash daemon, A rule-based proxy in Go.";
+    after = [ "network-online.target" ];
     serviceConfig = {
-      Type="simple";
-      ExecStart="${config.nur.repos.linyinfeng.clash-premium}/bin/clash-premium -d /etc/clash";
+      Type = "simple";
+      ExecStart = "${config.nur.repos.linyinfeng.clash-premium}/bin/clash-premium -d /etc/clash";
     };
-    wantedBy=[ "multi-user.target" ];  
+    wantedBy = [ "multi-user.target" ];
   };
   fonts = {
     fontDir.enable = true;
     packages = (with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    ])++(with config.nur.repos;[
+    ]) ++ (with config.nur.repos;[
       humxc.misans
     ]);
   };

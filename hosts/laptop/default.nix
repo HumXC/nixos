@@ -1,9 +1,10 @@
-{config, pkgs, profileName, ...}@allArgs:
+{ config, pkgs, profileName, ... }@allArgs:
 
-let   
+let
   hostName = "LiKen";
   userName = "humxc";
-in {
+in
+{
   os.userName = userName;
   os.hostName = hostName;
   os.profileName = profileName;
@@ -31,7 +32,7 @@ in {
   users.users.${userName} = {
     initialHashedPassword = "$6$CG8wqnmdLVw0sjvX$u6mKfSlSQc9hXFsgkirB3.4LaTGRJtcWcdHgWvggUcn1Ff0Bd.NcyBPLZ.C288gNQqP4hzpoDW8NNzm2jNYzb1";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout"];
+    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" ];
   };
   boot = {
     supportedFilesystems = [ "ntfs" ];

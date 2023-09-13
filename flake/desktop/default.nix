@@ -1,7 +1,8 @@
-{lib, config, importHm, ...}:
-let 
+{ lib, config, importHm, ... }:
+let
   setEnable = arr: builtins.listToAttrs (map (name: { inherit name; value = { enable = true; }; }) arr);
-in {
+in
+{
   options.os.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;

@@ -1,5 +1,5 @@
 { lib, config, pkgs, cfg, importHm, ... }:
-let 
+let
   userName = config.os.userName;
 in
 {
