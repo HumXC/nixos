@@ -1,43 +1,34 @@
-{ config, pkgs, inputs, lib, profilename, username, scale, ... }:
-let 
-  hostName = "HumXC";
-  waybarConfig = {
-    cpuTemperatureHwmonPath = ''"/sys/class/hwmon/hwmon0/temp1_input"'';
+{config, pkgs, profileName, ...}@allArgs:
+
+let   
+  hostName = "LiKen";
+  userName = "humxc";
+in {
+  os.userName = userName;
+  os.hostName = hostName;
+  os.profileName = profileName;
+  os.desktop.enable = true;
+  os.programs.waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
+  os.programs.mpd.musicDirectory = "/disk/files/HumXC/Music";
+  os.hardware.bluetooth = {
+    enable = true;
+    autoStart = true;
   };
-in
-{
-  imports =[
-      ./hardware-configuration.nix
-      ../../modules/desktop
-      ../../modules/hardware/bluetooth # 开启蓝牙功能
-    ];
+  home-manager.extraSpecialArgs = {
+    os = config.os;
+    nur = config.nur;
+  };
+  home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;
   users.users.root = {
     initialHashedPassword = "$6$b7mGXpPXuF9LA1GB$TbTTOYkPTu4CP5OxjF8yvH2l/TYPn50N1.OQjTQ70YS8lPpWdhxiaR11.vPJa9Jw/H3Mvn5DBdPZzB0BVekF6/";
   };
   networking = {
-    hostName = hostName; # 主机名
     # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
     proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit 
-      profilename
-      username
-      waybarConfig
-      scale
-    ; };
-    users.${username} = {
-      imports = [
-        (import ./home.nix)
-        inputs.nur.hmModules.nur
-      ];
-    };
-  };
-  users.users.${username} = {
+  users.users.${userName} = {
     initialHashedPassword = "$6$CG8wqnmdLVw0sjvX$u6mKfSlSQc9hXFsgkirB3.4LaTGRJtcWcdHgWvggUcn1Ff0Bd.NcyBPLZ.C288gNQqP4hzpoDW8NNzm2jNYzb1";
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout"];
@@ -75,18 +66,12 @@ in
   };
 
 
-  environment = {
-    systemPackages = (with pkgs; [
-      linux-firmware
-    ]);
-  };
-
   console.useXkbConfig = true;
   programs.light.enable = true; # 用于控制屏幕背光
   services = {
     xserver.xkbOptions = "caps:escape";
     dbus.packages = [ pkgs.gcr ];
-    getty.autologinUser = "${username}"; # 自动登录
+    getty.autologinUser = "${userName}"; # 自动登录
     gvfs.enable = true; # gnome.nautilus 包的回收站功能需要 See: https://github.com/NixOS/nixpkgs/issues/140860#issuecomment-942769882
     pipewire = {
       enable = true;
@@ -119,5 +104,4 @@ in
       permit nopass keepenv :wheel
     '';
   };
-
 }
