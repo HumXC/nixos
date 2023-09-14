@@ -38,12 +38,41 @@
     wantedBy = [ "multi-user.target" ];
   };
   fonts = {
-    fontDir.enable = true;
+    enableDefaultPackages = true;
     packages = (with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-extra
+      noto-fonts-emoji
     ]) ++ (with config.nur.repos;[
       humxc.misans
     ]);
+    fontconfig = {
+      localConf = ''
+        <?xml version='1.0'?>
+        <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
+        <fontconfig>
+        	<match target="font">
+        		<test name="family" compare="contains">
+        			<string>Emoji</string>
+        		</test>
+        		<edit name="hinting" mode="assign">
+        			<bool>true</bool>
+        		</edit>
+        		<edit name="hintstyle" mode="assign">
+        			<const>hintslight</const>
+        		</edit>
+        		<edit name="embeddedbitmap" mode="assign">
+        			<bool>true</bool>
+        		</edit>
+        	</match>
+        </fontconfig>
+      '';
+      defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
   };
   nix = {
     settings.auto-optimise-store = true; # Optimise syslinks

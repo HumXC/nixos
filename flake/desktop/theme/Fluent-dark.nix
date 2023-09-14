@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, os, ... }:
 let
   fluent-kde = pkgs.fetchFromGitHub {
     owner = "vinceliuice";
@@ -8,10 +8,11 @@ let
   };
 in
 {
-  home.packages = (with pkgs; [
-    glib
-    libsForQt5.qtstyleplugin-kvantum
-  ]);
+  home.packages = (with pkgs;
+    [
+      glib
+      libsForQt5.qtstyleplugin-kvantum
+    ]);
   xdg.configFile = {
     "Kvantum/kvantum.kvconfig".text = ''
       [General]
@@ -26,7 +27,7 @@ in
     gtk.enable = true;
     x11.enable = true;
     name = "Fluent-cursors-dark";
-    size = 28;
+    size = os.desktop.cursorSize;
     package = config.nur.repos.humxc.fluent-cursors-theme;
   };
 

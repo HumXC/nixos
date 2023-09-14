@@ -10,7 +10,9 @@ in
   os.profileName = profileName;
   os.desktop = {
     enable = true;
-    scale = "1.25";
+    scaleFactor = 1.25;
+    cursorSize = 28;
+    theme = "Fluent-dark";
   };
   os.programs.waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
   os.programs.mpd.musicDirectory = "/disk/files/HumXC/Music";
@@ -18,6 +20,7 @@ in
     enable = true;
     autoStart = true;
   };
+
 
   home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;

@@ -18,11 +18,10 @@ with pkgs; let
          > $out/share/applications/${appName}.desktop
       '');
 
-  scale = os.desktop.scale;
+  scale = toString os.desktop.scaleFactor;
   userName = os.userName;
 in
 {
-  imports = [ ./theme/home.nix ];
   home.packages = (with pkgs; [
     xdg-utils
     rnix-lsp # nix 的 lsp，vscode 的 nix 扩展依赖

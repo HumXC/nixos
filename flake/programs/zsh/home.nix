@@ -1,7 +1,7 @@
 { config, lib, pkgs, os, ... }:
 let
   profileName = os.profileName;
-  scale = os.desktop.scale;
+  scale = toString os.desktop.scaleFactor;
 in
 {
   home.file.".p10k.zsh" = {

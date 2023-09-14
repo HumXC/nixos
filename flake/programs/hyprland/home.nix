@@ -1,15 +1,17 @@
 { config, lib, pkgs, os, ... }:
 let
   userName = os.userName;
-  scale = os.desktop.scale;
+  scale = toString os.desktop.scaleFactor;
+  cursorSize = toString os.desktop.cursorSize;
 in
 {
-  home.packages = with pkgs; [
-    hyprpicker
-    # 解决部分窗口中，鼠标指针显示为 “X” 的情况
-    # 在 hyprland 配置中 exec-once = xsetroot -cursor_name left_ptr
-    xorg.xsetroot
-  ];
+  home.packages = with pkgs;
+    [
+      hyprpicker
+      # 解决部分窗口中，鼠标指针显示为 “X” 的情况
+      # 在 hyprland 配置中 exec-once = xsetroot -cursor_name left_ptr
+      xorg.xsetroot
+    ];
 
   # 自启动 hyprland
   programs.zsh.initExtra = ''
@@ -23,6 +25,32 @@ in
     recursive = true; # 递归整个文件夹
     executable = true; # 将其中所有文件添加「执行」权限
   };
+
+  # https://nixos.wiki/wiki/Sway
+  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
+  xdg.configFile."hypr/scripts/configure-gtk.sh" = {
+    text =
+      let
+        schema = pkgs.gsettings-desktop-schemas;
+        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+      in
+      ''
+        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        config="''${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
+        if [ ! -f "$config" ]; then exit 1; fi
+        gnome_schema="org.gnome.desktop.interface"
+        gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+        icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+        cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+        font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
+        gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
+        gsettings set "$gnome_schema" icon-theme "$icon_theme"
+        gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
+        gsettings set "$gnome_schema" font-name "$font_name"
+      '';
+    executable = true;
+  };
+
   xdg.configFile."hypr/hyprland.conf".text = ''
     # 脚本目录
     $scripts = $HOME/.config/hypr/scripts
@@ -30,8 +58,10 @@ in
 
     monitor =,highrr,auto, ${scale}
     # 设置鼠标光标
-    exec-once=hyprctl setcursor Fluent-cursors-dark 28
-    env = GTK_THEME, Fluent-Dark
+    exec-once=hyprctl setcursor ${os.desktop.cursorTheme} ${cursorSize}
+    env = XCURSOR_SIZE, ${cursorSize}
+    env = GDK_SCALE, ${scale}
+    env = GTK_THEME, ${os.desktop.gtkTheme}
     env = LANG, zh_CN.UTF-8
     env = LC_CTYPE, zh_CN.UTF-8
     env = EDITOR, helix
