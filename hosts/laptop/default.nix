@@ -71,9 +71,7 @@ in
 
 
   console.useXkbConfig = true;
-  programs.light.enable = true; # 用于控制屏幕背光
   services = {
-    xserver.xkbOptions = "caps:escape";
     dbus.packages = [ pkgs.gcr ];
     getty.autologinUser = "${userName}"; # 自动登录
     gvfs.enable = true; # gnome.nautilus 包的回收站功能需要 See: https://github.com/NixOS/nixpkgs/issues/140860#issuecomment-942769882
@@ -86,21 +84,7 @@ in
     };
   };
 
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-  };
+
   security.polkit.enable = true;
   security.doas = {
     enable = true;

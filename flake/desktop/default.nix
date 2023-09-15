@@ -21,7 +21,7 @@ in
     };
     cursorSize = lib.mkOption {
       type = lib.types.int;
-      default = 32;
+      default = 28;
       description = "Cursor size.";
     };
     cursorTheme = lib.mkOption {
@@ -76,5 +76,24 @@ in
           "waybar"
           "zsh"
         ];
+        # TODO: Hyprland 不会有 graphical-session.target，需要想办法启动他
+        systemd = {
+          user.services.polkit-gnome-authentication-agent-1 = {
+            enable = true;
+            description = "polkit-gnome-authentication-agent-1";
+            wantedBy = [ "graphical-session.target" ];
+            wants = [ "graphical-session.target" ];
+            after = [ "graphical-session.target" ];
+            serviceConfig = {
+              Type = "simple";
+              ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+              Restart = "on-failure";
+              RestartSec = 1;
+              TimeoutStopSec = 10;
+            };
+          };
+        };
+        programs.light.enable = true; # 用于控制屏幕背光
       };
+
 }

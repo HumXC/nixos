@@ -30,7 +30,6 @@ in
     security.pam = {
       u2f.enable = true;
     };
-
     systemd.services.lemurs = {
       enable = true;
       description = "Lemurs";
