@@ -17,8 +17,9 @@ in
       systemPackages = [
         pkgs.lemurs
       ];
+      # FIXME: 启动错误，不可用
       etc = {
-        "lemurs/config.toml".source = "${lemurs}/extra/config.toml";
+        "lemurs/config.toml".source = ./config.toml;
         "lemurs/xsetup.sh".source = "${lemurs}/extra/xsetup.sh";
         "pam.d/lemurs".source = "${lemurs}/extra/lemurs.pam";
         "lemurs/wayland/Hyprland".text = ''
@@ -27,17 +28,16 @@ in
         '';
       };
     };
-    security.pam = {
-      u2f.enable = true;
-    };
+
     systemd.services.lemurs = {
       enable = true;
       description = "Lemurs";
       after = [
         "systemd-user-sessions.service"
-        "getty@tty2.service"
+        "getty@tty1.service"
+        "plymouth-quit-wait.service"
       ];
-      # wantedBy = [ "display-manager.service" ];
+      wantedBy = [ "multi-user.target" ];
       aliases = [ "display-manager.service" ];
       serviceConfig = {
         ExecStart = "${lemurs}/bin/lemurs";

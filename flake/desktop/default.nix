@@ -69,7 +69,7 @@ in
           "helix"
           "hyprland"
           "kitty"
-          "lemurs"
+          # "lemurs"
           "mpd"
           "rofi"
           "waybar"
