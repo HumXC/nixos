@@ -49,6 +49,7 @@
       noto-fonts-emoji
       nerdfonts
       twemoji-color-font
+      babelstone-han
     ]) ++ (with config.nur.repos;[
       humxc.misans
     ]);
@@ -76,6 +77,6 @@
       keep-derivations      = true
     '';
   };
-
+  boot.swraid.enable = false;
   system.stateVersion = "23.05";
 }

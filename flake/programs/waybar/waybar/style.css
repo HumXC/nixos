@@ -1,6 +1,6 @@
 * {
     border: none;
-    font-family: "MiSans", "Fira Code", Retina;
+    font-family: "MiSans", "FiraCode Nerd Font", Retina;
     font-size: 16px;
     color: #dcdcdc;
 }
@@ -179,7 +179,7 @@
 }
 .mpd-control #custom-status {
     font-size: 60px;
-    padding: 0 13px 0 15px;
+    padding: 0 24px 0 17px;
 }
 
 /* botom-bar */

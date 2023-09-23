@@ -62,8 +62,7 @@ in
         ];
         services.gnome.gnome-keyring.enable = true; # vscode 依赖
         environment.sessionVariables.NIXOS_OZONE_WL = ""; # 取消默认使用 wayland，因为 vscode 还存在 fcitx5 无法输入的问题
-        # OneDrive
-        services.onedrive.enable = true;
+
         os.programs = setEnable [
           "dunst"
           "fcitx5"
@@ -77,20 +76,18 @@ in
           "zsh"
         ];
         # TODO: Hyprland 不会有 graphical-session.target，需要想办法启动他
-        systemd = {
-          user.services.polkit-gnome-authentication-agent-1 = {
-            enable = true;
-            description = "polkit-gnome-authentication-agent-1";
-            wantedBy = [ "graphical-session.target" ];
-            wants = [ "graphical-session.target" ];
-            after = [ "graphical-session.target" ];
-            serviceConfig = {
-              Type = "simple";
-              ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-              Restart = "on-failure";
-              RestartSec = 1;
-              TimeoutStopSec = 10;
-            };
+        # FIXME: 这个 service 没用
+        systemd.user.services.polkit-gnome-authentication-agent-1 = {
+          description = "polkit-gnome-authentication-agent-1";
+          # wantedBy = [ "graphical-session.target" ];
+          # wants = [ "graphical-session.target" ];
+          # after = [ "graphical-session.target" ];
+          serviceConfig = {
+            Type = "simple";
+            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+            Restart = "on-failure";
+            RestartSec = 1;
+            TimeoutStopSec = 10;
           };
         };
         programs.light.enable = true; # 用于控制屏幕背光

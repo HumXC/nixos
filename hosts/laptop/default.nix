@@ -20,7 +20,8 @@ in
     enable = true;
     autoStart = true;
   };
-
+  # OneDrive https://nixos.wiki/wiki/OneDrive
+  services.onedrive.enable = true;
 
   home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;

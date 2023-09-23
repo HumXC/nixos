@@ -11,6 +11,15 @@ in
       # 解决部分窗口中，鼠标指针显示为 “X” 的情况
       # 在 hyprland 配置中 exec-once = xsetroot -cursor_name left_ptr
       xorg.xsetroot
+      swww
+      # 剪贴板功能
+      wl-clipboard
+      cliphist
+      wl-clip-persist
+      # 截图功能
+      grim
+      slurp
+      swappy
     ];
 
   # 自启动 hyprland

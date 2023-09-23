@@ -27,16 +27,9 @@ in
     rnix-lsp # nix 的 lsp，vscode 的 nix 扩展依赖
     qq
     gnome.nautilus
-    openssl
     easyeffects
     ark
     vscode
-    wl-clipboard
-    cliphist # 剪贴板功能
-    swww
-    grim
-    slurp
-    swappy # 截图功能
     telegram-desktop
     go
     wails
