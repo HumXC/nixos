@@ -1,4 +1,4 @@
-{ config, pkgs, profileName, ... }@allArgs:
+{ config, pkgs, profileName, ... }:
 
 let
   hostName = "LiKen";
@@ -20,6 +20,10 @@ in
     enable = true;
     autoStart = true;
   };
+  programs.adb.enable = true;
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
   # OneDrive https://nixos.wiki/wiki/OneDrive
   services.onedrive.enable = true;
 

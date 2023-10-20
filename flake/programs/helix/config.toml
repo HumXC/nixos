@@ -1,1 +1,5 @@
 theme = "github_dark_colorblind"
+
+[editor]
+line-number = "relative"
+mouse = false

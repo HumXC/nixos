@@ -10,6 +10,15 @@
       file
       python3
       obs-studio
+
+      go
+      wails
+      upx
+      nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
+
+      zig
+      zls
+      lldb
     ];
   };
   programs.home-manager.enable = true;
@@ -17,6 +26,9 @@
     enable = true;
     userName = "HumXC";
     userEmail = "Hum-XC@outlook.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
   # systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
 }

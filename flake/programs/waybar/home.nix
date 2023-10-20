@@ -90,7 +90,7 @@ in
             },
             "network": {
                 "tooltip": false,
-                "format-wifi": "   {essid}",
+                "format-wifi": " ",
                 "format-ethernet": ""
             },
             "battery": {

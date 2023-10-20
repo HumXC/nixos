@@ -24,17 +24,15 @@ in
 {
   home.packages = (with pkgs; [
     xdg-utils
-    rnix-lsp # nix 的 lsp，vscode 的 nix 扩展依赖
+    nil # nix 的 lsp
+    nixpkgs-fmt
     qq
     gnome.nautilus
     easyeffects
     ark
     vscode
     telegram-desktop
-    go
-    wails
-    upx
-    nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
+    protobuf
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin

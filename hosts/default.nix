@@ -6,8 +6,7 @@ let
     , nixpkgs ? inputs.nixpkgs
     , system
     , extraModules ? [ ]
-    , specialArgs ? [ ]
-    ,
+    , extraSpecialArgs ? { }
     }: {
       ${name} =
         let
@@ -22,7 +21,7 @@ let
               lib
               system;
             profileName = name;
-          };
+          } // extraSpecialArgs;
           modules = extraModules ++ [
             ./base.nix
             profile
