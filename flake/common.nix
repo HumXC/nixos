@@ -7,8 +7,9 @@
     extraSpecialArgs = {
       os = config.os;
     };
+    sharedModules = [ ];
     users.${config.os.userName} = {
-      imports = [ inputs.nur.hmModules.nur ];
+      imports = [ inputs.nur.hmModules.nur inputs.sops-nix.homeManagerModules.sops ];
       home.stateVersion = "22.11";
     };
   };

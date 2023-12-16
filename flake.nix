@@ -20,6 +20,8 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:

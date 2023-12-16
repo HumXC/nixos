@@ -1,4 +1,4 @@
-{ config, pkgs, os, ... }: {
+{ config, pkgs, os, sops, ... }: {
   home = {
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
@@ -21,6 +21,7 @@
       lldb
     ];
   };
+
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;

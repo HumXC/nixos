@@ -1,5 +1,14 @@
-{ config, pkgs, lib, inputs, profileName, ... }: {
+{ config, nixpkgs, pkgs, lib, inputs, profileName, ... }:
+let
+  clash-premium = pkgs.callPackage ./../binary/clash-premium.nix { };
+in
+{
   imports = [ ./${profileName}/hardware-configuration.nix ];
+  nixpkgs.config.packageOverrides = pkgs: {
+    nixos-github = {
+      githubToken = config.sops.secrets.github_token;
+    };
+  };
   programs.nix-ld.dev.enable = true;
   networking = {
     networkmanager.enable = true;
@@ -24,10 +33,9 @@
     psmisc
     btop
     autojump
-  ] ++ (with config.nur.repos; [
-    linyinfeng.clash-premium
-  ]);
-
+  ] ++ [
+    clash-premium
+  ];
 
   systemd.services.clash-premium = {
     enable = true;
@@ -35,7 +43,7 @@
     after = [ "network-online.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${config.nur.repos.linyinfeng.clash-premium}/bin/clash-premium -d /etc/clash";
+      ExecStart = "${clash-premium}/bin/clash-premium -d /etc/clash";
     };
     wantedBy = [ "multi-user.target" ];
   };

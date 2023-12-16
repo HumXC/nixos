@@ -1,0 +1,8 @@
+# 将解密的 key 放到 /var/lib/sops-nix/key.txt
+keys:
+    - &admin_HumXC age102h2qxkhas3lkxm7q2z8pq2jtgl2vmn9tt9pkmfdauhhykd7xypqj7mgdj
+creation_rules:
+    - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+      key_groups:
+          - age:
+                - *admin_HumXC

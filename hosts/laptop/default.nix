@@ -3,6 +3,8 @@
 let
   hostName = "LiKen";
   userName = "humxc";
+  rootPassFile = config.sops.secrets."password/root".path;
+  userPassFile = config.sops.secrets."password/${userName}".path;
 in
 {
   os.userName = userName;
@@ -27,10 +29,12 @@ in
   # OneDrive https://nixos.wiki/wiki/OneDrive
   services.onedrive.enable = true;
 
+
+
   home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;
   users.users.root = {
-    initialHashedPassword = "$6$b7mGXpPXuF9LA1GB$TbTTOYkPTu4CP5OxjF8yvH2l/TYPn50N1.OQjTQ70YS8lPpWdhxiaR11.vPJa9Jw/H3Mvn5DBdPZzB0BVekF6/";
+    hashedPasswordFile = "${rootPassFile}";
   };
   networking = {
     # 代理配置
@@ -38,7 +42,7 @@ in
     proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
   users.users.${userName} = {
-    initialHashedPassword = "$6$CG8wqnmdLVw0sjvX$u6mKfSlSQc9hXFsgkirB3.4LaTGRJtcWcdHgWvggUcn1Ff0Bd.NcyBPLZ.C288gNQqP4hzpoDW8NNzm2jNYzb1";
+    hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" ];
   };
