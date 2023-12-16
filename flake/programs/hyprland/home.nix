@@ -73,9 +73,9 @@ in
     env = GTK_THEME, ${os.desktop.gtkTheme}
     env = LANG, zh_CN.UTF-8
     env = LC_CTYPE, zh_CN.UTF-8
-    env = EDITOR, helix
+    env = EDITOR, hx
     env = TERMINAL, kitty
-    env = GTK_IM_MODULE, fcitx5
+    env = GTK_IM_MODULE,
     env = QT_IM_MODULE, fcitx5
     env = XMODIFIERS, @im=fcitx5
     env = GLFW_IM_MODULE, ibus
