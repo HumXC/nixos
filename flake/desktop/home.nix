@@ -33,6 +33,7 @@ in
     vscode
     telegram-desktop
     protobuf
+    krita
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
@@ -42,11 +43,6 @@ in
       "Exec=${qq}/bin/qq %U"
     ] [
       "Exec=${qq}/bin/qq --force-device-scale-factor=${scale} %U"
-    ])
-    (patchDesktop pkgs.vscode "code" [
-      "Exec=code %F"
-    ] [
-      "Exec=${vscode}/bin/code --force-device-scale-factor=${scale} %F"
     ])
   ];
   programs.zsh = {

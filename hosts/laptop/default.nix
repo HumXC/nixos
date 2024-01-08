@@ -29,8 +29,6 @@ in
   # OneDrive https://nixos.wiki/wiki/OneDrive
   services.onedrive.enable = true;
 
-
-
   home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;
   users.users.root = {
@@ -40,6 +38,10 @@ in
     # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
     proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  };
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [ 5353 ];
   };
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";

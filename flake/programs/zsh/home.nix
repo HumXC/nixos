@@ -126,7 +126,6 @@ in
       icat = "kitty +kitten icat";
       Tp = "trash put";
       Tl = "trash list";
-      code = "${pkgs.vscode}/bin/code --force-device-scale-factor=${scale}";
     };
     history = {
       size = 10000;

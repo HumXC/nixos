@@ -3,12 +3,15 @@
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
-      direnv # 暂时不知道有什么用
+      gcc
       ffmpeg
       p7zip
       cowsay
       file
-      python3
+      (writeShellScriptBin "python" ''
+        export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
+        exec ${python3}/bin/python "$@"
+      '')
       obs-studio
 
       go
