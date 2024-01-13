@@ -22,17 +22,16 @@ in
   time.timeZone = "Asia/Shanghai";
   i18n.supportedLocales = [ "zh_CN.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
   i18n.defaultLocale = "en_US.UTF-8";
-  services.openssh.enable = true;
-  services.dbus.enable = true;
   environment.systemPackages = with pkgs; [
     linux-firmware
     trashy
     git
     wget
-    neofetch
+    nitch
     psmisc
     btop
     autojump
+    helix
   ] ++ [
     clash-premium
   ];
@@ -47,29 +46,7 @@ in
     };
     wantedBy = [ "multi-user.target" ];
   };
-  fonts = {
-    fontDir.enable = true;
-    enableDefaultPackages = true;
-    packages = (with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-extra
-      noto-fonts-emoji
-      nerdfonts
-      twemoji-color-font
-      babelstone-han
-    ]) ++ (with config.nur.repos;[
-      humxc.misans
-    ]);
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "MiSans" "FiraCode Nerd Font" ];
-        sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
-        monospace = [ "MiSans" "FiraCode Nerd Font" ];
-        emoji = [ "Noto Color Emoji" "Twitter Color Emoji" ];
-      };
-    };
-  };
+
   nix = {
     settings.auto-optimise-store = true; # Optimise syslinks
     gc = {
@@ -86,5 +63,5 @@ in
     '';
   };
   boot.swraid.enable = false;
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }

@@ -42,5 +42,9 @@ in
       name = "laptop";
       system = "x86_64-linux";
     })
+    (mkHost {
+      name = "home-server";
+      system = "x86_64-linux";
+    })
   ];
 }

@@ -90,6 +90,29 @@ in
           };
         };
         programs.light.enable = true; # 用于控制屏幕背光
+        fonts = {
+          fontDir.enable = true;
+          enableDefaultPackages = true;
+          packages = (with pkgs; [
+            noto-fonts
+            noto-fonts-cjk
+            noto-fonts-extra
+            noto-fonts-emoji
+            nerdfonts
+            twemoji-color-font
+            babelstone-han
+          ]) ++ (with config.nur.repos;[
+            humxc.misans
+          ]);
+          fontconfig = {
+            defaultFonts = {
+              serif = [ "MiSans" "FiraCode Nerd Font" ];
+              sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
+              monospace = [ "MiSans" "FiraCode Nerd Font" ];
+              emoji = [ "Noto Color Emoji" "Twitter Color Emoji" ];
+            };
+          };
+        };
       };
 
 }

@@ -32,7 +32,7 @@ in
 
         # Functions
         # 禁用 rm 命令
-        function rm() {cowsay -f sodomized "Fuck rm! Use Tp (trash put)"}
+        # function rm() {cowsay -f sodomized "Fuck rm! Use Tp (trash put)"}
 
         # 编辑系统
         function os-edit() {

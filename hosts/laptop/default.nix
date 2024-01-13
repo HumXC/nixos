@@ -28,13 +28,13 @@ in
   ];
   # OneDrive https://nixos.wiki/wiki/OneDrive
   services.onedrive.enable = true;
-
   home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
   };
   networking = {
+    networkmanager.enable = true;
     # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
     proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -83,7 +83,10 @@ in
 
   console.useXkbConfig = true;
   services = {
-    dbus.packages = [ pkgs.gcr ];
+    dbus = {
+      enable = true;
+      packages = [ pkgs.gcr ];
+    };
     getty.autologinUser = "${userName}"; # 自动登录
     gvfs.enable = true; # gnome.nautilus 包的回收站功能需要 See: https://github.com/NixOS/nixpkgs/issues/140860#issuecomment-942769882
     pipewire = {
