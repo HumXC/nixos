@@ -31,7 +31,6 @@ let
             inputs.nix-ld.nixosModules.nix-ld
             inputs.hyprland.nixosModules.default
             inputs.sops-nix.nixosModules.sops
-            inputs.vscode-server.nixosModules.default
             self.nixosModules.os
           ];
         };

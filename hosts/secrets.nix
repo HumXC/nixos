@@ -14,11 +14,13 @@
         sopsFile = ./../secrets/ssh_keys.yaml;
         format = "yaml";
         group = "users";
+        path = "/home/humxc/.ssh/id_rsa";
       };
       id_rsa_pub = {
         sopsFile = ./../secrets/ssh_keys.yaml;
         format = "yaml";
         group = "users";
+        path = "/home/humxc/.ssh/id_rsa_pub";
       };
     };
   };

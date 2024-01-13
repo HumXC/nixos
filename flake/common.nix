@@ -9,7 +9,7 @@
     };
     sharedModules = [ ];
     users.${config.os.userName} = {
-      imports = [ inputs.nur.hmModules.nur inputs.sops-nix.homeManagerModules.sops ];
+      imports = [ inputs.nur.hmModules.nur inputs.sops-nix.homeManagerModules.sops inputs.vscode-server.homeModules.default ];
       home.stateVersion = "22.11";
     };
   };
