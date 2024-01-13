@@ -32,6 +32,9 @@ in
     allowedTCPPorts = [ 22 9090 ];
   };
   services.openssh.enable = true;
+  environment.sessionVariables = {
+    OS_EDITOR = "helix";
+  };
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;

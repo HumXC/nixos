@@ -22,6 +22,9 @@ in
     enable = true;
     autoStart = true;
   };
+  environment.sessionVariables = {
+    OS_EDITOR = "code";
+  };
   programs.adb.enable = true;
   services.udev.packages = [
     pkgs.android-udev-rules

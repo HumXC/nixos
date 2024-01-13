@@ -36,7 +36,7 @@ in
 
         # 编辑系统
         function os-edit() {
-          code /etc/nixos
+          OS_EDITOR /etc/nixos
         }
 
         # 更新系统
