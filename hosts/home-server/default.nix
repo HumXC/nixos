@@ -23,18 +23,63 @@ in
   };
   home-manager.users.${userName}.imports = [ ./home.nix ];
   networking = {
-    # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
-    proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 9090 ];
+    allowedTCPPorts = [ 22 8080 ];
   };
+  environment.etc."docker/daemon.json".text = ''
+    {
+      "registry-mirrors": [
+        "https://your_code.mirror.aliyuncs.com",
+        "https://reg-mirror.qiniu.com",
+        "https://gcr-mirror.qiniu.com",
+        "https://quay-mirror.qiniu.com",
+        "https://hub-mirror.c.163.com",
+        "https://mirror.ccs.tencentyun.com",
+        "https://docker.mirrors.ustc.edu.cn",
+        "https://gcr.mirrors.ustc.edu.cn",
+        "https://quay.mirrors.ustc.edu.cn",
+        "https://dockerhub.azk8s.cn",
+        "https://gcr.azk8s.cn",
+        "https://quay.azk8s.cn",
+        "http://f1361db2.m.daocloud.io",
+        "https://registry.docker-cn.com"
+      ]
+    }
+  '';
   services.openssh.enable = true;
+  services.davfs2.enable = true;
+
+  systemd.mounts = [{
+    what = "http://172.17.0.1:5244/dav/";
+    where = "/mnt/webdav";
+    enable = true;
+    description = "Mount WebDAV Service";
+    after = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    type = "davfs";
+    options = "uid=1000,file_mode=0664,dir_mode=2775,grpid";
+    mountConfig = {
+      TimeoutSec = 30;
+    };
+  }];
+  systemd.automounts = [{
+    enable = true;
+    description = "Automount WebDAV Service";
+    where = "/mnt/webdav/";
+    wantedBy = [ "remote-fs.target" ];
+    automountConfig = {
+      TimeoutIdleSec = 60;
+    };
+  }];
   environment.sessionVariables = {
     OS_EDITOR = "helix";
+    EDITOR = "hx";
   };
+  virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;

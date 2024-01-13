@@ -3,7 +3,10 @@ let
   clash-premium = pkgs.callPackage ./../binary/clash-premium.nix { };
 in
 {
-  imports = [ ./${profileName}/hardware-configuration.nix ];
+  imports = [
+    ./${profileName}/hardware-configuration.nix
+    ./${profileName}/secrets.nix
+  ];
   nixpkgs.config.packageOverrides = pkgs: {
     nixos-github = {
       githubToken = config.sops.secrets.github_token;
