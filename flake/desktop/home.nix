@@ -24,8 +24,6 @@ in
 {
   home.packages = (with pkgs; [
     xdg-utils
-    nil # nix 的 lsp
-    nixpkgs-fmt
     qq
     gnome.nautilus
     easyeffects

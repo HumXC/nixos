@@ -10,17 +10,15 @@
       };
       github_token = { };
 
-      humxc_id_rsa = {
+      id_rsa = {
         sopsFile = ./../secrets/ssh_keys.yaml;
         format = "yaml";
-        owner = "humxc";
-        path = "/home/humxc/.ssh/id_rsa";
+        group = "users";
       };
-      humxc_id_rsa_pub = {
+      id_rsa_pub = {
         sopsFile = ./../secrets/ssh_keys.yaml;
         format = "yaml";
-        owner = "humxc";
-        path = "/home/humxc/.ssh/id_rsa.pub";
+        group = "users";
       };
     };
   };

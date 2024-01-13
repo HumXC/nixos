@@ -3,11 +3,11 @@
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
-      p7zip
-      cowsay
+      nil # nix 的 lsp
+      nixpkgs-fmt # nix 的格式化程序
     ];
   };
-
+  services.vscode-server.enable = true;
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;

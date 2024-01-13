@@ -22,6 +22,8 @@
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
+
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:

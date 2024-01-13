@@ -3,6 +3,8 @@
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
+      nil # nix 的 lsp
+      nixpkgs-fmt # nix 的格式化程序
       gcc
       ffmpeg
       p7zip

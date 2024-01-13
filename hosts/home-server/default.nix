@@ -11,7 +11,7 @@ in
   os.hostName = hostName;
   os.profileName = profileName;
   os.programs.helix.enable = true;
-
+  os.programs.zsh.enable = true;
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
@@ -21,6 +21,7 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ];
   };
+  home-manager.users.${userName}.imports = [ ./home.nix ];
   networking = {
     # 代理配置
     proxy.default = "http://127.0.0.1:7890/";
@@ -28,9 +29,13 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [ 22 9090 ];
   };
   services.openssh.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
   boot = {
     initrd.verbose = false;
     loader = {
@@ -49,7 +54,6 @@ in
     ];
     consoleLogLevel = 0;
   };
-
 
   console.useXkbConfig = true;
 
