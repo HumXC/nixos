@@ -5,6 +5,8 @@
     secrets = {
       github_token = { };
       clash_url = { };
+      id_rsa = { };
+      id_rsa_pub = { };
     };
   };
 }
