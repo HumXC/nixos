@@ -13,6 +13,7 @@ in
   os.programs.helix.enable = true;
   os.programs.zsh.enable = true;
   os.programs.zsh.p10kType = "2";
+  hardware.cpu.intel.updateMicrocode = true;
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
