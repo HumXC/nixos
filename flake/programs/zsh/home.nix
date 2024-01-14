@@ -2,10 +2,11 @@
 let
   profileName = os.profileName;
   scale = toString os.desktop.scaleFactor;
+  p10kType = os.programs.zsh.p10kType;
 in
 {
   home.file.".p10k.zsh" = {
-    source = ./.p10k.zsh;
+    source = ./.p10k-${ p10kType }.zsh;
   };
   home.packages = with pkgs; [
     fzf
@@ -36,7 +37,7 @@ in
 
         # 编辑系统
         function os-edit() {
-          OS_EDITOR /etc/nixos
+          $OS_EDITOR /etc/nixos
         }
 
         # 更新系统

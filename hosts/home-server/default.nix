@@ -12,6 +12,7 @@ in
   os.profileName = profileName;
   os.programs.helix.enable = true;
   os.programs.zsh.enable = true;
+  os.programs.zsh.p10kType = "2";
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
@@ -24,7 +25,7 @@ in
   home-manager.users.${userName}.imports = [ ./home.nix ];
   networking = {
     proxy.default = "http://127.0.0.1:7890/";
-    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
   networking.firewall = {
     enable = true;
@@ -50,11 +51,34 @@ in
       ]
     }
   '';
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      Macs = [ "hmac-sha1" "hmac-md5" ];
+    };
+  };
+  services.fail2ban = {
+    enable = true;
+    # Ban IP after 5 failures
+    maxretry = 5;
+    ignoreIP = [
+      "10.0.0.0/8"
+      "172.17.0.0/12"
+      "192.168.0.0/16"
+    ];
+    bantime = "24h";
+    bantime-increment = {
+      enable = true;
+      formula = "ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)";
+      maxtime = "168h";
+      overalljails = true;
+    };
+  };
   services.davfs2.enable = true;
-
   systemd.mounts = [{
-    what = "http://172.17.0.1:5244/dav/";
+    what = "http://127.0.0.1:5244/dav/";
     where = "/mnt/webdav";
     enable = true;
     description = "Mount WebDAV Service";
@@ -66,6 +90,7 @@ in
       TimeoutSec = 30;
     };
   }];
+
   systemd.automounts = [{
     enable = true;
     description = "Automount WebDAV Service";
@@ -76,14 +101,11 @@ in
     };
   }];
   environment.sessionVariables = {
-    OS_EDITOR = "helix";
+    OS_EDITOR = "hx";
     EDITOR = "hx";
   };
   virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+
   boot = {
     initrd.verbose = false;
     loader = {
