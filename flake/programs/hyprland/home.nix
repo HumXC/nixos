@@ -3,6 +3,7 @@ let
   userName = os.userName;
   scale = toString os.desktop.scaleFactor;
   cursorSize = toString os.desktop.cursorSize;
+  initXsession = builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra;
 in
 {
   home.packages = with pkgs;
@@ -65,7 +66,10 @@ in
     $scripts = $HOME/.config/hypr/scripts
     $bin = $HOME/.config/hypr/scripts/bin
 
-    monitor =,highrr,auto, ${scale}
+    # 初始化 xwayland 配置
+    exec-once=${ initXsession }
+    
+    monitor =,highrr,auto,${scale}
     # 设置鼠标光标
     exec-once=hyprctl setcursor ${os.desktop.cursorTheme} ${cursorSize}
     env = XCURSOR_SIZE, ${cursorSize}
@@ -75,9 +79,9 @@ in
     env = LC_CTYPE, zh_CN.UTF-8
     env = EDITOR, hx
     env = TERMINAL, kitty
-    env = GTK_IM_MODULE,
-    env = QT_IM_MODULE, fcitx5
-    env = XMODIFIERS, @im=fcitx5
+    env = GTK_IM_MODULE, fcitx
+    env = QT_IM_MODULE, fcitx
+    env = XMODIFIERS, @im=fcitx
     env = GLFW_IM_MODULE, ibus
     env = QT_QPA_PLATFORMTHEME, gtk3
     env = QT_SCALE_FACTOR, ${scale}

@@ -8,6 +8,11 @@ let
   };
 in
 {
+  xresources.properties = {
+    "Xcursor.theme" = os.desktop.cursorTheme;
+    "Xcursor.size" = os.desktop.cursorSize;
+    "Xcursor.path" = config.nur.repos.humxc.fluent-cursors-theme.outPath + "/share/icons";
+  };
   home.packages = (with pkgs;
     [
       glib

@@ -18,10 +18,14 @@ with pkgs; let
          > $out/share/applications/${appName}.desktop
       '');
 
-  scale = toString os.desktop.scaleFactor;
   userName = os.userName;
 in
 {
+  xresources.properties = {
+    # 设置 xwayland 窗口的 dpi
+    "Xft.dpi" = builtins.floor (builtins.mul os.desktop.scaleFactor 100);
+  };
+
   home.packages = (with pkgs; [
     xdg-utils
     qq
@@ -32,23 +36,43 @@ in
     telegram-desktop
     protobuf
     krita
+    mpv
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
-  ]) ++ [
-    # patch desktop entry
-    (patchDesktop pkgs.qq "qq" [
-      "Exec=${qq}/bin/qq %U"
-    ] [
-      "Exec=${qq}/bin/qq --force-device-scale-factor=${scale} %U"
-    ])
-  ];
+  ]);
+  # xdg-mime query filetype filename
+  # xdg-mime query default type
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "video/x-matroska" = [ "mpv.desktop" ];
+      "text/plain" = [ "code.desktop" ];
+      "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+    };
+    defaultApplications = {
+      "x-scheme-handler/http" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/https" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/about" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/unknown" = [ "google-chrome.desktop" ];
+      "x-scheme-handler/mailto" = [ "google-chrome.desktop" ];
+      "text/html" = [ "google-chrome.desktop" ];
+      "video/x-matroska" = [ "mpv.desktop" ];
+      "application/json" = [ "code.desktop" ];
+      "text/plain" = [ "code.desktop" ];
+      "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+    };
+  };
+
   programs.zsh = {
     initExtraBeforeCompInit = ''
       export PATH=$HOME/.npm-packages/bin:$PATH
       export NODE_PATH=~/.npm-packages/lib/node_modules
+      export PNPM_HOME=~/.npm-packages/pnpm
+      export PATH=$PNPM_HOME:$PATH
     '';
   };
+
   xdg.desktopEntries."mc" = {
     name = "Minecraft";
     icon = "minecraft";

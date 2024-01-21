@@ -8,5 +8,9 @@ in {
       owner = "humxc";
       path = "/home/humxc/.ssh/id_rsa";
     };
+    id_rsa_pub = {
+      owner = "humxc";
+      path = "/home/humxc/.ssh/id_rsa.pub";
+    };
   };
 }

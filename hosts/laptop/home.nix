@@ -20,6 +20,7 @@
       wails
       upx
       nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
+      corepack_20
 
       zig
       zls
