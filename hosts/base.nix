@@ -42,6 +42,7 @@ in
   systemd.services.clash-premium = {
     enable = true;
     description = "Clash daemon, A rule-based proxy in Go.";
+    wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     serviceConfig = {
       Type = "simple";
