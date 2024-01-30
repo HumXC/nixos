@@ -21,6 +21,7 @@ in
   xdg.configFile."fcitx5" = {
     recursive = true;
     source = ./fcitx5;
+    force = true;
   };
   home.file = {
     ".local/share/fcitx5/themes/just-dark" = {
