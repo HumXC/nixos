@@ -9,7 +9,7 @@ in
   ];
   nixpkgs.config.packageOverrides = pkgs: {
     nixos-github = {
-      githubToken = config.sops.secrets.github_token;
+      githubToken = config.sops.secrets.github_token_nixos;
     };
   };
   programs.nix-ld.dev.enable = true;
