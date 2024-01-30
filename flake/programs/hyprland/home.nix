@@ -69,11 +69,12 @@ in
     # 初始化 xwayland 配置
     exec-once=${ initXsession }
     
+    exec-once=swaync
     monitor =,highrr,auto,${scale}
     # 设置鼠标光标
     exec-once=hyprctl setcursor ${os.desktop.cursorTheme} ${cursorSize}
     env = XCURSOR_SIZE, ${cursorSize}
-    env = GDK_SCALE, ${scale}
+    # env = GDK_SCALE, ${scale}
     env = GTK_THEME, ${os.desktop.gtkTheme}
     env = LANG, zh_CN.UTF-8
     env = LC_CTYPE, zh_CN.UTF-8
@@ -84,13 +85,13 @@ in
     env = XMODIFIERS, @im=fcitx
     env = GLFW_IM_MODULE, ibus
     env = QT_QPA_PLATFORMTHEME, gtk3
-    env = QT_SCALE_FACTOR, ${scale}
+    # env = QT_SCALE_FACTOR, ${scale}
     env = MOZ_ENABLE_WAYLAND, 1
     env = SDL_VIDEODRIVER, wayland
     env = _JAVA_AWT_WM_NONREPARENTING, 1
     env = QT_QPA_PLATFORM, wayland
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION, 1
-    env = QT_AUTO_SCREEN_SCALE_FACTOR, ${scale}
+    # env = QT_AUTO_SCREEN_SCALE_FACTOR, ${scale}
     # env = WLR_DRM_DEVICES, /dev/dri/card1:/dev/dri/card0;
     # env = WLR_NO_HARDWARE_CURSORS, 1; # if no cursor,uncomment this line
     # env = WLR_RENDERER_ALLOW_SOFTWARE, 1;

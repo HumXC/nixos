@@ -101,6 +101,10 @@ in
     };
   };
 
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 16 * 1024;
+  }];
 
   security.polkit.enable = true;
   security.doas = {

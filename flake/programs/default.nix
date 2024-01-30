@@ -9,7 +9,6 @@ let
 in
 {
   imports = [
-    (loadModuleWithCfg ./dunst)
     (loadModuleWithCfg ./fcitx5)
     (loadModuleWithCfg ./helix)
     (loadModuleWithCfg ./hyprland)

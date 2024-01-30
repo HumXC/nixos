@@ -25,7 +25,6 @@ in
     # 设置 xwayland 窗口的 dpi
     "Xft.dpi" = builtins.floor (builtins.mul os.desktop.scaleFactor 100);
   };
-
   home.packages = (with pkgs; [
     xdg-utils
     qq
@@ -37,6 +36,7 @@ in
     protobuf
     krita
     mpv
+    swaynotificationcenter
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
@@ -49,6 +49,8 @@ in
       "video/x-matroska" = [ "mpv.desktop" ];
       "text/plain" = [ "code.desktop" ];
       "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+      "application/zip" = [ "org.kde.ark.desktop" ];
+      "application/x-tar" = [ "org.kde.ark.desktop" ];
     };
     defaultApplications = {
       "x-scheme-handler/http" = [ "google-chrome.desktop" ];
@@ -61,6 +63,8 @@ in
       "application/json" = [ "code.desktop" ];
       "text/plain" = [ "code.desktop" ];
       "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+      "application/zip" = [ "org.kde.ark.desktop" ];
+      "application/x-tar" = [ "org.kde.ark.desktop" ];
     };
   };
 

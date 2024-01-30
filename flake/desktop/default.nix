@@ -50,69 +50,64 @@ in
       };
       currentTheme = themeMappings.${config.os.desktop.theme} or themeMappings.Fluent-Dark;
     in
-    lib.mkIf config.os.desktop.enable
-      {
-        # 这三个值是预制的，不应该由外部修改
-        os.desktop.gtkTheme = currentTheme.gtk;
-        os.desktop.iconTheme = currentTheme.icon;
-        os.desktop.cursorTheme = currentTheme.cursor;
-        home-manager.users.${config.os.userName}.imports = [
-          ./home.nix
-          currentTheme.home
-        ];
-        services.gnome.gnome-keyring.enable = true; # vscode 依赖
-
-        os.programs = setEnable [
-          "dunst"
-          "fcitx5"
-          "helix"
-          "hyprland"
-          "kitty"
-          # "lemurs"
-          "mpd"
-          "rofi"
-          "waybar"
-          "zsh"
-        ];
-        # TODO: Hyprland 不会有 graphical-session.target，需要想办法启动他
-        # FIXME: 这个 service 没用
-        systemd.user.services.polkit-gnome-authentication-agent-1 = {
-          description = "polkit-gnome-authentication-agent-1";
-          # wantedBy = [ "graphical-session.target" ];
-          # wants = [ "graphical-session.target" ];
-          # after = [ "graphical-session.target" ];
-          serviceConfig = {
-            Type = "simple";
-            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-            Restart = "on-failure";
-            RestartSec = 1;
-            TimeoutStopSec = 10;
-          };
+    lib.mkIf config.os.desktop.enable {
+      # 这三个值是预制的，不应该由外部修改
+      os.desktop.gtkTheme = currentTheme.gtk;
+      os.desktop.iconTheme = currentTheme.icon;
+      os.desktop.cursorTheme = currentTheme.cursor;
+      home-manager.users.${config.os.userName}.imports = [
+        ./home.nix
+        currentTheme.home
+      ];
+      services.gnome.gnome-keyring.enable = true; # vscode 依赖
+      os.programs = setEnable [
+        "fcitx5"
+        "helix"
+        "hyprland"
+        "kitty"
+        "mpd"
+        "rofi"
+        "waybar"
+        "zsh"
+      ];
+      # TODO: Hyprland 不会有 graphical-session.target，需要想办法启动他
+      # FIXME: 这个 service 没用
+      systemd.user.services.polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        # wantedBy = [ "graphical-session.target" ];
+        # wants = [ "graphical-session.target" ];
+        # after = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
         };
-        programs.light.enable = true; # 用于控制屏幕背光
-        fonts = {
-          fontDir.enable = true;
-          enableDefaultPackages = true;
-          packages = (with pkgs; [
-            noto-fonts
-            noto-fonts-cjk
-            noto-fonts-extra
-            noto-fonts-emoji
-            nerdfonts
-            twemoji-color-font
-            babelstone-han
-          ]) ++ (with config.nur.repos;[
-            humxc.misans
-          ]);
-          fontconfig = {
-            defaultFonts = {
-              serif = [ "MiSans" "FiraCode Nerd Font" ];
-              sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
-              monospace = [ "MiSans" "FiraCode Nerd Font" ];
-              emoji = [ "Noto Color Emoji" "Twitter Color Emoji" ];
-            };
+      };
+      programs.light.enable = true; # 用于控制屏幕背光
+      fonts = {
+        fontDir.enable = true;
+        enableDefaultPackages = true;
+        packages = (with pkgs; [
+          noto-fonts
+          noto-fonts-cjk
+          noto-fonts-extra
+          noto-fonts-emoji
+          nerdfonts
+          twemoji-color-font
+          babelstone-han
+        ]) ++ (with config.nur.repos;[
+          humxc.misans
+        ]);
+        fontconfig = {
+          defaultFonts = {
+            serif = [ "MiSans" "FiraCode Nerd Font" ];
+            sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
+            monospace = [ "MiSans" "FiraCode Nerd Font" ];
+            emoji = [ "Noto Color Emoji" "Twitter Color Emoji" ];
           };
         };
       };
-
+    };
 }
