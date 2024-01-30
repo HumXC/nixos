@@ -5,6 +5,8 @@
     packages = with pkgs; [
       nil # nix 的 lsp
       nixpkgs-fmt # nix 的格式化程序
+      go
+      htop
     ];
   };
   services.vscode-server.enable = true;

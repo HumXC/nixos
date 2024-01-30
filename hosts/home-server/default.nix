@@ -18,10 +18,20 @@ in
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
   };
+  # docker 容器 nextcloud:fpm-alphin 内的 www-data 的 gid 就是 82
+  # 由于 nextcloud 只能操作属于 www-data 的文件，所以添加 www-data 用户组附加到主机的普通用户
+  users.users.www-data = {
+    uid = 82;
+    isSystemUser = true;
+    isNormalUser = false;
+    group = "www-data";
+  };
+  users.groups.www-data = { gid = 82; };
+
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "www-data" ];
   };
   home-manager.users.${userName}.imports = [ ./home.nix ];
   networking = {
@@ -30,7 +40,7 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 8080 ];
+    allowedTCPPorts = [ 22 8080 7890 9090 6800 ];
   };
   environment.etc."docker/daemon.json".text = ''
     {
@@ -49,7 +59,8 @@ in
         "https://quay.azk8s.cn",
         "http://f1361db2.m.daocloud.io",
         "https://registry.docker-cn.com"
-      ]
+      ],
+      "log-opts": {"max-size":"5m"}
     }
   '';
   services.openssh = {
@@ -77,28 +88,27 @@ in
       overalljails = true;
     };
   };
-  services.davfs2.enable = true;
+  services.davfs2.enable = false;
   systemd.mounts = [{
+    enable = false;
     what = "http://127.0.0.1:5244/dav/";
     where = "/mnt/webdav";
-    enable = true;
     description = "Mount WebDAV Service";
-    after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     type = "davfs";
     options = "uid=1000,file_mode=0664,dir_mode=2775,grpid";
     mountConfig = {
-      TimeoutSec = 30;
+      TimeoutSec = 10;
     };
   }];
 
   systemd.automounts = [{
-    enable = true;
+    enable = false;
     description = "Automount WebDAV Service";
     where = "/mnt/webdav/";
     wantedBy = [ "remote-fs.target" ];
     automountConfig = {
-      TimeoutIdleSec = 60;
+      TimeoutIdleSec = 30;
     };
   }];
   environment.sessionVariables = {
@@ -125,7 +135,10 @@ in
     ];
     consoleLogLevel = 0;
   };
-
+  swapDevices = [ {
+      device = "/var/lib/swapfile";
+      size = 8*1024;
+  } ];
   console.useXkbConfig = true;
 
   security.doas = {
