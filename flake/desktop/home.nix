@@ -85,7 +85,7 @@ in
     categories = [ "Game" ];
   };
 
-  programs.google-chrome = {
+  programs.brave = {
     enable = true;
     commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
   };

@@ -123,7 +123,7 @@ in
         esac
       }
 
-      list_applications() {
+      list-applications() {
         OLD_IFS=$IFS
         IFS=':' read -rA dirs <<< "$XDG_DATA_DIRS"
         IFS=$OLD_IFS
@@ -143,11 +143,16 @@ in
         done
       }
 
-      mime_type() {
+      mime-type() {
         xdg-mime query filetype $@
       }
-      mime_default() {
+      mime-default() {
         xdg-mime query default $(mime_type $@)
+      }
+
+      no-proxy(){
+        export http_proxy=
+        export https_proxy=
       }
     '';
     shellAliases = {

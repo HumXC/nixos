@@ -27,6 +27,13 @@
           type = lib.types.str;
           description = "The profile name.";
         };
+        options.os.config = lib.mkOption {
+          default = config;
+          description = ''
+            NixOS configuration. On NixOS machines, it should be the config itself.
+            On non-NixOS machines, all the required keys must be set manually.
+          '';
+        };
         imports = [
           (customImport ./common.nix)
           (customImport ./desktop)

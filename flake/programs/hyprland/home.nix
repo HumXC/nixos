@@ -4,6 +4,7 @@ let
   scale = toString os.desktop.scaleFactor;
   cursorSize = toString os.desktop.cursorSize;
   initXsession = builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra;
+  env = builtins.concatStringsSep "\n" (lib.attrValues (builtins.mapAttrs (k: v: "\$${k} = ${v}") os.programs.hyprland.env));
 in
 {
   home.packages = with pkgs;
@@ -60,8 +61,9 @@ in
       '';
     executable = true;
   };
-
+  xdg.configFile."hypr/env.conf".text = ''${env}'';
   xdg.configFile."hypr/hyprland.conf".text = ''
+    source = ./env.conf
     # 脚本目录
     $scripts = $HOME/.config/hypr/scripts
     $bin = $HOME/.config/hypr/scripts/bin

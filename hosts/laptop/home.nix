@@ -37,5 +37,17 @@
       init.defaultBranch = "main";
     };
   };
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
+  };
+  home.sessionVariables = {
+    DIRENV_LOG_FORMAT = "";
+  };
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
   # systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
 }

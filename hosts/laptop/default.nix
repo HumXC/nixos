@@ -18,12 +18,16 @@ in
   };
   os.programs.waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
   os.programs.mpd.musicDirectory = "/disk/files/HumXC/Music";
+  os.programs.hyprland.env = {
+    BROWSER = "brave-browser";
+  };
   os.hardware.bluetooth = {
     enable = true;
     autoStart = true;
   };
   environment.sessionVariables = {
     OS_EDITOR = "code";
+    EDITOR = "code";
   };
   programs.adb.enable = true;
   services.udev.packages = [
