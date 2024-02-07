@@ -1,7 +1,4 @@
 { config, nixpkgs, pkgs, lib, inputs, profileName, ... }:
-let
-  clash-premium = pkgs.callPackage ./../binary/clash-premium.nix { };
-in
 {
   imports = [
     ./${profileName}/hardware-configuration.nix
@@ -35,22 +32,21 @@ in
     btop
     autojump
     helix
-  ] ++ [
-    clash-premium
+    clash-meta
   ];
 
-  systemd.services.clash-premium = {
+  systemd.services.clash-meta = {
     enable = true;
     description = "Clash daemon, A rule-based proxy in Go.";
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${clash-premium}/bin/clash-premium -d /etc/clash";
+      ExecStart = "${pkgs.clash-meta}/bin/clash-meta -d /etc/clash";
     };
     wantedBy = [ "multi-user.target" ];
   };
-
+  environment.variables.NIX_AUTO_RUN = "1";
   nix = {
     settings = {
       auto-optimise-store = true; # Optimise syslinks
@@ -61,7 +57,7 @@ in
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 2d";
+      options = "--delete-older-than 7d";
     };
     package = pkgs.nixVersions.unstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
