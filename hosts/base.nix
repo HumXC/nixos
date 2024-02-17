@@ -52,7 +52,7 @@
     package = pkgs.nixVersions.unstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes auto-allocate-uids configurable-impure-env
       keep-outputs          = true
       keep-derivations      = true
     '';
