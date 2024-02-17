@@ -150,10 +150,20 @@ in
         xdg-mime query default $(mime_type $@)
       }
 
-      no-proxy(){
+      no-proxy() {
+        export all_proxy=
         export http_proxy=
         export https_proxy=
       }
+
+      ${lib.optionalString os.config.virtualisation.waydroid.enable "
+      waydroid-settings() {
+        waydroid prop set persist.waydroid.multi_windows false;
+        waydroid prop set persist.waydroid.cursor_on_subsurface false;
+        waydroid prop set persist.waydroid.height 0;
+        waydroid prop set persist.waydroid.width 0;
+      }
+      "}
     '';
     shellAliases = {
       ll = "ls -l";

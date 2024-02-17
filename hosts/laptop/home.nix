@@ -45,6 +45,7 @@
   home.sessionVariables = {
     DIRENV_LOG_FORMAT = "";
   };
+  services.kdeconnect.enable = true;
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
