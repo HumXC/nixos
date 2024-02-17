@@ -25,6 +25,7 @@ in
   os.programs.hyprland.env = {
     BROWSER = "brave-browser";
   };
+  nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   os.hardware.bluetooth = {
     enable = true;
     autoStart = true;
