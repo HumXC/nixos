@@ -13,6 +13,10 @@ in
   os.programs.helix.enable = true;
   os.programs.zsh.enable = true;
   os.programs.zsh.p10kType = "2";
+  os.programs.clash = {
+    enable = true;
+    configUrlFile = config.sops.secrets.clash_url.path;
+  };
   hardware.cpu.intel.updateMicrocode = true;
   users.mutableUsers = false;
   users.users.root = {
@@ -34,10 +38,6 @@ in
     extraGroups = [ "wheel" "docker" "www-data" ];
   };
   home-manager.users.${userName}.imports = [ ./home.nix ];
-  networking = {
-    proxy.default = "http://127.0.0.1:7890/";
-    proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  };
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 8080 7890 9090 6800 ];

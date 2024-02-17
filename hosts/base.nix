@@ -32,23 +32,13 @@
     btop
     autojump
     helix
-    clash-meta
+    diskonaut
   ];
-
-  systemd.services.clash-meta = {
-    enable = true;
-    description = "Clash daemon, A rule-based proxy in Go.";
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.clash-meta}/bin/clash-meta -d /etc/clash";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {
+    channel.enable = false;
     settings = {
+      nix-path = lib.mkForce "nixpkgs=flake:nixpkgs";
       auto-optimise-store = true; # Optimise syslinks
       # https://wiki.hyprland.org/Nix/Cachix/
       substituters = [ "https://hyprland.cachix.org" ];

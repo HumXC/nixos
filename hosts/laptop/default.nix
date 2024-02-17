@@ -16,6 +16,10 @@ in
     cursorSize = 28;
     theme = "Fluent-dark";
   };
+  os.programs.clash = {
+    enable = true;
+    configUrlFile = config.sops.secrets.clash_url.path;
+  };
   os.programs.waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
   os.programs.mpd.musicDirectory = "/disk/files/HumXC/Music";
   os.programs.hyprland.env = {
@@ -29,6 +33,7 @@ in
     OS_EDITOR = "code";
     EDITOR = "code";
   };
+  virtualisation.waydroid.enable = true;
   programs.adb.enable = true;
   services.udev.packages = [
     pkgs.android-udev-rules
@@ -40,15 +45,15 @@ in
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
   };
-  networking = {
-    networkmanager.enable = true;
-    # 代理配置
-    proxy.default = "http://127.0.0.1:7890/";
-    proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  };
+  networking.networkmanager.enable = true;
+
   networking.firewall = {
     enable = true;
     allowedUDPPorts = [ 5353 ];
+    # KDE Connect
+    allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
+    allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
+    trustedInterfaces = [ "waydroid0" ];
   };
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";

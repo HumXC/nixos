@@ -18,5 +18,6 @@ in
     (loadModuleWithCfg ./rofi)
     (loadModuleWithCfg ./waybar)
     (loadModuleWithCfg ./zsh)
+    (loadModuleWithCfg ./clash)
   ];
 }
