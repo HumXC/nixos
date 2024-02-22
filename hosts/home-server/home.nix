@@ -10,6 +10,7 @@
       nil # nix 的 lsp
       nixpkgs-fmt # nix 的格式化程序
       go
+      gh
     ];
   };
   services.vscode-server.enable = true;

@@ -40,7 +40,13 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 8080 7890 9090 6800 ];
+    allowedTCPPorts = [ 
+      22 
+      8080 # nginx
+      7890 9090 # clash
+      6800 # aria2
+      15136 # ntfy
+    ];
   };
   environment.etc."docker/daemon.json".text = ''
     {
