@@ -57,6 +57,11 @@ in
     };
     package = pkgs.nixVersions.unstable;
     registry.nixpkgs.flake = inputs.nixpkgs;
+    extraOptions = (
+      lib.optionalString
+        (builtins.hasAttr "nix_access_tokens" config.sops.secrets)
+        "!include ${config.sops.secrets.nix_access_tokens.path}"
+    );
   };
   boot.swraid.enable = false;
   system.stateVersion = "23.11";

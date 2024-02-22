@@ -11,14 +11,17 @@
       nixpkgs-fmt # nix 的格式化程序
       go
     ];
-    file.".gitconfig".text = ''
-      [safe]
-      	directory = /etc/nixos
-      [credential "https://github.com"]
-      	helper = !${pkgs.gh}/bin/gh auth git-credential
-      [credential "https://gist.github.com"]
-      	helper = !${pkgs.gh}/bin/gh auth git-credential      
-    '';
+    file.".gitconfig" = {
+      force = true;
+      text = ''
+        [safe]
+        	directory = /etc/nixos
+        [credential "https://github.com"]
+        	helper = !${pkgs.gh}/bin/gh auth git-credential
+        [credential "https://gist.github.com"]
+        	helper = !${pkgs.gh}/bin/gh auth git-credential      
+      '';
+    };
   };
   services.vscode-server.enable = true;
   programs.home-manager.enable = true;
