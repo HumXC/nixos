@@ -9,9 +9,6 @@ let
     , extraSpecialArgs ? { }
     }: {
       ${name} =
-        let
-          profile = ././${name};
-        in
         nixpkgs.lib.nixosSystem {
           system = system;
           specialArgs = {
@@ -25,7 +22,6 @@ let
           modules = extraModules ++ [
             ./base.nix
             ./secrets.nix
-            profile
             inputs.nur.nixosModules.nur
             inputs.home-manager.nixosModules.home-manager
             inputs.nix-ld.nixosModules.nix-ld
@@ -44,6 +40,10 @@ in
     })
     (mkHost {
       name = "home-server";
+      system = "x86_64-linux";
+    })
+    (mkHost {
+      name = "minimal";
       system = "x86_64-linux";
     })
   ];

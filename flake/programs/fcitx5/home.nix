@@ -4,7 +4,7 @@ let
   version = "1.1.4";
   clover-schema = pkgs.fetchzip {
     url = "https://github.com/fkxxyz/rime-cloverpinyin/releases/download/${version}/clover.schema-build-${version}.zip";
-    sha256 = "sha256-34nPX5RQujAHNJmY0GOV0PjgrYOmC0aTO12XGtTrQKQ=";
+    sha256 = "sha256-TMiWdSsK1G1sfJgMDJn7iXIjEuIdVwAKKCXQeWHAeQ8=";
     stripRoot = false;
   };
   clover-schema-patch = lib.cleanSourceWith {
@@ -31,6 +31,7 @@ in
     "${dataDir}" = {
       recursive = true;
       source = clover-schema-patch;
+      force = true;
     };
     "${dataDir}/clover.key_bindings.yaml".source = ./clover.key_bindings.yaml;
     "${dataDir}/default.custom.yaml".source = ./default.custom.yaml;

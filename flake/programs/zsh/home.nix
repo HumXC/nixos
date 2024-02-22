@@ -10,6 +10,7 @@ in
   };
   home.packages = with pkgs; [
     fzf
+    autojump
   ];
   programs.zsh = {
     enable = true;
@@ -52,19 +53,13 @@ in
     
       # 重新构建系统
       function os-build() {
-        pwd=$(pwd)
-        cd /etc/nixos
-        doas nixos-rebuild switch --flake .#${profileName}
-        cd "$pwd"
+        doas nixos-rebuild switch --flake /etc/nixos#${profileName}
       }
 
       # 尝试评估构建系统
-      function os-try-build() {
+      function os-dry-build() {
         local flake_identifier=''${1:-${profileName}}  
-        local pwd=$(pwd)
-        cd /etc/nixos
-        doas nixos-rebuild dry-build --flake .#$flake_identifier
-        cd "$pwd"
+        doas nixos-rebuild dry-build --flake /etc/nixos#$flake_identifier
       }
 
       # 尝试单独构建某个包
@@ -156,14 +151,29 @@ in
         export https_proxy=
       }
 
-      ${lib.optionalString os.config.virtualisation.waydroid.enable "
+      ${lib.optionalString os.config.virtualisation.waydroid.enable ''
       waydroid-settings() {
         waydroid prop set persist.waydroid.multi_windows false;
         waydroid prop set persist.waydroid.cursor_on_subsurface false;
         waydroid prop set persist.waydroid.height 0;
         waydroid prop set persist.waydroid.width 0;
       }
-      "}
+      waydroid-hide-desktops() {
+        local dir="$HOME/.local/share/applications"
+
+        if [ ! -d "$dir" ]; then
+          echo "Directory $dir not found."
+          return 1
+        fi
+
+        # 遍历指定目录下的以waydroid.开头的文件, 排除 waydroid.desktop
+        for file in "$dir"/waydroid.*; do
+          if [ -f "$file" ] && [ "$file" != "waydroid.desktop" ]; then
+            grep -q 'NoDisplay=true' "$file" || sed -i '/^\[Desktop Entry\]$/a NoDisplay=true' "$file"
+          fi
+        done
+      }
+      ''}
     '';
     shellAliases = {
       ll = "ls -l";

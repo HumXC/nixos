@@ -1,4 +1,4 @@
-{ config, pkgs, profileName, ... }:
+{ config, pkgs, ... }:
 
 let
   hostName = "LiKen";
@@ -9,7 +9,6 @@ in
 {
   os.userName = userName;
   os.hostName = hostName;
-  os.profileName = profileName;
   os.desktop = {
     enable = true;
     scaleFactor = 1.25;
@@ -41,7 +40,6 @@ in
   ];
   # OneDrive https://nixos.wiki/wiki/OneDrive
   services.onedrive.enable = true;
-  home-manager.users.${userName}.imports = [ ./home.nix ];
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
@@ -51,9 +49,6 @@ in
   networking.firewall = {
     enable = true;
     allowedUDPPorts = [ 5353 ];
-    # KDE Connect
-    allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
-    allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
     trustedInterfaces = [ "waydroid0" ];
   };
   users.users.${userName} = {

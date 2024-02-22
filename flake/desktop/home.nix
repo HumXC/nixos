@@ -68,15 +68,6 @@ in
     };
   };
 
-  programs.zsh = {
-    initExtraBeforeCompInit = ''
-      export PATH=$HOME/.npm-packages/bin:$PATH
-      export NODE_PATH=~/.npm-packages/lib/node_modules
-      export PNPM_HOME=~/.npm-packages/pnpm
-      export PATH=$PNPM_HOME:$PATH
-    '';
-  };
-
   xdg.desktopEntries."mc" = {
     name = "Minecraft";
     icon = "minecraft";

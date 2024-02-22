@@ -3,10 +3,13 @@
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
+      htop
+      btop
+      diskonaut
+      trashy
       nil # nix 的 lsp
       nixpkgs-fmt # nix 的格式化程序
       go
-      htop
     ];
   };
   services.vscode-server.enable = true;

@@ -38,7 +38,6 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "www-data" ];
   };
-  home-manager.users.${userName}.imports = [ ./home.nix ];
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 8080 7890 9090 6800 ];

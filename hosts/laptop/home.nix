@@ -3,6 +3,10 @@
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
+      btop
+      diskonaut
+      trashy
+
       nil # nix 的 lsp
       nixpkgs-fmt # nix 的格式化程序
       gcc
@@ -15,6 +19,7 @@
         exec ${python3}/bin/python "$@"
       '')
       obs-studio
+      foliate
 
       go
       wails
@@ -27,6 +32,13 @@
       lldb
     ];
   };
+
+  programs.zsh.initExtraBeforeCompInit = ''
+    export PATH=$HOME/.npm-packages/bin:$PATH
+    export NODE_PATH=~/.npm-packages/lib/node_modules
+    export PNPM_HOME=~/.npm-packages/pnpm
+    export PATH=$PNPM_HOME:$PATH
+  '';
 
   programs.home-manager.enable = true;
   programs.git = {
@@ -45,7 +57,6 @@
   home.sessionVariables = {
     DIRENV_LOG_FORMAT = "";
   };
-  services.kdeconnect.enable = true;
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
