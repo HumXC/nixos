@@ -2,7 +2,7 @@
 
 let
   hostName = "Kana";
-  userName = "humxc";
+  userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
 in
@@ -40,10 +40,11 @@ in
   };
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 
-      22 
+    allowedTCPPorts = [
+      22
       8080 # nginx
-      7890 9090 # clash
+      7890
+      9090 # clash
       6800 # aria2
       15136 # ntfy
     ];

@@ -2,9 +2,29 @@
 
 let
   hostName = "LiKen";
-  userName = "humxc";
+  userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
+  distro-grub-theme =
+    let
+      rev = "v3.2";
+    in
+    pkgs.stdenv.mkDerivation {
+      pname = "distro-grub-theme";
+      version = rev;
+      src = builtins.fetchurl {
+        url = "https://github.com/AdisonCavani/distro-grub-themes/releases/download/${rev}/nixos.tar";
+        sha256 = "sha256-oW5DxujStieO0JsFI0BBl+4Xk9xe+8eNclkq6IGlIBY=";
+      };
+      installPhase = "
+        runHook preInsta
+
+        mkdir -p $out/
+        tar -xf $src --directory $out
+
+        runHook postInstall
+      ";
+    };
 in
 {
   os.userName = userName;
@@ -56,21 +76,26 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" ];
   };
+  services.xserver = {
+    enable = true;
+    displayManager.gdm = {
+      enable = true;
+      banner = "欢迎";
+    };
+  };
   boot = {
     supportedFilesystems = [ "ntfs" ];
     initrd.kernelModules = [ "amdgpu" ];
     initrd.verbose = false;
-
+    plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     # bootspec.enable = true;
     loader = {
-      # systemd-boot = (lib.mkIf config.boot.lanzaboote.enable) {
-      #   enable = lib.mkForce false; #lanzaboote
-      #   consoleMode = "auto";
-      # };
-      grub.device = "nodev";
-      grub.efiSupport = true;
-      systemd-boot.enable = true;
+      grub = {
+        device = "nodev";
+        efiSupport = true;
+        theme = distro-grub-theme;
+      };
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
@@ -95,7 +120,6 @@ in
       enable = true;
       packages = [ pkgs.gcr ];
     };
-    getty.autologinUser = "${userName}"; # 自动登录
     gvfs.enable = true; # gnome.nautilus 包的回收站功能需要 See: https://github.com/NixOS/nixpkgs/issues/140860#issuecomment-942769882
     pipewire = {
       enable = true;

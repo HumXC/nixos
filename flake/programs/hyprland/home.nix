@@ -24,13 +24,6 @@ in
       swappy
     ];
 
-  # 自启动 hyprland
-  programs.zsh.initExtra = ''
-    if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-       exec  Hyprland
-    fi
-  '';
-
   xdg.configFile."hypr" = {
     source = ./hypr;
     recursive = true; # 递归整个文件夹
