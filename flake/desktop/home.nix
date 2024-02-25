@@ -60,7 +60,7 @@ in
   xdg.desktopEntries."org.fcitx.fcitx5-migrator" = hideDesktopEntry;
   xdg.desktopEntries."kbd-layout-viewer5" = hideDesktopEntry;
   xdg.desktopEntries."nixos-manual" = hideDesktopEntry;
-  xdg.desktopEntries."org.kde.ark" = hideDesktopEntry;
+  # xdg.desktopEntries."org.kde.ark" = hideDesktopEntry;
   xdg.desktopEntries."fcitx5-configtool" = hideDesktopEntry;
   xdg.desktopEntries."kcm_fcitx5" = hideDesktopEntry;
   xdg.desktopEntries."rofi" = hideDesktopEntry;

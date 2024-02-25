@@ -81,6 +81,11 @@ in
         };
       };
     };
+    execOnce = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Execute commands once after the WM is initialized.";
+    };
   };
 
   config =
@@ -99,6 +104,12 @@ in
         ./home.nix
         currentTheme.home
       ];
+      os.desktop.execOnce = [
+        # "${builtins.replaceStrings [ "\n" ] [ ";" ] home-manager.users.${config.os.userName}.xsession.initExtra}"
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "${pkgs.swaynotificationcenter}/bin/swaync"
+        "${pkgs.waybar}/bin/waybar"
+      ];
       services.gnome.gnome-keyring.enable = true; # vscode 依赖
       os.programs = setEnable [
         "fcitx5"
@@ -111,21 +122,7 @@ in
         "zsh"
         "sddm"
       ];
-      # TODO: Hyprland 不会有 graphical-session.target，需要想办法启动他
-      # FIXME: 这个 service 没用
-      systemd.user.services.polkit-gnome-authentication-agent-1 = {
-        description = "polkit-gnome-authentication-agent-1";
-        # wantedBy = [ "graphical-session.target" ];
-        # wants = [ "graphical-session.target" ];
-        # after = [ "graphical-session.target" ];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
+      security.polkit.enable = true;
       programs.light.enable = true; # 用于控制屏幕背光
       fonts = {
         fontDir.enable = true;

@@ -4,7 +4,7 @@ let
   currentTheme = os.desktop.currentTheme;
   scale = toString os.desktop.theme.scaleFactor;
   cursorSize = toString os.desktop.theme.cursorSize;
-  initXsession = builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra;
+  execOnce = pkgs.lib.concatStrings (builtins.map (x: "exec-once = " + x + "\n") os.desktop.execOnce);
   env = builtins.concatStringsSep "\n" (lib.attrValues (builtins.mapAttrs (k: v: "\$${k} = ${v}") os.programs.hyprland.env));
 in
 {
@@ -61,11 +61,8 @@ in
     # 脚本目录
     $scripts = $HOME/.config/hypr/scripts
     $bin = $HOME/.config/hypr/scripts/bin
-
-    # 初始化 xwayland 配置
-    exec-once=${ initXsession }
-    
-    exec-once=swaync
+    exec-once=${(builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra)}
+    ${execOnce}
     monitor =,highrr,auto,${scale}
     # 设置鼠标光标
     exec-once=hyprctl setcursor ${currentTheme.cursorTheme} ${cursorSize}

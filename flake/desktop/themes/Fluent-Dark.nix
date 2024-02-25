@@ -11,7 +11,7 @@ in
 rec{
   gtkTheme = "Fluent-Dark";
   gtkThemePackage = pkgs.fluent-gtk-theme;
-  iconTheme = "Fluent-Dark";
+  iconTheme = "Fluent-dark";
   iconThemePackage = pkgs.fluent-icon-theme;
   cursorTheme = "Fluent-cursors-dark";
   cursorThemePackage = config.nur.repos.humxc.fluent-cursors-theme;
@@ -48,8 +48,8 @@ rec{
       font.name = "MiSans";
       theme = {
         # 同步修改 hyprland 配置中的环境变量 GTK_THEME = "Fluent-Dark";
-        name = builtins.trace "使用的 gtk theme: ${gtkTheme}" gtkTheme;
-        package = builtins.trace "使用的 gtk theme: ${gtkThemePackage}" gtkThemePackage;
+        name = gtkTheme;
+        package = gtkThemePackage;
       };
       iconTheme = {
         name = iconTheme;

@@ -9,10 +9,12 @@ in
     "password/${user}" = { sopsFile = sopsFile; neededForUsers = true; };
     "password/root" = { sopsFile = sopsFile; neededForUsers = true; };
     id_rsa = {
+      mode = "0400";
       owner = "${user}";
       path = "${homeDirectory}/.ssh/id_rsa";
     };
     id_rsa_pub = {
+      mode = "0400";
       owner = "${user}";
       path = "${homeDirectory}/.ssh/id_rsa.pub";
     };
