@@ -1,8 +1,9 @@
 { config, lib, pkgs, os, ... }:
 let
   userName = os.userName;
-  scale = toString os.desktop.scaleFactor;
-  cursorSize = toString os.desktop.cursorSize;
+  currentTheme = os.desktop.currentTheme;
+  scale = toString os.desktop.theme.scaleFactor;
+  cursorSize = toString os.desktop.theme.cursorSize;
   initXsession = builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra;
   env = builtins.concatStringsSep "\n" (lib.attrValues (builtins.mapAttrs (k: v: "\$${k} = ${v}") os.programs.hyprland.env));
 in
@@ -67,10 +68,10 @@ in
     exec-once=swaync
     monitor =,highrr,auto,${scale}
     # 设置鼠标光标
-    exec-once=hyprctl setcursor ${os.desktop.cursorTheme} ${cursorSize}
+    exec-once=hyprctl setcursor ${currentTheme.cursorTheme} ${cursorSize}
     env = XCURSOR_SIZE, ${cursorSize}
     # env = GDK_SCALE, ${scale}
-    env = GTK_THEME, ${os.desktop.gtkTheme}
+    env = GTK_THEME, ${currentTheme.gtkTheme}
     env = LANG, zh_CN.UTF-8
     env = LC_CTYPE, zh_CN.UTF-8
     env = EDITOR, hx
@@ -86,17 +87,7 @@ in
     env = _JAVA_AWT_WM_NONREPARENTING, 1
     env = QT_QPA_PLATFORM, wayland
     env = QT_WAYLAND_DISABLE_WINDOWDECORATION, 1
-    # env = QT_AUTO_SCREEN_SCALE_FACTOR, ${scale}
-    # env = WLR_DRM_DEVICES, /dev/dri/card1:/dev/dri/card0;
-    # env = WLR_NO_HARDWARE_CURSORS, 1; # if no cursor,uncomment this line
-    # env = WLR_RENDERER_ALLOW_SOFTWARE, 1;
-    # env = GBM_BACKEND, nvidia-drm;
     env = CLUTTER_BACKEND, wayland
-    # env = __GLX_VENDOR_LIBRARY_NAME, nvidia;
-    # env = LIBVA_DRIVER_NAME, nvidia;
-    # env = WLR_RENDERER, vulkan;
-    # env = __NV_PRIME_RENDER_OFFLOAD, 1;
-
     env = XDG_CURRENT_DESKTOP, Hyprland
     env = XDG_SESSION_DESKTOP, Hyprland
     env = XDG_SESSION_TYPE, wayland

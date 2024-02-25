@@ -31,9 +31,11 @@ in
   os.hostName = hostName;
   os.desktop = {
     enable = true;
-    scaleFactor = 1.25;
-    cursorSize = 28;
-    theme = "Fluent-dark";
+    theme = {
+      scaleFactor = 1.25;
+      cursorSize = 28;
+      name = "Fluent-Dark";
+    };
   };
   os.programs.clash = {
     enable = true;
@@ -48,6 +50,30 @@ in
   os.hardware.bluetooth = {
     enable = true;
     autoStart = true;
+  };
+  os.programs.sddm.theme = {
+    package = pkgs.sddm-chili-theme;
+    config = ''
+      [General]
+      background=/var/lib/AccountsService/background.png
+
+      ScreenWidth=1920
+      ScreenHeight=1080
+
+      blur=true
+      recursiveBlurLoops=10
+      recursiveBlurRadius=15
+
+      PasswordFieldOutlined=false
+
+      PowerIconSize=
+      FontPointSize=18
+      AvatarPixelSize=220
+
+      translationReboot=
+      translationSuspend=
+      translationPowerOff=
+    '';
   };
   environment.sessionVariables = {
     OS_EDITOR = "code";
@@ -78,10 +104,25 @@ in
   };
   services.xserver = {
     enable = true;
-    displayManager.gdm = {
-      enable = true;
-      banner = "欢迎";
-    };
+    # See: https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/xserver.nix#L718
+    excludePackages = with pkgs; [
+      xorg.xorgserver.out
+      xorg.xrandr
+      xorg.xrdb
+      xorg.setxkbmap
+      xorg.iceauth
+      xorg.xlsclients
+      xorg.xset
+      xorg.xsetroot
+      xorg.xinput
+      xorg.xprop
+      xorg.xauth
+      xterm
+      xdg-utils
+      xorg.xf86inputevdev.out
+      nixos-icons
+    ];
+
   };
   boot = {
     supportedFilesystems = [ "ntfs" ];
@@ -89,7 +130,6 @@ in
     initrd.verbose = false;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    # bootspec.enable = true;
     loader = {
       grub = {
         device = "nodev";
@@ -100,16 +140,13 @@ in
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = 3;
+      timeout = 1;
     };
     # lanzaboote = {
     #   enable = true;
     #   pkiBundle = "/etc/secureboot";
     # };
-    kernelParams = [
-      "quiet"
-      "splash"
-    ];
+    kernelParams = [ "quiet" "splash" ];
     consoleLogLevel = 0;
   };
 

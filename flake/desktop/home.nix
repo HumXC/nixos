@@ -1,29 +1,12 @@
 { config, lib, pkgs, os, ... }:
 with pkgs; let
-  # From: https://www.reddit.com/r/NixOS/comments/scf0ui/comment/j3dfk27/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-  patchDesktop = pkg: appName: from: to:
-    with pkgs; let
-      zipped = lib.zipLists from to;
-      # Multiple operations to be performed by sed are specified with -e
-      sed-args = builtins.map
-        ({ fst, snd }: "-e 's#${fst}#${snd}#g'")
-        zipped;
-      concat-args = builtins.concatStringsSep " " sed-args;
-    in
-    lib.hiPrio
-      (pkgs.runCommand "$patched-desktop-entry-for-${appName}" { } ''
-        ${coreutils}/bin/mkdir -p $out/share/applications
-        ${gnused}/bin/sed ${concat-args} \
-         ${pkg}/share/applications/${appName}.desktop \
-         > $out/share/applications/${appName}.desktop
-      '');
-
+  hideDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
   userName = os.userName;
 in
 {
   xresources.properties = {
     # 设置 xwayland 窗口的 dpi
-    "Xft.dpi" = builtins.floor (builtins.mul os.desktop.scaleFactor 100);
+    "Xft.dpi" = builtins.floor (builtins.mul os.desktop.theme.scaleFactor 100);
   };
   home.packages = (with pkgs; [
     xdg-utils
@@ -68,35 +51,18 @@ in
     };
   };
 
-  xdg.desktopEntries."mc" = {
-    name = "Minecraft";
-    icon = "minecraft";
-    exec = "/home/${userName}/.mc.sh";
-    comment = "Minecraft";
-    categories = [ "Game" ];
-  };
-
   programs.brave = {
     enable = true;
     commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
   };
-
   # 隐藏图标，我不会写函数
-  xdg.desktopEntries."org.fcitx.Fcitx5" = {
-    name = "";
-    noDisplay = true;
-  };
-  xdg.desktopEntries."org.fcitx.fcitx5-migrator" = {
-    name = "";
-    noDisplay = true;
-  };
-  xdg.desktopEntries."kbd-layout-viewer5" = {
-    name = "";
-    noDisplay = true;
-  };
-  xdg.desktopEntries."nixos-manual" = {
-    name = "";
-    noDisplay = true;
-  };
-
+  xdg.desktopEntries."org.fcitx.Fcitx5" = hideDesktopEntry;
+  xdg.desktopEntries."org.fcitx.fcitx5-migrator" = hideDesktopEntry;
+  xdg.desktopEntries."kbd-layout-viewer5" = hideDesktopEntry;
+  xdg.desktopEntries."nixos-manual" = hideDesktopEntry;
+  xdg.desktopEntries."org.kde.ark" = hideDesktopEntry;
+  xdg.desktopEntries."fcitx5-configtool" = hideDesktopEntry;
+  xdg.desktopEntries."kcm_fcitx5" = hideDesktopEntry;
+  xdg.desktopEntries."rofi" = hideDesktopEntry;
+  xdg.desktopEntries."rofi-theme-selector" = hideDesktopEntry;
 }

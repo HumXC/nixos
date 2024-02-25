@@ -1,4 +1,4 @@
-{ lib, config, importHm, pkgs, ... }:
+{ lib, config, importHm, pkgs, ... }@all:
 let
   setEnable = arr: builtins.listToAttrs (map (name: { inherit name; value = { enable = true; }; }) arr);
 in
@@ -9,52 +9,92 @@ in
       default = false;
       description = "Enable desktop.";
     };
-    scaleFactor = lib.mkOption {
-      type = lib.types.float;
-      default = 1;
-      description = "Scale factor.";
-    };
     theme = lib.mkOption {
-      type = lib.types.str;
-      default = "Fluent-Dark";
-      description = "select defined theme.";
+      description = "Theme configuration";
+      default = {
+        name = "Fluent-Dark";
+        cursorSize = 24;
+        scaleFactor = 1.0;
+      };
+      type = lib.types.submodule {
+        options = {
+          name = lib.mkOption {
+            type = lib.types.str;
+            default = "Fluent-Dark";
+            description = "Select defined theme.";
+          };
+          cursorSize = lib.mkOption {
+            type = lib.types.int;
+            default = 24;
+            description = "Cursor size.";
+          };
+          scaleFactor = lib.mkOption {
+            type = lib.types.float;
+            default = 1.0;
+            description = "Scale factor.";
+          };
+        };
+      };
     };
-    cursorSize = lib.mkOption {
-      type = lib.types.int;
-      default = 28;
-      description = "Cursor size.";
-    };
-    cursorTheme = lib.mkOption {
-      type = lib.types.str;
-      description = "Cursor Theme.";
-    };
-    gtkTheme = lib.mkOption {
-      type = lib.types.str;
-      description = "GTK Theme.";
-    };
-    iconTheme = lib.mkOption {
-      type = lib.types.str;
-      description = "Icon Theme.";
+    currentTheme = lib.mkOption {
+      default = {
+        gtkTheme = "";
+        gtkThemePackage = null;
+        iconTheme = "";
+        iconThemePackage = null;
+        cursorTheme = "";
+        cursorThemePackage = null;
+      };
+      description = "Current theme configuration, read only, don't modify this option.";
+      type = lib.types.submodule {
+        options = {
+          gtkTheme = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Current gtk theme.";
+          };
+          gtkThemePackage = lib.mkOption {
+            type = lib.types.nullOr lib.types.package;
+            default = pkgs.fluent-icon-theme;
+            description = "Current gtk theme package.";
+          };
+          iconTheme = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Current icon theme.";
+          };
+          iconThemePackage = lib.mkOption {
+            type = lib.types.nullOr lib.types.package;
+            default = pkgs.fluent-icon-theme;
+            description = "Current icon theme package.";
+          };
+          cursorTheme = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Current cursor theme.";
+          };
+          cursorThemePackage = lib.mkOption {
+            type = lib.types.nullOr lib.types.package;
+            default = config.nur.repos.humxc.fluent-cursors-theme;
+            description = "Current cursor theme package.";
+          };
+        };
+      };
     };
   };
 
   config =
     let
-      themeMappings = {
-        Fluent-Dark = {
-          home = ./theme/Fluent-dark.nix;
-          gtk = "Fluent-Dark";
-          icon = "Fluent-Dark";
-          cursor = "Fluent-cursors-dark";
-        };
-      };
-      currentTheme = themeMappings.${config.os.desktop.theme} or themeMappings.Fluent-Dark;
+      themes = import ./themes { inherit config lib pkgs; } // all;
+      currentTheme = themes."${config.os.desktop.theme.name}";
     in
     lib.mkIf config.os.desktop.enable {
-      # 这三个值是预制的，不应该由外部修改
-      os.desktop.gtkTheme = currentTheme.gtk;
-      os.desktop.iconTheme = currentTheme.icon;
-      os.desktop.cursorTheme = currentTheme.cursor;
+      os.desktop.currentTheme = with currentTheme;{
+        inherit
+          gtkTheme gtkThemePackage
+          iconTheme iconThemePackage
+          cursorTheme cursorThemePackage;
+      };
       home-manager.users.${config.os.userName}.imports = [
         ./home.nix
         currentTheme.home
@@ -69,6 +109,7 @@ in
         "rofi"
         "waybar"
         "zsh"
+        "sddm"
       ];
       # TODO: Hyprland 不会有 graphical-session.target，需要想办法启动他
       # FIXME: 这个 service 没用
@@ -90,11 +131,7 @@ in
         fontDir.enable = true;
         enableDefaultPackages = true;
         packages = (with pkgs; [
-          noto-fonts
-          noto-fonts-cjk
-          noto-fonts-extra
-          noto-fonts-emoji
-          nerdfonts
+          (nerdfonts.override { fonts = [ "FiraCode" ]; })
           twemoji-color-font
           babelstone-han
         ]) ++ (with config.nur.repos;[
@@ -105,7 +142,7 @@ in
             serif = [ "MiSans" "FiraCode Nerd Font" ];
             sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
             monospace = [ "MiSans" "FiraCode Nerd Font" ];
-            emoji = [ "Noto Color Emoji" "Twitter Color Emoji" ];
+            emoji = [ "Twitter Color Emoji" ];
           };
         };
       };

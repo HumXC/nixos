@@ -6,6 +6,7 @@
       btop
       diskonaut
       trashy
+      plex-media-player
 
       nil # nix 的 lsp
       nixpkgs-fmt # nix 的格式化程序

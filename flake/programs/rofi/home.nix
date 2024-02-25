@@ -17,6 +17,6 @@ in
     executable = true; # 将其中所有文件添加「执行」权限
   };
   home.packages = with pkgs; [
-    rofi
+    rofi-wayland
   ];
 }

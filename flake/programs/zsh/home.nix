@@ -1,7 +1,7 @@
 { config, lib, pkgs, os, ... }:
 let
   profileName = os.profileName;
-  scale = toString os.desktop.scaleFactor;
+  scale = toString os.desktop.theme.scaleFactor;
   p10kType = os.programs.zsh.p10kType;
 in
 {

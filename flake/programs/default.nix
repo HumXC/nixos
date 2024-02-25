@@ -13,11 +13,11 @@ in
     (loadModuleWithCfg ./helix)
     (loadModuleWithCfg ./hyprland)
     (loadModuleWithCfg ./kitty)
-    (loadModuleWithCfg ./lemurs)
     (loadModuleWithCfg ./mpd)
     (loadModuleWithCfg ./rofi)
     (loadModuleWithCfg ./waybar)
     (loadModuleWithCfg ./zsh)
     (loadModuleWithCfg ./clash)
+    (loadModuleWithCfg ./sddm)
   ];
 }
