@@ -23,6 +23,7 @@
       foliate
 
       go
+      protobuf
       wails
       upx
       nodejs_20 # https://matthewrhone.dev/nixos-npm-globally

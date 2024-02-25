@@ -1,7 +1,22 @@
 { config, lib, pkgs, os, ... }:
 with pkgs; let
-  hideDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
+  hidedDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
   userName = os.userName;
+  hideDesktopEntry = package: entryNames:
+    let
+      names = (builtins.toString (map (e: "\"" + e + "\"") entryNames));
+    in
+    with pkgs;
+    lib.hiPrio
+      (runCommand "$patched-desktop-entry-for-${package.name}" { } ''
+        ${coreutils}/bin/mkdir -p $out/share/applications
+        for name in ${names}; do
+          # ${gnused}/bin/sed -e '/^\[Desktop Entry\]$/a NoDisplay=true' \
+          # 查找 [Desktop Entry], 然后搜索文件末尾或者以 "[" 开头的行, 在之前添加 "NoDisplay=true"
+          ${gawk}/bin/awk '/^\[/{if(flag){print "NoDisplay=true"} flag=0} /^\[Desktop Entry\]$/ { flag=1 } { print } END {if(flag) print "NoDisplay=true"}' \
+          ${package}/share/applications/$name.desktop> $out/share/applications/$name.desktop
+        done
+      '');
 in
 {
   xresources.properties = {
@@ -13,16 +28,23 @@ in
     qq
     gnome.nautilus
     easyeffects
-    ark
     vscode
     telegram-desktop
-    protobuf
     krita
     mpv
     swaynotificationcenter
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox
     humxc.hmcl-bin
+  ]) ++ (with pkgs; [
+    (hideDesktopEntry ark [ "org.kde.ark" ])
+    (hideDesktopEntry fcitx5-with-addons [
+      "org.fcitx.Fcitx5"
+      "org.fcitx.fcitx5-migrator"
+      "fcitx5-configtool"
+      "kcm_fcitx5"
+      "kbd-layout-viewer5"
+    ])
   ]);
   # xdg-mime query filetype filename
   # xdg-mime query default type
@@ -55,14 +77,7 @@ in
     enable = true;
     commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
   };
-  # 隐藏图标，我不会写函数
-  xdg.desktopEntries."org.fcitx.Fcitx5" = hideDesktopEntry;
-  xdg.desktopEntries."org.fcitx.fcitx5-migrator" = hideDesktopEntry;
-  xdg.desktopEntries."kbd-layout-viewer5" = hideDesktopEntry;
-  xdg.desktopEntries."nixos-manual" = hideDesktopEntry;
-  # xdg.desktopEntries."org.kde.ark" = hideDesktopEntry;
-  xdg.desktopEntries."fcitx5-configtool" = hideDesktopEntry;
-  xdg.desktopEntries."kcm_fcitx5" = hideDesktopEntry;
-  xdg.desktopEntries."rofi" = hideDesktopEntry;
-  xdg.desktopEntries."rofi-theme-selector" = hideDesktopEntry;
+  # 隐藏图标
+  xdg.desktopEntries."nixos-manual" = hidedDesktopEntry;
 }
+
