@@ -27,11 +27,19 @@
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      perSystem = { system, self, self', pkgs, confg, ... }: { };
-      imports = [ ./flake ];
-      systems = [ "x86_64-linux" ];
+    flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:
+      let
+        inherit (flake-parts-lib) importApply;
+        flakeModules.os = importApply ./flake { inherit withSystem; };
+        flakeModules.hosts = importApply ./hosts { inherit inputs withSystem; };
+      in
+      {
+        imports = [
+          flakeModules.os
+          flakeModules.hosts
+        ];
+        flake = { inherit flakeModules; };
+        systems = [ "x86_64-linux" ];
+      });
 
-      flake = (import ./hosts { inherit nixpkgs self inputs; });
-    };
 }

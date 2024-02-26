@@ -1,6 +1,6 @@
-{ self, inputs, nixpkgs, ... }:
+localFlake: { withSystem, self, inputs, ... }:
 let
-  lib = nixpkgs.lib;
+  lib = inputs.nixpkgs.lib;
   mkHost =
     { name
     , nixpkgs ? inputs.nixpkgs
@@ -8,32 +8,31 @@ let
     , extraModules ? [ ]
     , extraSpecialArgs ? { }
     }: {
-      ${name} =
-        nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = {
-            inherit
-              inputs
-              nixpkgs
-              lib
-              system;
-            profileName = name;
-          } // extraSpecialArgs;
-          modules = extraModules ++ [
-            ./base.nix
-            ./secrets.nix
-            inputs.nur.nixosModules.nur
-            inputs.home-manager.nixosModules.home-manager
-            inputs.nix-ld.nixosModules.nix-ld
-            inputs.hyprland.nixosModules.default
-            inputs.sops-nix.nixosModules.sops
-            self.nixosModules.os
-          ];
-        };
+      ${name} = withSystem system (ctx@{ config, inputs', ... }: nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          inherit
+            inputs
+            nixpkgs
+            lib
+            system;
+          profileName = name;
+        } // extraSpecialArgs;
+        modules = extraModules ++ [
+          ./base.nix
+          ./secrets.nix
+          inputs.nur.nixosModules.nur
+          inputs.home-manager.nixosModules.home-manager
+          inputs.nix-ld.nixosModules.nix-ld
+          inputs.hyprland.nixosModules.default
+          inputs.sops-nix.nixosModules.sops
+          self.nixosModules.os
+        ];
+      });
     };
 in
 {
-  nixosConfigurations = lib.mkMerge [
+  flake.nixosConfigurations = lib.mkMerge [
     (mkHost {
       name = "laptop";
       system = "x86_64-linux";
