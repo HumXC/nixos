@@ -1,10 +1,10 @@
 { config, lib, pkgs, os, ... }:
 let
   userName = os.userName;
-  currentTheme = os.desktop.currentTheme;
-  scale = toString os.desktop.theme.scaleFactor;
-  cursorSize = toString os.desktop.theme.cursorSize;
-  execOnce = pkgs.lib.concatStrings (builtins.map (x: "exec-once = " + x + "\n") os.desktop.execOnce);
+  currentTheme = config.aris.desktop.currentTheme;
+  scale = toString config.aris.desktop.theme.scaleFactor;
+  cursorSize = toString config.aris.desktop.theme.cursorSize;
+  execOnce = pkgs.lib.concatStrings (builtins.map (x: "exec-once = " + x + "\n") config.aris.desktop.execOnce);
   env = builtins.concatStringsSep "\n" (lib.attrValues (builtins.mapAttrs (k: v: "\$${k} = ${v}") os.programs.hyprland.env));
 in
 {
@@ -61,7 +61,7 @@ in
     # 脚本目录
     $scripts = $HOME/.config/hypr/scripts
     $bin = $HOME/.config/hypr/scripts/bin
-    exec-once=${(builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra)}
+    # exec-once=${(builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra)}
     ${execOnce}
     monitor =,highrr,auto,${scale}
     # 设置鼠标光标

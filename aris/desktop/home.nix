@@ -1,4 +1,4 @@
-{ config, lib, pkgs, os, ... }:
+{ config, lib, pkgs, ... }@args:
 with pkgs; let
   hidedDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
   userName = os.userName;
@@ -17,11 +17,29 @@ with pkgs; let
           ${package}/share/applications/$name.desktop> $out/share/applications/$name.desktop
         done
       '');
+
+  themes = import ./themes { inherit config lib pkgs; } // args;
+  currentTheme = themes."${config.aris.desktop.theme.name}";
 in
+lib.mkIf config.aris.desktop.enable
 {
+  aris.desktop.currentTheme = with currentTheme;lib.mkForce {
+    inherit
+      gtkTheme gtkThemePackage
+      iconTheme iconThemePackage
+      cursorTheme cursorThemePackage;
+  };
+  aris.desktop.execOnce = [
+    "${builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra}"
+    "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+    "${pkgs.swaynotificationcenter}/bin/swaync"
+    "${pkgs.waybar}/bin/waybar"
+  ];
+
+
   xresources.properties = {
     # 设置 xwayland 窗口的 dpi
-    "Xft.dpi" = builtins.floor (builtins.mul os.desktop.theme.scaleFactor 100);
+    "Xft.dpi" = builtins.floor (builtins.mul config.aris.desktop.theme.scaleFactor 100);
   };
   home.packages = (with pkgs; [
     xdg-utils

@@ -1,6 +1,10 @@
 { lib, cfg, config, pkgs, ... }:
 let
-  desktop = config.os.desktop;
+  cursorTheme = "Fluent-cursors-dark";
+  cursorThemePackage = config.nur.repos.humxc.fluent-cursors-theme;
+  cursorSize = 32;
+  scaleFactor = 1.25;
+
   getThemeName = package:
     if package == null then ""
     else
@@ -55,7 +59,7 @@ in
   config =
     let
       theme = initTheme cfg.theme;
-      sysPkgs = [ desktop.currentTheme.cursorThemePackage ] ++ lib.optionals (theme.package != null) [ theme.package ];
+      sysPkgs = [ cursorThemePackage ] ++ lib.optionals (theme.package != null) [ theme.package ];
     in
     lib.mkIf cfg.enable {
       environment.systemPackages = sysPkgs;
@@ -65,10 +69,10 @@ in
         theme = theme.name;
         settings = {
           Theme = {
-            CursorTheme = desktop.currentTheme.cursorTheme;
-            CursorSize = desktop.theme.cursorSize;
+            CursorTheme = cursorTheme;
+            CursorSize = cursorSize;
           };
-          X11.ServerArguments = "-nolisten tcp -dpi ${ builtins.toString (builtins.floor (builtins.mul desktop.theme.scaleFactor 100) )}";
+          X11.ServerArguments = "-nolisten tcp -dpi ${ builtins.toString (builtins.floor (builtins.mul  scaleFactor 100) )}";
           X11.EnableHiDPI = true;
           Wayland.EnableHiDPI = true;
         };

@@ -11,9 +11,9 @@ localFlake.withSystem system ({ ... }@all:
     };
     users.${config.os.userName} = {
       imports = [
-        inputs.sops-nix.homeManagerModules.sops
-        inputs.vscode-server.homeModules.default
-        inputs.nur.hmModules.nur
+        # inputs.sops-nix.homeManagerModules.sops
+        # inputs.vscode-server.homeModules.default
+        # inputs.nur.hmModules.nur
       ];
       home.stateVersion = "22.11";
     };

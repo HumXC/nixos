@@ -1,9 +1,6 @@
-{ lib, config, importHm, pkgs, ... }@all:
-let
-  setEnable = arr: builtins.listToAttrs (map (name: { inherit name; value = { enable = true; }; }) arr);
-in
+{ lib, pkgs, config, ... }:
 {
-  options.os.desktop = {
+  desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -86,19 +83,5 @@ in
       default = [ ];
       description = "Execute commands once after the WM is initialized.";
     };
-  };
-
-  config = lib.mkIf config.os.desktop.enable {
-    os.programs = setEnable [
-      "fcitx5"
-      "helix"
-      "hyprland"
-      "kitty"
-      "mpd"
-      "rofi"
-      "waybar"
-      "zsh"
-      "sddm"
-    ];
   };
 }

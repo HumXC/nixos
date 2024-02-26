@@ -27,6 +27,7 @@ let
           inputs.hyprland.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           self.nixosModules.os
+          self.nixosModules.aris
         ];
       });
     };

@@ -37,6 +37,16 @@ in
       name = "Fluent-Dark";
     };
   };
+  aris.users.HumXC = {
+    desktop = {
+      enable = true;
+      theme = {
+        scaleFactor = 1.25;
+        cursorSize = 28;
+        name = "Fluent-Dark";
+      };
+    };
+  };
   os.programs.clash = {
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
