@@ -82,5 +82,11 @@
       default = [ ];
       description = "Execute commands once after the WM is initialized.";
     };
+    # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/display-managers/default.nix#L247
+    session = lib.mkOption {
+      type = lib.types.attrs;
+      default = { };
+      description = "Session configuration.";
+    };
   };
 }

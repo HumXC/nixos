@@ -11,7 +11,6 @@ in
   imports = [
     (loadModuleWithCfg ./fcitx5)
     (loadModuleWithCfg ./helix)
-    (loadModuleWithCfg ./hyprland)
     (loadModuleWithCfg ./kitty)
     (loadModuleWithCfg ./rofi)
     (loadModuleWithCfg ./waybar)

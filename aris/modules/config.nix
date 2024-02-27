@@ -2,5 +2,6 @@
   imports = importConfigs [
     ./sddm
     ./clash
+    ./hyprland
   ];
 }

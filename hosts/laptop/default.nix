@@ -38,6 +38,12 @@ in
     };
   };
   aris.users.HumXC = {
+    modules.hyprland = {
+      enable = true;
+      env = {
+        BROWSER = "brave-browser";
+      };
+    };
     modules.mpd = {
       enable = true;
       musicDirectory = "/disk/files/HumXC/Music";
@@ -56,9 +62,7 @@ in
     configUrlFile = config.sops.secrets.clash_url.path;
   };
   os.programs.waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
-  os.programs.hyprland.env = {
-    BROWSER = "brave-browser";
-  };
+
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   aris.hardware.bluetooth = {
     enable = true;

@@ -92,7 +92,6 @@ in
     os.programs = setEnable [
       "fcitx5"
       "helix"
-      "hyprland"
       "kitty"
       "rofi"
       "waybar"
