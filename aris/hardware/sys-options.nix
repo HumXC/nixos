@@ -1,0 +1,5 @@
+{ importSysOptions, ... }: {
+  hardware = importSysOptions [
+    ./bluetooth
+  ];
+}

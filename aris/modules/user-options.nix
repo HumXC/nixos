@@ -1,4 +1,5 @@
 { importUserOptions, ... }: {
   modules = importUserOptions [
+    ./mpd
   ];
 }

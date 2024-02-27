@@ -18,11 +18,11 @@ let
     in
     builtins.elem value vals;
 
-  importConfig = paths:
-    (map (path: import (path + /config.nix) ({ inherit importConfig isUsersHave; } // args)) paths);
+  importConfigs = paths:
+    (map (path: import (path + /config.nix) ({ inherit importConfigs isUsersHave; } // args)) paths);
 in
 {
-  imports = importConfig [
+  imports = importConfigs [
     ./desktop
     ./modules
   ];

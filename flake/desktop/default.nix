@@ -94,7 +94,6 @@ in
       "helix"
       "hyprland"
       "kitty"
-      "mpd"
       "rofi"
       "waybar"
       "zsh"

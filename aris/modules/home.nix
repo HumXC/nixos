@@ -1,0 +1,5 @@
+{ importHomes, ... }: {
+  imports = importHomes [
+    ./mpd
+  ];
+}

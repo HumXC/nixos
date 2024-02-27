@@ -25,4 +25,5 @@ in
   };
 } // importSysOptions [
   ./modules
+  ./hardware
 ]

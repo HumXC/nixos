@@ -37,7 +37,6 @@ localFlake: { withSystem, ... }: {
         (import ./common.nix ({ inherit localFlake system; } // all))
         (customImport ./desktop)
         (customImport ./programs)
-        (customImport ./hardware)
       ];
     };
 }
