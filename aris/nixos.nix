@@ -25,5 +25,6 @@ in
   imports = importConfigs [
     ./desktop
     ./modules
+    ./hardware
   ];
 })

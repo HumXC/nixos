@@ -6,8 +6,8 @@ in
   config = lib.mkIf cfg.enable {
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
-    systemd.services.rfkill-unblock-bluethhth = {
-      enable = cfg.autoStart;
+    systemd.services.rfkill-unblock-bluethhth = lib.mkIf cfg.autoStart {
+      enable = true;
       description = "Unblock Bluetooth devices at startup";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
