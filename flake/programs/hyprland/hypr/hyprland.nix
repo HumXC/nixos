@@ -4,13 +4,13 @@ let
   currentTheme = desktop.currentTheme;
   scale = toString desktop.theme.scaleFactor;
   cursorSize = toString desktop.theme.cursorSize;
+  scripts = "${config.home.homeDirectory}/.config/hypr/scripts";
+  bin = "${scripts}/bin";
 in
 {
   # 脚本目录
-  "$scripts" = "$HOME/.config/hypr/scripts";
-  "$bin" = "$HOME/.config/hypr/scripts/bin";
-
-  "$mod" = "SUPER";
+  "$scripts" = scripts;
+  "$bin" = bin;
   env = [
     "LANG, zh_CN.UTF-8"
     "LC_CTYPE, zh_CN.UTF-8"

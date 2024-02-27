@@ -1,15 +1,16 @@
 { lib, ... }:
 let
+  mod = "SUPER";
   bind = key1: key2: action: arg:
-    "${key1}, ${key2}, ${action}" +
-    "${lib.optionalString (arg != "") ", ${arg}"}";
+    "${key1},${key2},${action}" +
+    "${lib.optionalString (arg != "") ",${arg}"}";
   exec = key1: key2: arg: bind key1 key2 "exec" arg;
-  modWith = key2: action: arg: bind "$mod" key2 action arg;
+  modWith = key2: action: arg: bind "${mod}" key2 action arg;
   execModWith = key2: arg: modWith key2 "exec" arg;
   workspaceWithNumber = key: builtins.concatLists (map
     (n: [
-      "${key}, ${n}, workspace, ${if (n=="0") then "10" else n}"
-      "${key}, ${n}, movetoworkspace, ${if (n=="0") then "10" else n}"
+      "${key},${n},workspace,${if (n=="0") then "10" else n}"
+      "${key},${n},movetoworkspace,${if (n=="0") then "10" else n}"
     ]) [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" ]);
 
   # rofi启动器名称：https://github.com/adi1090x/rofi
@@ -17,8 +18,7 @@ let
   rofiLauncherStyle = "style-3";
 in
 {
-
-  bind = (workspaceWithNumber "$mod") ++ [
+  bind = (workspaceWithNumber "${mod}") ++ [
     # 颜色选择
     (execModWith "P" "hyprpicker -a")
     # 隐藏/显示 waybar
@@ -28,7 +28,7 @@ in
     # 打开浏览器
     (execModWith "B" "$bin/launch-desktop.sh $BROWSER")
     # 打开终端
-    (execModWith "RETURN" "$bin/launch-desktop.sh kitty")
+    (exec "SHIFT" "RETURN" "$bin/launch-desktop.sh kitty")
     # 启动资源管理器
     (execModWith "E" "nautilus")
     # 更改浮动状态
@@ -36,12 +36,12 @@ in
     # 固定浮动窗口
     (modWith "P" "pin" "")
     # 关闭活动
-    "$mod_BackSpace, BackSpace, killactive"
+    "${mod}_BackSpace,BackSpace,killactive"
     # 打开程序启动器
-    (execModWith "TAP" "$bin/app-switch.sh '$bin/rofi.sh ${rofiLauncherType} ${rofiLauncherStyle} drun' rofi")
+    (execModWith "TAB" "$bin/app-switch.sh '$bin/rofi.sh ${rofiLauncherType} ${rofiLauncherStyle} drun' rofi")
 
     # 选择区域截图打开 swappy 编辑后写入剪贴板
-    # 需要安装 swappy,  grim,  wl-clipborad, slurp
+    # 需要安装 swappy, grim, wl-clipborad,slurp
     # 每次截图都会保存到 Picture/screenshot
     # 直接截图复制到剪贴板而不编辑
     (execModWith "S" "$bin/screenshot.sh")
@@ -54,46 +54,46 @@ in
     (exec "CONTROL_ALT" "DELETE" "$bin/powermenu.sh")
 
     # 切换桌面
-    "SHIFT_$mod, left, workspace, -1"
-    "SHIFT_$mod, right, workspace, +1"
-    "SHIFT_$mod, H, workspace, -1"
-    "SHIFT_$mod, L, workspace, +1"
+    "SHIFT_${mod},left,workspace,-1"
+    "SHIFT_${mod},right,workspace,+1"
+    "SHIFT_${mod},H,workspace,-1"
+    "SHIFT_${mod},L,workspace,+1"
 
     # 切换窗口焦点
-    "$mod, left, movefocus, l"
-    "$mod, right, movefocus, r"
-    "$mod, up, movefocus, u"
-    "$mod, down, movefocus, d"
+    "${mod},left,movefocus,l"
+    "${mod},right,movefocus,r"
+    "${mod},up,movefocus,u"
+    "${mod},down,movefocus,d"
 
-    "$mod, H, movefocus, l"
-    "$mod, L, movefocus, r"
-    "$mod, K, movefocus, u"
-    "$mod, J, movefocus, d"
+    "${mod},H,movefocus,l"
+    "${mod},L,movefocus,r"
+    "${mod},K,movefocus,u"
+    "${mod},J,movefocus,d"
 
     # 移动窗口
-    "$mod_CONTROL, left, movewindow, l"
-    "$mod_CONTROL, right, movewindow, r"
-    "$mod_CONTROL, up, movewindow, u"
-    "$mod_CONTROL, down, movewindow, d"
+    "${mod}_CONTROL,left,movewindow,l"
+    "${mod}_CONTROL,right,movewindow,r"
+    "${mod}_CONTROL,up,movewindow,u"
+    "${mod}_CONTROL,down,movewindow,d"
 
     # 全屏
-    "$mod, RETURN, fullscreen, 1"
-    "$mod_SHIFT, RETURN, fullscreen"
+    "${mod},RETURN,fullscreen,1"
+    "${mod}_SHIFT,RETURN,fullscreen"
 
-    "$mod, mouse_down, workspace, e+1"
-    "$mod, mouse_up, workspace, e-1"
+    "${mod},mouse_down,workspace,e+1"
+    "${mod},mouse_up,workspace,e-1"
   ];
 
   # 调整窗口大小
   binde = [
-    "$mod_ALT, right, resizeactive, 60 0"
-    "$mod_ALT, left, resizeactive, -60 0"
-    "$mod_ALT, up, resizeactive, 0 -60"
-    "$mod_ALT, down, resizeactive, 0 60"
+    "${mod}_ALT,right,resizeactive,60 0"
+    "${mod}_ALT,left,resizeactive,-60 0"
+    "${mod}_ALT,up,resizeactive,0 -60"
+    "${mod}_ALT,down,resizeactive,0 60"
   ];
   bindm = [
-    "$mod, mouse:272, movewindow"
-    "$mod, mouse:273, resizewindow"
+    "${mod},mouse:272,movewindow"
+    "${mod},mouse:273,resizewindow"
   ];
 
 }
