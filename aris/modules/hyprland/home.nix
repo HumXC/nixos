@@ -8,14 +8,20 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    # aris.desktop.session = {
-    #   manage = "desktop";
-    #   name = "Hyprland";
-    #   start = "${config.wayland.windowManager.hyprland.package}/bin/Hyprland";
-    # };
+    aris.desktop.session =
+      let
+        pkg = config.wayland.windowManager.hyprland.package;
+      in
+      lib.mkForce {
+        manage = "desktop";
+        name = "Hysprland";
+        start = "${pkg}/bin/Hyprland";
+        package = pkg;
+      };
     wayland.windowManager.hyprland.enable = true;
     home.packages = with pkgs;
       [
+        dconf
         hyprpicker
         swww
         # 剪贴板功能

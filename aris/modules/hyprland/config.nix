@@ -1,8 +1,11 @@
 { config, lib, ... }:
 let
-  allSession = map (c: c.desktop.session) (builtins.filter (v: v.desktop.enable) (builtins.attrValues config.aris.users));
-  session = builtins.filter (s: s != { }) allSession;
+  baseSessions = map (c: c.aris.desktop.session) (builtins.filter (v: v.aris.desktop.enable) (builtins.attrValues config.home-manager.users));
+  filteredSession = builtins.filter (s: s != { }) baseSessions;
+  session = map (s: with s;{ inherit manage name start; }) filteredSession;
+  packages = map (s: s.package) filteredSession;
 in
 {
+  config.services.xserver.displayManager.sessionPackages = packages;
   config.services.xserver.displayManager.session = session;
 }

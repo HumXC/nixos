@@ -84,7 +84,30 @@
     };
     # https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/display-managers/default.nix#L247
     session = lib.mkOption {
-      type = lib.types.attrs;
+      type = lib.types.submodule {
+        options = {
+          manage = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Whether to manage the session.";
+          };
+          name = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Name of the session.";
+          };
+          start = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Command to start the session.";
+          };
+          package = lib.mkOption {
+            type = lib.types.nullOr lib.types.package;
+            default = null;
+            description = "Current session package.";
+          };
+        };
+      };
       default = { };
       description = "Session configuration.";
     };
