@@ -22,26 +22,28 @@ let
     (builtins.attrNames config.aris.users));
 in
 {
-  services.gnome.gnome-keyring.enable = isEnable;
-  security.polkit.enable = isEnable;
-  programs.light.enable = isEnable; # 用于控制屏幕背光
-  home-manager.users = lib.mkIf isEnable importTheme;
-  fonts = lib.mkIf isEnable {
-    fontDir.enable = true;
-    enableDefaultPackages = true;
-    packages = (with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
-      twemoji-color-font
-      babelstone-han
-    ]) ++ (with config.nur.repos;[
-      humxc.misans
-    ]);
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "MiSans" "FiraCode Nerd Font" ];
-        sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
-        monospace = [ "MiSans" "FiraCode Nerd Font" ];
-        emoji = [ "Twitter Color Emoji" ];
+  config = lib.mkIf isEnable {
+    services.gnome.gnome-keyring.enable = true;
+    security.polkit.enable = true;
+    programs.light.enable = true; # 用于控制屏幕背光
+    home-manager.users = importTheme;
+    fonts = {
+      fontDir.enable = true;
+      enableDefaultPackages = true;
+      packages = (with pkgs; [
+        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+        twemoji-color-font
+        babelstone-han
+      ]) ++ (with config.nur.repos;[
+        humxc.misans
+      ]);
+      fontconfig = {
+        defaultFonts = {
+          serif = [ "MiSans" "FiraCode Nerd Font" ];
+          sansSerif = [ "MiSans" "FiraCode Nerd Font" ];
+          monospace = [ "MiSans" "FiraCode Nerd Font" ];
+          emoji = [ "Twitter Color Emoji" ];
+        };
       };
     };
   };

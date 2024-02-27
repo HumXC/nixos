@@ -47,7 +47,7 @@ in
       };
     };
   };
-  os.programs.clash = {
+  aris.modules.clash = {
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };

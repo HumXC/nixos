@@ -1,3 +1,6 @@
-{ importConfig, ... }: importConfig [
-  ./sddm
-]
+{ importConfig, ... }: {
+  imports = importConfig [
+    ./sddm
+    ./clash
+  ];
+}

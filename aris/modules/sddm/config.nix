@@ -37,9 +37,9 @@ let
   isEnable = cfg.enable;
 in
 {
-  environment.systemPackages = if isEnable then sysPkgs else [ ];
-  services = lib.mkIf isEnable {
-    xserver = {
+  config = lib.mkIf isEnable {
+    environment.systemPackages = sysPkgs;
+    services.xserver = {
       enable = true;
       # See: https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/xserver.nix#L718
       excludePackages = with pkgs; [
@@ -60,7 +60,7 @@ in
         nixos-icons
       ];
     };
-    xserver.displayManager.sddm = {
+    services.xserver.displayManager.sddm = {
       enable = true;
       theme = theme.name;
       settings = {
@@ -73,7 +73,7 @@ in
         Wayland.EnableHiDPI = true;
       };
     };
-    xserver.displayManager.setupCommands = "${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr";
+    services.xserver.displayManager.setupCommands = "${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr";
   };
 }
 

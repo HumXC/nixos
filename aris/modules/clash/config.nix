@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  cfg = config.os.programs.clash;
+  cfg = config.aris.modules.clash;
   Country_mmdb_url = "https://gitee.com/mirrors/Pingtunnel/raw/master/GeoLite2-Country.mmdb";
   clash-tool = pkgs.stdenv.mkDerivation {
     name = "clash-tool";
@@ -20,11 +20,6 @@ let
   };
 in
 {
-  options.os.programs.clash = {
-    enable = lib.mkEnableOption "clash.Meta";
-    configUrlFile = lib.mkOption { type = lib.types.str; default = ""; };
-    workDir = lib.mkOption { type = lib.types.str; default = "/etc/clash"; };
-  };
   config = lib.mkIf cfg.enable {
     networking = {
       # 代理配置
