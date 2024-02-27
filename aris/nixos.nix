@@ -19,10 +19,11 @@ let
     builtins.elem value vals;
 
   importConfig = paths: lib.attrsets.mergeAttrsList
-    (map (path: import (path + /config.nix) ({ inherit isUsersHave; } // args)) paths);
+    (map (path: import (path + /config.nix) ({ inherit importConfig isUsersHave; } // args)) paths);
 in
 {
   config = importConfig [
     ./desktop
+    ./modules
   ];
 })

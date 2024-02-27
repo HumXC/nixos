@@ -3,6 +3,11 @@
     username = "${os.userName}";
     homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
+      qq
+      telegram-desktop
+      krita
+      mpv
+
       btop
       diskonaut
       trashy

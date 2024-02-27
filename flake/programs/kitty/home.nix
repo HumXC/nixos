@@ -1,9 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  # TODO: 貌似不正确的使用
   themes = builtins.fetchGit {
     url = "https://github.com/kovidgoyal/kitty-themes.git";
-    rev = "9a30b1b123c6d076aedcb1b6f1dbc55c35b4e5d1";
+    rev = "46d9dfe230f315a6a0c62f4687f6b3da20fd05e4";
   };
 in
 {

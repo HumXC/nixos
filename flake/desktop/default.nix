@@ -98,7 +98,6 @@ in
       "rofi"
       "waybar"
       "zsh"
-      "sddm"
     ];
   };
 }

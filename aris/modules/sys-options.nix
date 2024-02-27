@@ -1,0 +1,5 @@
+{ importSysOptions, ... }: {
+  modules = importSysOptions [
+    ./sddm
+  ];
+}

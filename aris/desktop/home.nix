@@ -17,39 +17,41 @@ with pkgs; let
           ${package}/share/applications/$name.desktop> $out/share/applications/$name.desktop
         done
       '');
-
-  themes = import ./themes { inherit config lib pkgs; } // args;
-  currentTheme = themes."${config.aris.desktop.theme.name}";
 in
-lib.mkIf config.aris.desktop.enable
-{
-  aris.desktop.currentTheme = with currentTheme;lib.mkForce {
-    inherit
-      gtkTheme gtkThemePackage
-      iconTheme iconThemePackage
-      cursorTheme cursorThemePackage;
-  };
+lib.mkIf config.aris.desktop.enable {
   aris.desktop.execOnce = [
-    "${builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra}"
-    "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-    "${pkgs.swaynotificationcenter}/bin/swaync"
-    "${pkgs.waybar}/bin/waybar"
+    # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87
+    "${xdg-desktop-portal-gtk}/libexec/xdg-desktop-portal-gtk"
+    "${xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr"
+    "${xorg.xrandr}/bin/xrandr;${builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra}"
+    "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+    "${swaynotificationcenter}/bin/swaync"
+    "${waybar}/bin/waybar"
   ];
-
-
   xresources.properties = {
     # 设置 xwayland 窗口的 dpi
     "Xft.dpi" = builtins.floor (builtins.mul config.aris.desktop.theme.scaleFactor 100);
   };
+
+  home.sessionVariables =
+    let
+      scale = toString config.aris.desktop.theme.scaleFactor;
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in
+    {
+      GTK_USE_PORTAL = "1";
+      XDG_DATA_DIRS = "${datadir}:$XDG_DATA_DIRS";
+      GDK_DPI_SCALE = scale;
+      QT_SCALE_FACTOR = scale;
+    };
+
   home.packages = (with pkgs; [
+    glib
     xdg-utils
-    qq
     gnome.nautilus
     easyeffects
     vscode
-    telegram-desktop
-    krita
-    mpv
     swaynotificationcenter
   ]) ++ (with config.nur.repos;[
     ruixi-rebirth.go-musicfox

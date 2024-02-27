@@ -1,3 +1,3 @@
-{ ... }@all: {
-  Fluent-Dark = import ./Fluent-Dark.nix all;
+{ ... }@args: {
+  Fluent-Dark = import ./Fluent-Dark.nix args;
 }

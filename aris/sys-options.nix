@@ -1,8 +1,8 @@
-{ lib, ... }@all:
+{ lib, ... }@args:
 let
   importSysOptions = paths:
     lib.attrsets.mergeAttrsList (
-      map (path: import (path + /sys-options.nix) all) paths
+      map (path: import (path + /sys-options.nix) ({ inherit importSysOptions; } // args)) paths
     );
 in
 {
@@ -18,11 +18,11 @@ in
   };
   users = lib.mkOption {
     type = lib.types.attrsOf (lib.types.submodule {
-      options = import ./user-options.nix all;
+      options = import ./user-options.nix args;
     });
     default = { };
     description = "The users configuration.";
   };
 } // importSysOptions [
-  ./desktop
+  ./modules
 ]

@@ -41,8 +41,8 @@ in
     desktop = {
       enable = true;
       theme = {
-        scaleFactor = 1.25;
-        cursorSize = 28;
+        scaleFactor = 1.2;
+        cursorSize = 34;
         name = "Fluent-Dark";
       };
     };
@@ -61,29 +61,34 @@ in
     enable = true;
     autoStart = true;
   };
-  os.programs.sddm.theme = {
-    package = pkgs.sddm-chili-theme;
-    config = ''
-      [General]
-      background=/var/lib/AccountsService/background.png
+  aris.modules.sddm = {
+    enable = true;
+    scaleFactor = 1.2;
+    theme = {
+      package = pkgs.sddm-chili-theme;
+      config = ''
+        [General]
+        background=/var/lib/AccountsService/background.png
 
-      ScreenWidth=1920
-      ScreenHeight=1080
+        ScreenWidth=1920
+        ScreenHeight=1080
 
-      blur=true
-      recursiveBlurLoops=10
-      recursiveBlurRadius=15
+        blur=true
+        recursiveBlurLoops=10
+        recursiveBlurRadius=15
 
-      PasswordFieldOutlined=false
+        PasswordFieldOutlined=false
 
-      PowerIconSize=
-      FontPointSize=18
-      AvatarPixelSize=220
+        PowerIconSize=
+        FontPointSize=18
+        AvatarPixelSize=220
 
-      translationReboot=
-      translationSuspend=
-      translationPowerOff=
-    '';
+        translationReboot=
+        translationSuspend=
+        translationPowerOff=
+      '';
+    };
+    cursor.size = 34;
   };
   environment.sessionVariables = {
     OS_EDITOR = "code";
@@ -112,28 +117,7 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" ];
   };
-  services.xserver = {
-    enable = true;
-    # See: https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/x11/xserver.nix#L718
-    excludePackages = with pkgs; [
-      xorg.xorgserver.out
-      xorg.xrandr
-      xorg.xrdb
-      xorg.setxkbmap
-      xorg.iceauth
-      xorg.xlsclients
-      xorg.xset
-      xorg.xsetroot
-      xorg.xinput
-      xorg.xprop
-      xorg.xauth
-      xterm
-      xdg-utils
-      xorg.xf86inputevdev.out
-      nixos-icons
-    ];
 
-  };
   boot = {
     supportedFilesystems = [ "ntfs" ];
     initrd.kernelModules = [ "amdgpu" ];

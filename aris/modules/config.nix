@@ -1,0 +1,3 @@
+{ importConfig, ... }: importConfig [
+  ./sddm
+]

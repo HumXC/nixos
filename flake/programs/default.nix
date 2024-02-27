@@ -18,6 +18,5 @@ in
     (loadModuleWithCfg ./waybar)
     (loadModuleWithCfg ./zsh)
     (loadModuleWithCfg ./clash)
-    (loadModuleWithCfg ./sddm)
   ];
 }

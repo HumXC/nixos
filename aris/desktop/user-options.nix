@@ -1,5 +1,4 @@
-{ lib, pkgs, config, ... }:
-{
+{ lib, pkgs, config, ... }: {
   desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
