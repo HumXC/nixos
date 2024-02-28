@@ -12,6 +12,5 @@ in
     (loadModuleWithCfg ./fcitx5)
     (loadModuleWithCfg ./helix)
     (loadModuleWithCfg ./kitty)
-    (loadModuleWithCfg ./rofi)
   ];
 }

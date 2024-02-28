@@ -4,5 +4,6 @@
     ./hyprland
     ./zsh
     ./waybar
+    ./rofi
   ];
 }

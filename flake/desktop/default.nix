@@ -93,7 +93,6 @@ in
       "fcitx5"
       "helix"
       "kitty"
-      "rofi"
     ];
   };
 }

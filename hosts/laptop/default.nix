@@ -50,6 +50,7 @@ in
         musicDirectory = "/disk/files/HumXC/Music";
       };
       zsh.enable = true;
+      rofi.enable = true;
       waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
     };
     desktop = {
