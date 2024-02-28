@@ -22,6 +22,7 @@ let
     (map (path: import (path + /config.nix) ({ inherit importConfigs isUsersHave; } // args)) paths);
 in
 {
+  config.networking.hostName = config.aris.hostName;
   imports = importConfigs [
     ./desktop
     ./modules

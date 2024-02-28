@@ -32,51 +32,6 @@
         };
       };
     };
-    currentTheme = lib.mkOption {
-      default = {
-        gtkTheme = "";
-        gtkThemePackage = null;
-        iconTheme = "";
-        iconThemePackage = null;
-        cursorTheme = "";
-        cursorThemePackage = null;
-      };
-      description = "Current theme configuration, read only, don't modify this option.";
-      type = lib.types.submodule {
-        options = {
-          gtkTheme = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = "Current gtk theme.";
-          };
-          gtkThemePackage = lib.mkOption {
-            type = lib.types.nullOr lib.types.package;
-            default = pkgs.fluent-icon-theme;
-            description = "Current gtk theme package.";
-          };
-          iconTheme = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = "Current icon theme.";
-          };
-          iconThemePackage = lib.mkOption {
-            type = lib.types.nullOr lib.types.package;
-            default = pkgs.fluent-icon-theme;
-            description = "Current icon theme package.";
-          };
-          cursorTheme = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = "Current cursor theme.";
-          };
-          cursorThemePackage = lib.mkOption {
-            type = lib.types.nullOr lib.types.package;
-            default = config.nur.repos.humxc.fluent-cursors-theme;
-            description = "Current cursor theme package.";
-          };
-        };
-      };
-    };
     execOnce = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
