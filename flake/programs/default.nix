@@ -11,6 +11,5 @@ in
   imports = [
     (loadModuleWithCfg ./fcitx5)
     (loadModuleWithCfg ./helix)
-    (loadModuleWithCfg ./kitty)
   ];
 }

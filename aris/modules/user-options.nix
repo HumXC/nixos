@@ -5,5 +5,6 @@
     ./zsh
     ./waybar
     ./rofi
+    ./kitty
   ];
 }
