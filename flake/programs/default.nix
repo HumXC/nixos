@@ -14,6 +14,5 @@ in
     (loadModuleWithCfg ./kitty)
     (loadModuleWithCfg ./rofi)
     (loadModuleWithCfg ./waybar)
-    (loadModuleWithCfg ./zsh)
   ];
 }

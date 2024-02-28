@@ -2,5 +2,6 @@
   modules = importUserOptions [
     ./mpd
     ./hyprland
+    ./zsh
   ];
 }

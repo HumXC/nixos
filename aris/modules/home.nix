@@ -2,5 +2,6 @@
   imports = importHomes [
     ./mpd
     ./hyprland
+    ./zsh
   ];
 }

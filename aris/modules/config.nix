@@ -3,5 +3,6 @@
     ./sddm
     ./clash
     ./hyprland
+    ./zsh
   ];
 }

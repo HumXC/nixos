@@ -95,7 +95,6 @@ in
       "kitty"
       "rofi"
       "waybar"
-      "zsh"
     ];
   };
 }

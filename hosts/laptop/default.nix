@@ -48,6 +48,7 @@ in
       enable = true;
       musicDirectory = "/disk/files/HumXC/Music";
     };
+    modules.zsh.enable = true;
     desktop = {
       enable = true;
       theme = {
