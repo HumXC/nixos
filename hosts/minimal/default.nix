@@ -7,9 +7,7 @@ let
   passwd = "$y$j9T$fQulM.mal02o18dAvQ5gZ0$7V6lBpV8MH.PChjBnu21B6ecWPkEHopnNLGwlgZ35GA";
 in
 {
-  os.userName = userName;
-  os.hostName = hostName;
-
+  aris.hostName = hostName;
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   users.mutableUsers = false;
   users.users.root.hashedPassword = passwd;

@@ -7,13 +7,13 @@ let
   userPassFile = config.sops.secrets."password/${userName}".path;
 in
 {
-  os.userName = userName;
-  os.hostName = hostName;
-  os.profileName = profileName;
-  os.programs.helix.enable = true;
-  os.programs.zsh.enable = true;
-  os.programs.zsh.p10kType = "2";
-  os.programs.clash = {
+  aris.hostName = hostName;
+  aris.users."${userName}" = {
+    modules.helix.enable = true;
+    modules.zsh.enable = true;
+    modules.zsh.p10kType = "2";
+  };
+  aris.modules.clash = {
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
