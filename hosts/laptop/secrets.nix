@@ -1,7 +1,7 @@
 { config, sops, ... }:
 let
   sopsFile = ./../../secrets/laptop.yaml;
-  user = config.os.userName;
+  user = "HumXC";
   homeDirectory = config.home-manager.users."${user}".home.homeDirectory;
 in
 {

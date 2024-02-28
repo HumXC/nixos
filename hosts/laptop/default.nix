@@ -27,16 +27,8 @@ let
     };
 in
 {
-  os.userName = userName;
-  os.hostName = hostName;
-  os.desktop = {
-    enable = true;
-    theme = {
-      scaleFactor = 1.25;
-      cursorSize = 28;
-      name = "Fluent-Dark";
-    };
-  };
+  nixpkgs.config.allowUnfree = true;
+  aris.hostName = hostName;
   aris.users.HumXC = {
     modules = {
       hyprland = {
@@ -51,7 +43,10 @@ in
       };
       zsh.enable = true;
       rofi.enable = true;
+      helix.enable = true;
       kitty.enable = true;
+      fcitx5.enable = true;
+      waybar.enable = true;
       waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
     };
     desktop = {
@@ -67,7 +62,7 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-
+  home-manager.users.HumXC.imports = [ ./home.nix ];
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   aris.hardware.bluetooth = {
     enable = true;

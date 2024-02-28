@@ -24,7 +24,7 @@ in
     networking = {
       # 代理配置
       proxy.default = "http://127.0.0.1:7890/";
-      proxy.noProxy = "127.0.0.1,localhost,${config.os.hostName}.lan";
+      proxy.noProxy = "127.0.0.1,localhost,${config.aris.hostName}.lan";
     };
     environment.systemPackages = [ pkgs.clash-meta ];
     systemd.services.clash-meta = {

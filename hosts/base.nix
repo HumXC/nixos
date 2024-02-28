@@ -8,8 +8,7 @@ in
     ./${profileName}/hardware-configuration.nix
   ]
   ++ ifExists ./${profileName}/secrets.nix;
-  home-manager.users.${config.os.userName}.imports = ifExists ./${profileName}/home.nix;
-  os.profileName = profileName;
+  aris.profileName = profileName;
   programs.nix-ld.dev.enable = true;
   networking = {
     networkmanager.enable = true;

@@ -31,13 +31,11 @@
       let
         inherit (flake-parts-lib) importApply;
         flakeModules.aris = importApply ./aris { inherit withSystem; };
-        flakeModules.os = importApply ./flake { inherit withSystem; };
         flakeModules.hosts = importApply ./hosts { inherit withSystem; };
       in
       {
         imports = [
           flakeModules.aris
-          flakeModules.os
           flakeModules.hosts
         ];
         flake = { inherit flakeModules; };
