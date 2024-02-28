@@ -1,11 +1,14 @@
-{ lib, pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
-  execOnce = with pkgs;[
-    "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-    "${swaynotificationcenter}/bin/swaync"
-    "${waybar}/bin/waybar"
-  ];
+  themes = lib.attrsets.mapAttrs (k: v: v.meta) (import ./themes { inherit config pkgs; });
 in
 {
-  config.aris.common.desktop.execOnce = execOnce;
+  config = {
+    aris.common.desktop.execOnce = with pkgs;[
+      "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+      "${swaynotificationcenter}/bin/swaync"
+      "${waybar}/bin/waybar"
+    ];
+    aris.common.desktop.themes = themes;
+  };
 }

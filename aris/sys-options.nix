@@ -23,14 +23,7 @@ in
     default = { };
     description = "The users configuration.";
   };
-  common = lib.mkOption
-    {
-      type = lib.types.submodule {
-        options = import ./user-options.nix args;
-      };
-      default = { };
-      description = "The users configuration.";
-    };
+  common = (import ./common.nix args);
 } // importSysOptions [
   ./modules
   ./hardware

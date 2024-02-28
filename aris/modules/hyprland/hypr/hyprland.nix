@@ -3,6 +3,7 @@ let
   desktop = aris.desktop;
   scale = toString desktop.theme.scaleFactor;
   cursorSize = toString desktop.theme.cursorSize;
+  currentTheme = commonAris.desktop.themes."${desktop.theme.name}";
   scripts = "${config.home.homeDirectory}/.config/hypr/scripts";
   bin = "${scripts}/bin";
 in
@@ -36,8 +37,7 @@ in
     "${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr"
     "${pkgs.xorg.xrandr}/bin/xrandr;${builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra}"
 
-    # FIXME
-    "hyprctl setcursor Adwaitd ${cursorSize}"
+    "hyprctl setcursor ${currentTheme.cursorTheme} ${cursorSize}"
     # 启动剪贴板
     # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Clipboard-Managers/
     "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store" #Stores only text data
