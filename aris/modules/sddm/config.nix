@@ -34,10 +34,10 @@ let
     else { inherit name package config; };
   theme = initTheme cfg.theme;
   sysPkgs = [ cfg.cursor.package ] ++ lib.optionals (theme.package != null) [ theme.package ];
-  isEnable = cfg.enable;
+  isEnabled = cfg.enable;
 in
 {
-  config = lib.mkIf isEnable {
+  config = lib.mkIf isEnabled {
     environment.systemPackages = sysPkgs;
     services.xserver = {
       enable = true;

@@ -22,7 +22,7 @@ rec
     cursorThemePackage = pkgs.gnome.adwaita-icon-theme;
   };
   # home 由 home-manager.users.<name>.imports 导入
-  home = { config, pkgs, ... }: {
+  home = { config, getAris, pkgs, ... }: {
     home.sessionVariables = {
       GTK_THEME = meta.gtkTheme;
       QT_STYLE_OVERRIDE = "kvantum";
@@ -44,7 +44,7 @@ rec
       gtk.enable = true;
       x11.enable = true;
       name = meta.cursorTheme;
-      size = config.aris.desktop.theme.cursorSize;
+      size = (getAris config).desktop.theme.cursorSize;
       package = meta.cursorThemePackage;
     };
 
@@ -71,7 +71,6 @@ rec
           gtk-application-prefer-dark-theme=1
         '';
       };
-
     };
   };
 }

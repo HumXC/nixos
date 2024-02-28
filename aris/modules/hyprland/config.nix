@@ -1,11 +1,23 @@
-{ config, lib, ... }:
+{ config, lib, isUsersHave, ... }:
 let
-  baseSessions = map (c: c.aris.desktop.session) (builtins.filter (v: v.aris.desktop.enable) (builtins.attrValues config.home-manager.users));
-  filteredSession = builtins.filter (s: s != { }) baseSessions;
-  session = map (s: with s;{ inherit manage name start; }) filteredSession;
-  packages = map (s: s.package) filteredSession;
+  isEnabled = isUsersHave "modules.hyprland.enable" true;
+  pkg =
+    let
+      cfgs = builtins.attrValues config.home-manager.users;
+      cfg =
+        if (builtins.length cfgs) == 0
+        then null
+        else builtins.elemAt cfgs 0;
+    in
+    cfg.wayland.windowManager.hyprland.finalPackage;
 in
 {
-  config.services.xserver.displayManager.sessionPackages = packages;
-  config.services.xserver.displayManager.session = session;
+  config = lib.mkIf isEnabled {
+    services.xserver.displayManager.sessionPackages = [ pkg ];
+    services.xserver.displayManager.session = [{
+      manage = "desktop";
+      name = "Hyprland";
+      start = "${pkg}/bin/Hyprland";
+    }];
+  };
 }

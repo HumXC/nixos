@@ -1,4 +1,4 @@
-{ inputs, localFlake, system, self, lib, config, ... }@args:
+{ inputs, localFlake, system, self, lib, pkgs, config, ... }@args:
 localFlake.withSystem system ({ ... }:
 let
   getAttrWithList = path: attrs: index:

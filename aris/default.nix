@@ -13,9 +13,4 @@ localFlake: { withSystem, system, self, ... }: {
         (import ./nixos.nix ({ inherit localFlake system self; } // args))
       ];
     };
-
-  flake.hmModules.aris = { lib, pkgs, ... }@args:
-    {
-      options.aris = (import ./user-options.nix args);
-    };
 }

@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, aris, commonAris, ... }:
 let
-  desktop = config.aris.desktop;
+  desktop = aris.desktop;
   currentTheme = desktop.currentTheme;
   scale = toString desktop.theme.scaleFactor;
   cursorSize = toString desktop.theme.cursorSize;
@@ -32,7 +32,11 @@ in
     "XDG_SESSION_TYPE, wayland"
     "SDL_IM_MODULE, fcitx"
   ];
-  exec-once = desktop.execOnce ++ [
+  exec-once = commonAris.desktop.execOnce ++ desktop.execOnce ++ [
+    # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87
+    "${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr"
+    "${pkgs.xorg.xrandr}/bin/xrandr;${builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra}"
+
     "hyprctl setcursor ${currentTheme.cursorTheme} ${cursorSize}"
     # 启动剪贴板
     # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Clipboard-Managers/

@@ -1,23 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, getAris, sysConfig, ... }:
 let
-  cfg = config.aris.modules.hyprland;
-  execOnce = pkgs.lib.concatStrings (builtins.map (x: "exec-once = " + x + "\n") config.aris.desktop.execOnce);
+  aris = (getAris config);
+  cfg = aris.modules.hyprland;
   env =
     let e = cfg.env;
     in lib.attrsets.listToAttrs (map (key: { name = "\$${key}"; value = e."${key}"; }) (builtins.attrNames e));
 in
 {
   config = lib.mkIf cfg.enable {
-    aris.desktop.session =
-      let
-        pkg = config.wayland.windowManager.hyprland.package;
-      in
-      lib.mkForce {
-        manage = "desktop";
-        name = "Hysprland";
-        start = "${pkg}/bin/Hyprland";
-        package = pkg;
-      };
+    wayland.windowManager.hyprland.systemd.enable = true;
     wayland.windowManager.hyprland.enable = true;
     home.packages = with pkgs;
       [
@@ -45,10 +36,16 @@ in
     wayland.windowManager.hyprland.settings =
       let
         importConf = confs: lib.attrsets.mergeAttrsList (
-          map (c: import c { inherit config pkgs lib; }) confs
+          map
+            (c: import c {
+              inherit config pkgs lib aris;
+              commonAris = sysConfig.aris.common;
+            })
+            confs
         );
       in
-      env // importConf [
+      env //
+      importConf [
         ./hypr/hyprland.nix
         ./hypr/main.nix
         ./hypr/window-rule.nix

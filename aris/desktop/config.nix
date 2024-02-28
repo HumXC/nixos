@@ -1,7 +1,11 @@
-{ lib, config, isUsersHave, pkgs, ... }@args:
+{ lib, config, pkgs, ... }@args:
 let
-  isEnable = isUsersHave "desktop.enable" true;
+  isEnabled = builtins.elem true
+    (map
+      (aris: aris.desktop.enable)
+      (builtins.attrValues config.aris.users));
   themes = import ./themes { inherit config pkgs; };
+  # 为每个用户导入主题, 因为主题由 aris.desktop.enable 控制, 所以这里不需要判断是否启用
   importTheme = lib.attrsets.listToAttrs (map
     (
       username:
@@ -9,12 +13,6 @@ let
       in {
         name = "${username}";
         value = {
-          aris.desktop.currentTheme = with currentTheme.meta;lib.mkForce {
-            inherit
-              gtkTheme gtkThemePackage
-              iconTheme iconThemePackage
-              cursorTheme cursorThemePackage;
-          };
           imports = [ currentTheme.home ];
         };
       }
@@ -22,7 +20,8 @@ let
     (builtins.attrNames config.aris.users));
 in
 {
-  config = lib.mkIf isEnable {
+  imports = [ (import ./common.nix args) ];
+  config = lib.mkIf isEnabled {
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
     programs.light.enable = true; # 用于控制屏幕背光

@@ -1,6 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, getAris, ... }:
 let
-  cfg = config.aris.modules.mpd;
+  cfg = (getAris config).modules.mpd;
 in
 {
   config = lib.mkIf cfg.enable {
