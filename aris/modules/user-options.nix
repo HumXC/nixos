@@ -3,5 +3,6 @@
     ./mpd
     ./hyprland
     ./zsh
+    ./waybar
   ];
 }

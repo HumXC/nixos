@@ -13,6 +13,5 @@ in
     (loadModuleWithCfg ./helix)
     (loadModuleWithCfg ./kitty)
     (loadModuleWithCfg ./rofi)
-    (loadModuleWithCfg ./waybar)
   ];
 }

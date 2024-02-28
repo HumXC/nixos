@@ -1,6 +1,6 @@
-{ config, lib, pkgs, os, ... }:
+{ config, lib, pkgs, getAris, ... }:
 let
-  waybarConfig = os.programs.waybar;
+  cfg = (getAris config).modules.waybar;
 in
 {
   home.packages = with pkgs; [
@@ -44,7 +44,7 @@ in
                 "format": "  {bandwidthUpBytes}    {bandwidthDownBytes}"
             },
             "temperature#4": {
-                "hwmon-path": "${waybarConfig.cpuTemperatureHwmonPath}",
+                "hwmon-path": "${cfg.cpuTemperatureHwmonPath}",
                 "critical-threshold": 80,
                 "interval": 3,
                 "format-critical": "<span color=\"#fd5757\"> <b>{temperatureC}°C</b></span>",

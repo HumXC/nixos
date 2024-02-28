@@ -94,7 +94,6 @@ in
       "helix"
       "kitty"
       "rofi"
-      "waybar"
     ];
   };
 }
