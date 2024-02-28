@@ -21,10 +21,6 @@ let
         modules = extraModules ++ [
           ./base.nix
           ./secrets.nix
-          inputs.nur.nixosModules.nur
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nix-ld.nixosModules.nix-ld
-          inputs.hyprland.nixosModules.default
           inputs.sops-nix.nixosModules.sops
           self.nixosModules.aris
         ];
