@@ -1,7 +1,5 @@
-{ config, pkgs, os, sops, ... }: {
+{ config, pkgs, sops, ... }: {
   home = {
-    username = "${os.userName}";
-    homeDirectory = "/home/${os.userName}";
     packages = with pkgs; [
       htop
       btop

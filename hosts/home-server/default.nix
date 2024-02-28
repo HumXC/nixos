@@ -32,7 +32,7 @@ in
     group = "www-data";
   };
   users.groups.www-data = { gid = 82; };
-
+  home-manager.users.HumXC.imports = [ ./home.nix ];
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
