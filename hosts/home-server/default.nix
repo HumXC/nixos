@@ -5,6 +5,12 @@ let
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
+  wwwDataUser = {
+    uid = 82;
+    isSystemUser = true;
+    isNormalUser = false;
+    group = "www-data";
+  };
 in
 {
   aris.hostName = hostName;
@@ -25,12 +31,7 @@ in
   };
   # docker 容器 nextcloud:fpm-alphin 内的 www-data 的 gid 就是 82
   # 由于 nextcloud 只能操作属于 www-data 的文件，所以添加 www-data 用户组附加到主机的普通用户
-  users.users.www-data = {
-    uid = 82;
-    isSystemUser = true;
-    isNormalUser = false;
-    group = "www-data";
-  };
+  users.users.www-data = wwwDataUser;
   users.groups.www-data = { gid = 82; };
   home-manager.users.HumXC.imports = [ ./home.nix ];
   users.users.${userName} = {
@@ -73,7 +74,7 @@ in
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       Macs = [ "hmac-sha1" "hmac-md5" ];
     };
@@ -95,29 +96,19 @@ in
       overalljails = true;
     };
   };
-  services.davfs2.enable = false;
-  systemd.mounts = [{
-    enable = false;
-    what = "http://127.0.0.1:5244/dav/";
-    where = "/mnt/webdav";
-    description = "Mount WebDAV Service";
-    wantedBy = [ "multi-user.target" ];
-    type = "davfs";
-    options = "uid=1000,file_mode=0664,dir_mode=2775,grpid";
-    mountConfig = {
-      TimeoutSec = 10;
-    };
-  }];
-
-  systemd.automounts = [{
-    enable = false;
-    description = "Automount WebDAV Service";
-    where = "/mnt/webdav/";
-    wantedBy = [ "remote-fs.target" ];
-    automountConfig = {
-      TimeoutIdleSec = 30;
-    };
-  }];
+  services.davfs2.enable = true;
+  services.autofs = {
+    enable = true;
+    autoMaster =
+      let
+        mapConf = pkgs.writeText "auto" ''
+          alist -fstype=davfs,uid=${toString wwwDataUser.uid} :http\://127.0.0.1\:5244/dav
+        '';
+      in
+      ''
+        /mnt/webdav file:${mapConf}
+      '';
+  };
   environment.sessionVariables = {
     OS_EDITOR = "hx";
     EDITOR = "hx";
