@@ -96,19 +96,6 @@ in
       overalljails = true;
     };
   };
-  services.davfs2.enable = true;
-  services.autofs = {
-    enable = true;
-    autoMaster =
-      let
-        mapConf = pkgs.writeText "auto" ''
-          alist -fstype=davfs,uid=${toString wwwDataUser.uid} :http\://127.0.0.1\:5244/dav
-        '';
-      in
-      ''
-        /mnt/webdav file:${mapConf}
-      '';
-  };
   environment.sessionVariables = {
     OS_EDITOR = "hx";
     EDITOR = "hx";
