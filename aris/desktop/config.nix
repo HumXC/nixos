@@ -6,18 +6,11 @@ let
       (builtins.attrValues config.aris.users));
   themes = import ./themes { inherit config pkgs; };
   # 为每个用户导入主题, 因为主题由 aris.desktop.enable 控制, 所以这里不需要判断是否启用
-  importTheme = lib.attrsets.listToAttrs (map
-    (
-      username:
-      let currentTheme = themes."${config.aris.users."${username}".desktop.theme.name}";
-      in {
-        name = "${username}";
-        value = {
-          imports = [ currentTheme.home ];
-        };
-      }
-    )
-    (builtins.attrNames config.aris.users));
+  importTheme = lib.mapAttrs
+    (_: value: {
+      imports = [ themes."${value.desktop.theme.name}".home ];
+    })
+    config.aris.users;
 in
 {
   imports = [ (import ./common.nix args) ];

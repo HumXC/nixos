@@ -86,7 +86,7 @@ in
 
     programs.brave = {
       enable = true;
-      commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
+      commandLineArgs = [ "--gtk-version=4" "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
     };
     # 隐藏图标
     xdg.desktopEntries."nixos-manual" = hidedDesktopEntry;

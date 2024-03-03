@@ -10,7 +10,7 @@ let
   workspaceWithNumber = key: builtins.concatLists (map
     (n: [
       "${key},${n},workspace,${if (n=="0") then "10" else n}"
-      "${key},${n},movetoworkspace,${if (n=="0") then "10" else n}"
+      "${key}_CTRL,${n},movetoworkspace,${if (n=="0") then "10" else n}"
     ]) [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" ]);
 
   # rofi启动器名称：https://github.com/adi1090x/rofi
