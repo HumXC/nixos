@@ -1,5 +1,0 @@
-{ importSysOptions, ... }: {
-  imports = importSysOptions [
-    ./bluetooth
-  ];
-}

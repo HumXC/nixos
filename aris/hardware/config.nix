@@ -1,5 +1,0 @@
-{ importConfigs, ... }: {
-  imports = importConfigs [
-    ./bluetooth
-  ];
-}

@@ -1,5 +1,5 @@
-{ importConfigs, ... }: {
-  imports = importConfigs [
+{ importOs, ... }: {
+  imports = importOs [
     ./sddm
     ./clash
     ./hyprland

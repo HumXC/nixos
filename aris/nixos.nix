@@ -1,11 +1,16 @@
 { inputs, localFlake, system, self, lib, pkgs, config, ... }@args:
 localFlake.withSystem system ({ ... }:
 let
-  configs = [
+  osConfigs = [
     ./desktop
     ./modules
     ./hardware
   ];
+  userConfigs = [
+    ./desktop
+    ./modules
+  ];
+
 
   getAttrWithList = path: attrs: index:
     let
@@ -24,12 +29,37 @@ let
     in
     builtins.elem value vals;
 
-  importConfigs = paths:
-    (map (path: import (path + /config.nix) ({ inherit importConfigs isUsersHave; } // args)) paths);
+  importOs = paths:
+    map (path: import (path + /os.nix) ({ inherit isUsersHave importOs; } // args)) paths;
+  importUser = name: paths:
+    map (path: import (path + /user.nix) ({ inherit name; importUser = importUser name; } // args)) paths;
+
+  arisUser = lib.types.submoduleWith {
+    description = "Home Manager module";
+    modules = [
+      ({ name, ... }: {
+        imports = importUser name userConfigs;
+      })
+    ];
+  };
 in
 {
   config.networking.hostName = config.aris.hostName;
-  imports = [
-    (import ./sys-options.nix args)
-  ] ++ importConfigs configs;
+  options.aris.hostName = lib.mkOption {
+    type = lib.types.str;
+    default = "nixos";
+    description = "The host name.";
+  };
+  options.aris.profileName = lib.mkOption {
+    type = lib.types.str;
+    default = "";
+    description = "The profile name.";
+  };
+  options.aris.users = lib.mkOption {
+    type = lib.types.attrsOf arisUser;
+    default = { };
+    description = "The users configuration.";
+  };
+  options.aris.common = (import ./common.nix args);
+  imports = importOs osConfigs;
 })

@@ -3,6 +3,10 @@ let
   cfg = config.aris.hardware.bluetooth;
 in
 {
+  options.aris.hardware.bluetooth = {
+    enable = lib.mkEnableOption "bluetooth";
+    autoStart = lib.mkEnableOption "auto unblock bluetooth";
+  };
   config = lib.mkIf cfg.enable {
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
