@@ -35,6 +35,9 @@ in
         XDG_DATA_DIRS = "${datadir}:$XDG_DATA_DIRS";
         GDK_DPI_SCALE = scale;
         QT_SCALE_FACTOR = scale;
+
+        LANG = "zh_CN.UTF-8";
+        LC_CTYPE = "zh_CN.UTF-8";
       };
 
     home.packages = (with pkgs; [
@@ -85,7 +88,7 @@ in
 
     programs.brave = {
       enable = true;
-      commandLineArgs = [ "--gtk-version=4" "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
+      commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
     };
     # 隐藏图标
     xdg.desktopEntries."nixos-manual" = hidedDesktopEntry;

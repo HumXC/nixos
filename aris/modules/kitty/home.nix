@@ -7,6 +7,9 @@ let
   };
 in
 {
+  home.sessionVariables = {
+    TERMINAL = "kitty";
+  };
   home.packages = with pkgs; [
     kitty
   ];

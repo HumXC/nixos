@@ -26,7 +26,18 @@ in
 
         swaynotificationcenter
       ];
-
+    systemd.user.services.swww = {
+      Unit = {
+        Description = "Swww daemon";
+        Wants = [ "hyprland-session.target" ];
+        After = [ "hyprland-session.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.swww}/bin/swww-daemon";
+      };
+      Install.WantedBy = [ "hyprland-session.target" ];
+    };
     xdg.configFile."hypr/scripts" = {
       source = ./hypr/scripts;
       recursive = true; # 递归整个文件夹

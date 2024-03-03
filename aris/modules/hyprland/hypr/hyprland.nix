@@ -12,13 +12,6 @@ in
   "$scripts" = scripts;
   "$bin" = bin;
   env = [
-    "LANG, zh_CN.UTF-8"
-    "LC_CTYPE, zh_CN.UTF-8"
-    "EDITOR, hx"
-    "TERMINAL, kitty"
-    "GTK_IM_MODULE, fcitx"
-    "QT_IM_MODULE, fcitx"
-    "XMODIFIERS, @im=fcitx"
     "GLFW_IM_MODULE, ibus"
     "QT_QPA_PLATFORMTHEME, gtk3"
     "MOZ_ENABLE_WAYLAND, 1"
@@ -30,7 +23,6 @@ in
     "XDG_CURRENT_DESKTOP, Hyprland"
     "XDG_SESSION_DESKTOP, Hyprland"
     "XDG_SESSION_TYPE, wayland"
-    "SDL_IM_MODULE, fcitx"
   ];
   exec-once = desktop.execOnce ++ [
     # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87
@@ -47,7 +39,7 @@ in
     "${pkgs.swaynotificationcenter}/bin/swaync"
 
     # TODO: 迁移以下几项
-    "$scripts/init-swww.sh"
+    "${bin}/wait-swww.sh;${bin}/swww-randomize.sh once noargs;${bin}/swww-randomize.sh"
     # 启动 pot 翻译
     # https://github.com/Pylogmon/pot
   ];
