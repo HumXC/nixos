@@ -1,5 +1,5 @@
 { lib, pkgs, config, ... }: {
-  desktop = {
+  options.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -38,4 +38,7 @@
       description = "Execute commands once after the WM is initialized.";
     };
   };
+  config.desktop.execOnce = [
+    "${pkgs.easyeffects}/bin/easyeffects --gapplication-service"
+  ];
 }

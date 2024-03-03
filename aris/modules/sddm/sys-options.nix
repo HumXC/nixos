@@ -1,5 +1,5 @@
 { lib, pkgs, ... }: {
-  sddm = {
+  options.aris.modules.sddm = {
     enable = lib.mkEnableOption "sddm";
     scaleFactor = lib.mkOption {
       type = lib.types.float;

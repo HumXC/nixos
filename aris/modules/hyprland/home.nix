@@ -1,4 +1,4 @@
-{ config, lib, pkgs, getAris, sysConfig, ... }:
+{ config, lib, pkgs, getAris, nixosConfig, ... }:
 let
   aris = (getAris config);
   cfg = aris.modules.hyprland;
@@ -23,6 +23,8 @@ in
         grim
         slurp
         swappy
+
+        swaynotificationcenter
       ];
 
     xdg.configFile."hypr/scripts" = {
@@ -39,7 +41,7 @@ in
           map
             (c: import c {
               inherit config pkgs lib aris;
-              commonAris = sysConfig.aris.common;
+              commonAris = nixosConfig.aris.common;
             })
             confs
         );

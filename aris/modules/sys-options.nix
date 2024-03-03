@@ -1,5 +1,5 @@
 { importSysOptions, ... }: {
-  modules = importSysOptions [
+  imports = importSysOptions [
     ./sddm
     ./clash
   ];

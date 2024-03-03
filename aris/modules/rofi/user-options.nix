@@ -1,3 +1,3 @@
 { lib, ... }: {
-  rofi.enable = lib.mkEnableOption "rofi";
+  options.modules.rofi.enable = lib.mkEnableOption "rofi";
 }

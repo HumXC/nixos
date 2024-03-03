@@ -43,7 +43,6 @@ in
       gnome.nautilus
       easyeffects
       vscode
-      swaynotificationcenter
     ]) ++ (with config.nur.repos;[
       ruixi-rebirth.go-musicfox
       humxc.hmcl-bin

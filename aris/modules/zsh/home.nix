@@ -1,7 +1,7 @@
-{ config, lib, pkgs, getAris, sysConfig, ... }:
+{ config, lib, pkgs, getAris, nixosConfig, ... }:
 let
   cfg = (getAris config).modules.zsh;
-  profileName = sysConfig.aris.profileName;
+  profileName = nixosConfig.aris.profileName;
   p10kType = cfg.p10kType;
 in
 {
@@ -152,7 +152,7 @@ in
           export https_proxy=
         }
 
-        ${lib.optionalString sysConfig.virtualisation.waydroid.enable ''
+        ${lib.optionalString nixosConfig.virtualisation.waydroid.enable ''
         waydroid-settings() {
           waydroid prop set persist.waydroid.multi_windows false;
           waydroid prop set persist.waydroid.cursor_on_subsurface false;

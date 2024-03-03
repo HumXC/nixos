@@ -1,6 +1,10 @@
 { inputs, localFlake, system, self, lib, config, ... }@args:
 localFlake.withSystem system ({ ... }:
 let
+  hmModules = [
+    ./desktop
+    ./modules
+  ];
   getAris = hmConfig: config.aris.users."${hmConfig.home.username}";
   importHomes = paths: map (path: path + /home.nix) paths;
   stateVersion = "22.11";
@@ -9,10 +13,7 @@ let
     lib.mapAttrs
       (_: _: {
         home.stateVersion = stateVersion;
-        imports = importHomes [
-          ./desktop
-          ./modules
-        ];
+        imports = importHomes hmModules;
       })
       config.aris.users
   ;
@@ -21,7 +22,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { sysConfig = config; inherit getAris importHomes; };
+    extraSpecialArgs = { inherit getAris importHomes; };
     users = importUserConfig;
     sharedModules = [
       inputs.sops-nix.homeManagerModules.sops

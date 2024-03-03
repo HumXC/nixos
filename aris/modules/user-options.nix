@@ -1,5 +1,5 @@
 { importUserOptions, ... }: {
-  modules = importUserOptions [
+  imports = importUserOptions [
     ./mpd
     ./hyprland
     ./zsh

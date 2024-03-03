@@ -43,10 +43,11 @@ in
     "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store" #Stores only text data
     "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store" #Stores only image data
     "${pkgs.wl-clipboard}/bin/wl-clip-persist --clipboard both"
+
+    "${pkgs.swaynotificationcenter}/bin/swaync"
+
     # TODO: 迁移以下几项
     "$scripts/init-swww.sh"
-    "fcitx5 -d"
-    "easyeffects --gapplication-service"
     # 启动 pot 翻译
     # https://github.com/Pylogmon/pot
   ];

@@ -1,3 +1,3 @@
 { lib, ... }: {
-  kitty.enable = lib.mkEnableOption "kitty";
+  options.modules.kitty.enable = lib.mkEnableOption "kitty";
 }

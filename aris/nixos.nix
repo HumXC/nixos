@@ -1,6 +1,12 @@
 { inputs, localFlake, system, self, lib, pkgs, config, ... }@args:
 localFlake.withSystem system ({ ... }:
 let
+  configs = [
+    ./desktop
+    ./modules
+    ./hardware
+  ];
+
   getAttrWithList = path: attrs: index:
     let
       val = builtins.getAttr (builtins.elemAt path index) attrs;
@@ -23,9 +29,7 @@ let
 in
 {
   config.networking.hostName = config.aris.hostName;
-  imports = importConfigs [
-    ./desktop
-    ./modules
-    ./hardware
-  ];
+  imports = [
+    (import ./sys-options.nix args)
+  ] ++ importConfigs configs;
 })

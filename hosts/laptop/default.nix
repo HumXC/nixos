@@ -58,15 +58,16 @@ in
       };
     };
   };
-  aris.modules.clash = {
-    enable = true;
-    configUrlFile = config.sops.secrets.clash_url.path;
-  };
+
   home-manager.users.HumXC.imports = [ ./home.nix ];
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   aris.hardware.bluetooth = {
     enable = true;
     autoStart = true;
+  };
+  aris.modules.clash = {
+    enable = true;
+    configUrlFile = config.sops.secrets.clash_url.path;
   };
   aris.modules.sddm = {
     enable = true;
