@@ -1,6 +1,6 @@
-{ config, lib, isUsersHave, ... }:
+{ config, lib, elemUsers, ... }:
 let
-  isEnabled = isUsersHave "modules.hyprland.enable" true;
+  isEnabled = elemUsers true (cfg: cfg.modules.hyprland.enable);
   pkg =
     let
       cfgs = builtins.attrValues config.home-manager.users;

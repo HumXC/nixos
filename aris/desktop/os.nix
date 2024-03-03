@@ -13,7 +13,6 @@ let
     config.aris.users;
 in
 {
-  imports = [ (import ./common.nix args) ];
   config = lib.mkIf isEnabled {
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
@@ -23,7 +22,7 @@ in
       fontDir.enable = true;
       enableDefaultPackages = true;
       packages = (with pkgs; [
-        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+        (nerdfonts.override { fonts = [ "FiraCode" "MiSans" ]; })
         twemoji-color-font
         babelstone-han
       ]) ++ (with config.nur.repos;[

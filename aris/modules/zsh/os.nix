@@ -1,6 +1,6 @@
-{ lib, config, pkgs, isUsersHave, ... }:
+{ lib, config, pkgs, elemUsers, ... }:
 let
-  isEnabled = isUsersHave "modules.zsh.enable" true;
+  isEnabled = elemUsers true (cfg: cfg.modules.zsh.enable);
   package = pkgs.zsh;
   enabledUsers =
     (builtins.filter

@@ -1,9 +1,9 @@
-{ config, pkgs, aris, commonAris, ... }:
+{ config, pkgs, aris, ... }:
 let
   desktop = aris.desktop;
   scale = toString desktop.theme.scaleFactor;
   cursorSize = toString desktop.theme.cursorSize;
-  currentTheme = commonAris.desktop.themes."${desktop.theme.name}";
+  currentTheme = aris.desktop.theme.meta;
   scripts = "${config.home.homeDirectory}/.config/hypr/scripts";
   bin = "${scripts}/bin";
 in
@@ -32,7 +32,7 @@ in
     "XDG_SESSION_TYPE, wayland"
     "SDL_IM_MODULE, fcitx"
   ];
-  exec-once = commonAris.desktop.execOnce ++ desktop.execOnce ++ [
+  exec-once = desktop.execOnce ++ [
     # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87
     "${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr"
     "${pkgs.xorg.xrandr}/bin/xrandr;${builtins.replaceStrings [ "\n" ] [ ";" ] config.xsession.initExtra}"

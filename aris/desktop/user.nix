@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }: {
+{ lib, pkgs, config, name, ... }:
+let
+  themes = lib.attrsets.mapAttrs (k: v: v.meta) (import ./themes { inherit config pkgs; });
+  meta = themes."${config.aris.users."${name}".desktop.theme.name}";
+in
+{
   options.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -18,6 +23,11 @@
             type = lib.types.str;
             default = "Fluent-Dark";
             description = "Select defined theme.";
+          };
+          meta = lib.mkOption {
+            type = lib.types.attrs;
+            default = { };
+            description = "Theme meta data, readonly.";
           };
           cursorSize = lib.mkOption {
             type = lib.types.int;
@@ -39,6 +49,8 @@
     };
   };
   config.desktop.execOnce = [
+    "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
     "${pkgs.easyeffects}/bin/easyeffects --gapplication-service"
   ];
+  config.desktop.theme.meta = meta;
 }

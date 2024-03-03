@@ -41,7 +41,6 @@ in
           map
             (c: import c {
               inherit config pkgs lib aris;
-              commonAris = nixosConfig.aris.common;
             })
             confs
         );
