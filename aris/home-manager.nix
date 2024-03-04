@@ -25,6 +25,7 @@ in
     extraSpecialArgs = { inherit getAris importHomes; };
     users = importUserConfig;
     sharedModules = [
+      inputs.ags.homeManagerModules.default
       inputs.sops-nix.homeManagerModules.sops
       inputs.vscode-server.homeModules.default
       inputs.nur.hmModules.nur

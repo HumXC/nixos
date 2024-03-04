@@ -77,4 +77,13 @@
     enable = true;
     startInBackground = true;
   };
+  programs.ags = {
+    enable = true;
+    extraPackages = with pkgs; [
+      glib
+      gtksourceview
+      webkitgtk
+      accountsservice
+    ];
+  };
 }

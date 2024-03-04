@@ -69,34 +69,15 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  aris.modules.sddm = {
+  services.greetd = {
     enable = true;
-    scaleFactor = 1.2;
-    theme = {
-      package = pkgs.sddm-chili-theme;
-      config = ''
-        [General]
-        background=/var/lib/AccountsService/background.png
-
-        ScreenWidth=1920
-        ScreenHeight=1080
-
-        blur=true
-        recursiveBlurLoops=10
-        recursiveBlurRadius=15
-
-        PasswordFieldOutlined=false
-
-        PowerIconSize=
-        FontPointSize=18
-        AvatarPixelSize=220
-
-        translationReboot=
-        translationSuspend=
-        translationPowerOff=
-      '';
+    settings = rec {
+      HumXC_session = {
+        command = "${pkgs.hyprland}/bin/Hyprland";
+        user = "HumXC";
+      };
+      default_session = HumXC_session;
     };
-    cursor.size = 34;
   };
   environment.sessionVariables = {
     OS_EDITOR = "code";
