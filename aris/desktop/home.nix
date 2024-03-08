@@ -33,8 +33,8 @@ in
       {
         GTK_USE_PORTAL = "1";
         XDG_DATA_DIRS = "${datadir}:$XDG_DATA_DIRS";
-        GDK_DPI_SCALE = scale;
         QT_SCALE_FACTOR = scale;
+        GDK_BACKEND = "wayland";
 
         LANG = "zh_CN.UTF-8";
         LC_CTYPE = "zh_CN.UTF-8";
@@ -46,9 +46,6 @@ in
       gnome.nautilus
       easyeffects
       vscode
-    ]) ++ (with config.nur.repos;[
-      ruixi-rebirth.go-musicfox
-      humxc.hmcl-bin
     ]) ++ (with pkgs; [
       (hideDesktopEntry ark [ "org.kde.ark" ])
       (hideDesktopEntry fcitx5-with-addons [

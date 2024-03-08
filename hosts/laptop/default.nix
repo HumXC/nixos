@@ -69,16 +69,17 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      HumXC_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
-        user = "HumXC";
+  services.greetd =
+    {
+      enable = true;
+      settings = rec {
+        HumXC = {
+          command = config.aris.users.HumXC.desktop.session.command;
+          user = "HumXC";
+        };
+        default_session = HumXC;
       };
-      default_session = HumXC_session;
     };
-  };
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
@@ -98,7 +99,7 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 5353 ];
+    allowedUDPPorts = [ 5353 7890 ];
     trustedInterfaces = [ "waydroid0" ];
   };
   users.users.${userName} = {

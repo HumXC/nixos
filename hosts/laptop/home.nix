@@ -6,6 +6,7 @@
       krita
       mpv
 
+      zoxide
       btop
       diskonaut
       trashy
@@ -35,7 +36,10 @@
       zig
       zls
       lldb
-    ];
+    ] ++ (with config.nur.repos;[
+      ruixi-rebirth.go-musicfox
+      humxc.hmcl-bin
+    ]);
     file.".gitconfig" = {
       force = true;
       text = ''
@@ -50,6 +54,7 @@
   };
 
   programs.zsh.initExtraBeforeCompInit = ''
+    eval "$(zoxide init zsh)"
     export PATH=$HOME/.npm-packages/bin:$PATH
     export NODE_PATH=~/.npm-packages/lib/node_modules
     export PNPM_HOME=~/.npm-packages/pnpm
