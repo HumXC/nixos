@@ -8,11 +8,14 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.hyprland.systemd.enable = true;
-    wayland.windowManager.hyprland.enable = true;
+    wayland.windowManager.hyprland = {
+      systemd.enable = true;
+      enable = true;
+      xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
+      package = nixosConfig.programs.hyprland.finalPackage;
+    };
     home.packages = with pkgs;
       [
-        dconf
         hyprpicker
         swww
         # 剪贴板功能

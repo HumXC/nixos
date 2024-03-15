@@ -69,17 +69,9 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  services.greetd =
-    {
-      enable = true;
-      settings = rec {
-        HumXC = {
-          command = config.aris.users.HumXC.desktop.session.command;
-          user = "HumXC";
-        };
-        default_session = HumXC;
-      };
-    };
+  aris.greetd.enable = true;
+  aris.greetd.defaultUser = "HumXC";
+  aris.modules.easyeffects.enable = true;
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
@@ -126,10 +118,6 @@ in
       };
       timeout = 1;
     };
-    # lanzaboote = {
-    #   enable = true;
-    #   pkiBundle = "/etc/secureboot";
-    # };
     kernelParams = [ "quiet" "splash" ];
     consoleLogLevel = 0;
   };
@@ -141,7 +129,6 @@ in
       enable = true;
       packages = [ pkgs.gcr ];
     };
-    gvfs.enable = true; # gnome.nautilus 包的回收站功能需要 See: https://github.com/NixOS/nixpkgs/issues/140860#issuecomment-942769882
     pipewire = {
       enable = true;
       alsa.enable = true;

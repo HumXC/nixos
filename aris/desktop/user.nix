@@ -47,25 +47,6 @@ in
       default = [ ];
       description = "Execute commands once after the WM is initialized.";
     };
-    session = lib.mkOption {
-      description = "Theme configuration";
-      default = {
-        command = "";
-      };
-      type = lib.types.submodule {
-        options = {
-          command = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = "Command.";
-          };
-        };
-      };
-    };
   };
-  config.desktop.execOnce = [
-    "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-    "${pkgs.easyeffects}/bin/easyeffects --gapplication-service"
-  ];
   config.desktop.theme.meta = meta;
 }

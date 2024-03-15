@@ -31,9 +31,13 @@
 
   # 哪些窗口被模糊
   windowrulev2 = "opacity 0.94 override 0.91 override, class:^(?!krita$).+$";
-  layerrule = "blur, rofi";
+  layerrule = [
+    "blur, rofi"
+    "ignorezero, rofi"
+    "blur, waybar"
+    "ignorealpha[0.97], waybar"
+  ];
   blurls = "notifications";
-
   bezier = [
     "bz1,0.87, 0, 0.13, 1"
     "bz2,0.04, 0.48, 0.1, 0.79"

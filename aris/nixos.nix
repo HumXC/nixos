@@ -4,11 +4,13 @@ let
   osConfigs = [
     ./desktop
     ./modules
+    ./greetd
     ./hardware
   ];
   userConfigs = [
     ./desktop
     ./modules
+    ./greetd
   ];
 
   elemUsers = value: function: builtins.elem value (map function (builtins.attrValues config.aris.users));
@@ -19,8 +21,14 @@ let
 
   arisUser = lib.types.submoduleWith {
     description = "Home Manager module";
+
     modules = [
       ({ name, ... }: {
+        options.userName = lib.mkOption {
+          type = lib.types.str;
+          default = name;
+          readOnly = true;
+        };
         imports = importUser name userConfigs;
       })
     ];
