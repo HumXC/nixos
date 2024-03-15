@@ -12,17 +12,19 @@ in
   "$scripts" = scripts;
   "$bin" = bin;
   env = [
-    "GLFW_IM_MODULE, ibus"
-    "QT_QPA_PLATFORMTHEME, gtk3"
-    "MOZ_ENABLE_WAYLAND, 1"
-    "SDL_VIDEODRIVER, wayland"
-    "_JAVA_AWT_WM_NONREPARENTING, 1"
-    "QT_QPA_PLATFORM, wayland"
-    "QT_WAYLAND_DISABLE_WINDOWDECORATION, 1"
-    "CLUTTER_BACKEND, wayland"
-    "XDG_CURRENT_DESKTOP, Hyprland"
-    "XDG_SESSION_DESKTOP, Hyprland"
-    "XDG_SESSION_TYPE, wayland"
+    "HYPRCURSOR_THEME,${currentTheme.cursorTheme}"
+    "HYPRCURSOR_SIZE,${cursorSize}"
+    "GLFW_IM_MODULE,ibus"
+    "QT_QPA_PLATFORMTHEME,gtk3"
+    "MOZ_ENABLE_WAYLAND,1"
+    "SDL_VIDEODRIVER,wayland"
+    "_JAVA_AWT_WM_NONREPARENTING,1"
+    "QT_QPA_PLATFORM,wayland"
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+    "CLUTTER_BACKEND,wayland"
+    "XDG_CURRENT_DESKTOP,Hyprland"
+    "XDG_SESSION_DESKTOP,Hyprland"
+    "XDG_SESSION_TYPE,wayland"
   ];
   exec-once = desktop.execOnce ++ [
     # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87

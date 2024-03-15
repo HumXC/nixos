@@ -18,6 +18,10 @@ let
   dimaroundClass = class: dimaround class "";
   dimaroundTitle = title: dimaround "" title;
 
+  forceinput = class: title: rule "forceinput" class title;
+  forceinputClass = class: forceinput class "";
+  forceinputTitle = title: forceinput "" title;
+
   center = class: title: rule "center" class title;
   centerClass = class: center class "";
   centerTitle = title: center "" title;
@@ -37,6 +41,7 @@ let
   opacity = value: class: title: rule "opacity ${value}" class title;
   opacityClass = value: class: opacity value class "";
   opacityTitle = value: title: opacity value "" title;
+
 in
 {
   windowrulev2 = [
@@ -51,13 +56,16 @@ in
     (floatClass "vlc")
     (floatClass "ncmpcpp")
     (sizeClass 300 300 "mpv")
+    (dimaroundTitle "Authenticate")
+    (forceinputTitle "Authenticate")
+
     # qq
-    (floatTitle "图片查看器")
-    (floatTitle "群聊的聊天记录")
-    (floatTitle "视频播放器")
-    (centerTitle "图片查看器")
-    (centerTitle "群聊的聊天记录")
-    (centerTitle "视频播放器")
+    (float "QQ" "图片查看器")
+    (float "QQ" "群聊的聊天记录")
+    (float "QQ" "视频播放器")
+    (fullscreen "QQ" "图片查看器")
+    (fullscreen "QQ" "群聊的聊天记录")
+    (fullscreen "QQ" "视频播放器")
     # Rofi
     (floatTitle "^(rofi - dmenu)|(rofi - )$")
     (dimaroundTitle "^(rofi - dmenu)|(rofi - )$")
@@ -81,6 +89,7 @@ in
     (center "Code" "^(打开文件夹)|(打开文件)$")
     # Telegram
     (float "org.telegram.desktop" "^(.*)(媒体查看器)$")
+    (fullscreen "org.telegram.desktop" "^(.*)(媒体查看器)$")
     (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(媒体查看器)$")
     # Android studio
     (floatClass "jetbrains-studio")
