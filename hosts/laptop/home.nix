@@ -36,6 +36,9 @@
       zig
       zls
       lldb
+
+      blender
+      godot_4
     ] ++ (with config.nur.repos;[
       ruixi-rebirth.go-musicfox
       humxc.hmcl-bin

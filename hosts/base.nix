@@ -1,4 +1,4 @@
-{ config, nixpkgs, pkgs, lib, inputs, profileName, ... }:
+{ config, nixpkgs, pkgs, lib, inputs, profileName, self, ... }:
 let
   ifExists = path: lib.optional (builtins.pathExists path) path;
 in
@@ -9,7 +9,7 @@ in
   ]
   ++ ifExists ./${profileName}/secrets.nix;
   aris.profileName = profileName;
-  programs.nix-ld.dev.enable = true;
+  programs.nix-ld.enable = true;
   networking = {
     networkmanager.enable = true;
     hosts = {
@@ -30,6 +30,10 @@ in
   ];
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {
+    registry.os = {
+      from = { type = "indirect"; id = "os"; };
+      to = { type = "path"; path = "/etc/nixos"; };
+    };
     channel.enable = false;
     settings = {
       nix-path = lib.mkForce "nixpkgs=flake:nixpkgs";

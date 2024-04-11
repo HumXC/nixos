@@ -45,5 +45,8 @@ in
     # 启动 pot 翻译
     # https://github.com/Pylogmon/pot
   ];
-  monitor = ", highrr, auto, ${scale}";
+  monitor = [
+    "eDP-1, highrr, auto, ${scale}"
+    "HDMI-A-1, highrr, 0x0, 1"
+  ];
 }

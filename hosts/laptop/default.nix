@@ -88,6 +88,7 @@ in
     hashedPasswordFile = "${rootPassFile}";
   };
   networking.networkmanager.enable = true;
+  # virtualisation.docker.enable = true;
 
   networking.firewall = {
     enable = true;
