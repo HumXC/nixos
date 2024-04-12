@@ -74,6 +74,8 @@ in
   services.openssh = {
     enable = true;
     settings = {
+      ClientAliveInterval = 60;
+      ClientAliveCountMax = 3;
       PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       Macs = [ "hmac-sha1" "hmac-md5" ];
