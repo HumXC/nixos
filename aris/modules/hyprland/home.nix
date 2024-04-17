@@ -38,6 +38,7 @@ in
       Service = {
         Type = "simple";
         ExecStart = "${pkgs.swww}/bin/swww-daemon";
+        Restart = "on-failure";
       };
       Install.WantedBy = [ "hyprland-session.target" ];
     };

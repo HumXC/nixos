@@ -60,8 +60,10 @@ if [ "$1" == "once" ]; then
 	echo "$selected_img"
 	$(swww img $SWWWARGS "$selected_img")
 else
-	selected_img=$(process_random_image)
-	echo "$selected_img"
-	$(swww img $SWWWARGS "$selected_img")
-	sleep $INTERVAL
+	while true; do
+		selected_img=$(process_random_image)
+		echo "$selected_img"
+		$(swww img $SWWWARGS "$selected_img")
+		sleep $INTERVAL
+	done
 fi
