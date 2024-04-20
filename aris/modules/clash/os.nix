@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 let
   cfg = config.aris.modules.clash;
-  Country_mmdb_url = "https://gitee.com/mirrors/Pingtunnel/raw/master/GeoLite2-Country.mmdb";
+  Country_mmdb_url = "https://mirror.ghproxy.com/https://github.com/Dreamacro/maxmind-geoip/releases/download/20240412/Country.mmdb";
   clash-tool = pkgs.stdenv.mkDerivation {
     name = "clash-tool";
     clashinit = pkgs.writeText "clash-init" ''
@@ -18,6 +18,12 @@ let
       chmod +x $out/clash-init
     '';
   };
+  yacdVersion = "0.3.8";
+  yacd = builtins.fetchTarball {
+    url = "https://mirror.ghproxy.com/https://github.com/haishanh/yacd/releases/download/v${yacdVersion}/yacd.tar.xz";
+    sha256 = "sha256:0wziqgk6lp482qss8khniqc2hbsc3ykagkglrj085d4a3i2q3fk2";
+  };
+
 in
 {
   options.aris.modules.clash = {
@@ -27,7 +33,6 @@ in
   };
   config = lib.mkIf cfg.enable {
     networking = {
-      # 代理配置
       proxy.default = "http://127.0.0.1:7890/";
       proxy.noProxy = "127.0.0.1,localhost,${config.aris.hostName}.lan";
     };
@@ -49,7 +54,7 @@ in
         ExecStartPre = "${clash-tool}/clash-init";
         CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_TIME CAP_SYS_PTRACE CAP_DAC_READ_SEARCH";
         AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_TIME CAP_SYS_PTRACE CAP_DAC_READ_SEARCH";
-        ExecStart = ''${pkgs.clash-meta}/bin/clash-meta -d ${cfg.workDir}'';
+        ExecStart = ''${pkgs.clash-meta}/bin/clash-meta -d ${cfg.workDir} -ext-ui ${yacd}'';
       };
       wantedBy = [ "multi-user.target" ];
     };
