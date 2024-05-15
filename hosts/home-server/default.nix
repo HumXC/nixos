@@ -76,7 +76,7 @@ in
     settings = {
       ClientAliveInterval = 60;
       ClientAliveCountMax = 3;
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       Macs = [ "hmac-sha1" "hmac-md5" ];
     };
