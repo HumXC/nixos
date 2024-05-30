@@ -97,6 +97,11 @@ in
       maxtime = "168h";
       overalljails = true;
     };
+    daemonSettings = {
+      Definition = {
+        logtarget = "/var/log/fail2ban/fail2ban.log";
+      };
+    };
   };
   environment.sessionVariables = {
     OS_EDITOR = "hx";
