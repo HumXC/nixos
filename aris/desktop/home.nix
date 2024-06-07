@@ -1,4 +1,4 @@
-{ config, lib, pkgs, getAris, ... }@args:
+{ config, lib, pkgs, pkgs-unstable, getAris, ... }:
 let
   hidedDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
   hideDesktopEntry = package: entryNames:
@@ -45,10 +45,9 @@ in
       xdg-utils
       gnome.nautilus
       easyeffects
-      vscode
     ]) ++ (with pkgs; [
       (hideDesktopEntry ark [ "org.kde.ark" ])
-      (hideDesktopEntry fcitx5-with-addons [
+      (hideDesktopEntry pkgs-unstable.fcitx5-with-addons [
         "org.fcitx.Fcitx5"
         "org.fcitx.fcitx5-migrator"
         "fcitx5-configtool"
@@ -83,7 +82,7 @@ in
       };
     };
 
-    programs.brave = {
+    programs.vivaldi = {
       enable = true;
       commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
     };

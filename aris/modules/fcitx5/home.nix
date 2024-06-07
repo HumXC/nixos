@@ -1,5 +1,6 @@
-{ config, lib, pkgs, getAris, ... }:
+{ config, lib, pkgs-unstable, getAris, ... }:
 let
+  pkgs = pkgs-unstable;
   isEnabled = (getAris config).modules.fcitx5.enable;
 
   # See: https://github.com/fkxxyz/rime-cloverpinyin/wiki/linux#%E5%AE%89%E8%A3%85%E8%AF%A5%E8%BE%93%E5%85%A5%E6%96%B9%E6%A1%88
@@ -22,10 +23,7 @@ in
 {
   config = lib.mkIf isEnabled {
     home.sessionVariables = {
-      GTK_IM_MODULE = "fcitx";
-      QT_IM_MODULE = "fcitx";
-      XMODIFIERS = "@im=fcitx";
-      SDL_IM_MODULE = "fcitx";
+      GTK_IM_MODULE = lib.mkForce "";
     };
     i18n.inputMethod = {
       enabled = "fcitx5";
@@ -54,6 +52,21 @@ in
       "${dataDir}/clover.key_bindings.yaml".source = ./clover.key_bindings.yaml;
       "${dataDir}/default.custom.yaml".source = ./default.custom.yaml;
     };
+
+    # gtk = {
+    #   enable = true;
+    #   gtk3.extraConfig = {
+    #     Settings = ''
+    #       gtk-im-module=fcitx
+    #     '';
+    #   };
+
+    #   gtk4.extraConfig = {
+    #     Settings = ''
+    #       gtk-im-module=fcitx
+    #     '';
+    #   };
+    # };
   };
 }
 

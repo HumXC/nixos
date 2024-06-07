@@ -1,19 +1,14 @@
-{ config, pkgs, sops, ... }: {
+{ config, pkgs, pkgs-unstable, ... }: {
   home = {
     packages = with pkgs; [
-      qq
-      telegram-desktop
-      krita
       mpv
+      krita
 
       zoxide
       btop
       diskonaut
       trashy
-      plex-media-player
 
-      nil # nix 的 lsp
-      nixpkgs-fmt # nix 的格式化程序
       gcc
       ffmpeg
       p7zip
@@ -23,8 +18,12 @@
         export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
         exec ${python3}/bin/python "$@"
       '')
-      obs-studio
       foliate
+      obs-studio
+    ] ++ (with pkgs-unstable;[
+      vscode
+      qq
+      telegram-desktop
 
       go
       protobuf
@@ -36,10 +35,11 @@
       zig
       zls
       lldb
+      gdb
 
       blender
       godot_4
-    ] ++ (with config.nur.repos;[
+    ]) ++ (with config.nur.repos;[
       ruixi-rebirth.go-musicfox
       humxc.hmcl-bin
     ]);
@@ -71,6 +71,7 @@
     userEmail = "Hum-XC@outlook.com";
     extraConfig = {
       init.defaultBranch = "main";
+      http.postBuffer = "524288000";
     };
   };
   programs.direnv = {

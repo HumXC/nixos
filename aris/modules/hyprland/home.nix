@@ -1,4 +1,4 @@
-{ config, lib, pkgs, getAris, nixosConfig, ... }:
+{ config, lib, pkgs, getAris, nixosConfig, inputs, ... }:
 let
   aris = (getAris config);
   cfg = aris.modules.hyprland;
@@ -12,7 +12,7 @@ in
       systemd.enable = true;
       enable = true;
       xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
-      package = nixosConfig.programs.hyprland.finalPackage;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     };
     home.packages = with pkgs;
       [
@@ -38,7 +38,7 @@ in
       Service = {
         Type = "simple";
         ExecStart = "${pkgs.swww}/bin/swww-daemon";
-        Restart = "on-failure";
+        ExecStop = "${pkgs.swww}/bin/swww kill";
       };
       Install.WantedBy = [ "hyprland-session.target" ];
     };

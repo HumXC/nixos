@@ -44,17 +44,21 @@ in
 
         # 更新系统
         function os-update() {
-          pwd=$(pwd)
           cd /etc/nixos
           now=$(date +"%Y-%m-%d-%T")
           cp flake.lock backup/$now
+          doas chown -R root:users /etc/nixos
+          pwd=$(pwd)
           doas nix flake update
+          doas chown -R HumXC:users /etc/nixos
           cd "$pwd"
         }
     
         # 重新构建系统
         function os-build() {
-          doas nixos-rebuild switch --flake /etc/nixos#${profileName}
+          doas chown -R root:users /etc/nixos
+          doas nixos-rebuild switch --flake /etc/nixos#${profileName} "$@"
+          doas chown -R HumXC:users /etc/nixos
         }
 
         # 尝试评估构建系统

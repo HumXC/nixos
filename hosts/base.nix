@@ -1,6 +1,7 @@
-{ config, nixpkgs, pkgs, lib, inputs, profileName, self, ... }:
+{ config, pkgs-unstable, pkgs, lib, inputs, profileName, self, system, ... }:
 let
   ifExists = path: lib.optional (builtins.pathExists path) path;
+  isUseSops = builtins.pathExists ./${profileName}/secrets.nix;
 in
 {
   imports = [
@@ -27,7 +28,11 @@ in
     git
     wget
     psmisc
-  ];
+    inputs.nixd.packages.${system}.default
+  ] ++ (with pkgs-unstable;[
+    helix
+    nixpkgs-fmt
+  ]);
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {
     registry.os = {
@@ -36,15 +41,20 @@ in
     };
     channel.enable = false;
     settings = {
-      nix-path = lib.mkForce "nixpkgs=flake:nixpkgs";
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+      trusted-users = [ "root" "@wheel" ];
+      nix-path = "nixpkgs=flake:nixpkgs";
       # https://wiki.hyprland.org/Nix/Cachix/
-      substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
       experimental-features = [
         "nix-command"
         "flakes"
         "auto-allocate-uids"
-        "configurable-impure-env"
         "cgroups"
       ];
       use-cgroups = true;
@@ -58,9 +68,9 @@ in
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    package = pkgs.nixVersions.unstable;
-    registry.nixpkgs.flake = inputs.nixpkgs;
-    extraOptions = (
+    package = pkgs.nixVersions.latest;
+    # registry.nixpkgs.flake = lib.mkForce inputs.nixpkgs-unstable;
+    extraOptions = lib.optionalString isUseSops (
       lib.optionalString
         (builtins.hasAttr "nix_access_tokens" config.sops.secrets)
         "!include ${config.sops.secrets.nix_access_tokens.path}"

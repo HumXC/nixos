@@ -1,4 +1,4 @@
-{ inputs, localFlake, system, self, lib, config, ... }@args:
+{ inputs, localFlake, system, self, lib, config, pkgs-stable, pkgs-unstable, ... }@args:
 localFlake.withSystem system ({ ... }:
 let
   hmModules = [
@@ -22,7 +22,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit getAris importHomes; };
+    extraSpecialArgs = { inherit getAris importHomes inputs pkgs-stable pkgs-unstable; pkgs = pkgs-unstable; };
     users = importUserConfig;
     sharedModules = [
       inputs.ags.homeManagerModules.default

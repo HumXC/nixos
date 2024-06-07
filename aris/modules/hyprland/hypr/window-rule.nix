@@ -46,6 +46,7 @@ in
 {
   windowrulev2 = [
     # 杂项
+    (size 950 600 "brave" "保存文件")
     (floatClass "myproject")
     (floatClass "org.kde.polkit-kde-authentication-agent-1")
     (dimaroundClass "org.kde.polkit-gnome-authentication-agent-1")
@@ -91,8 +92,17 @@ in
     (float "org.telegram.desktop" "^(.*)(媒体查看器)$")
     (fullscreen "org.telegram.desktop" "^(.*)(媒体查看器)$")
     (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(媒体查看器)$")
-    # Android studio
-    (floatClass "jetbrains-studio")
+    # jetbrains
+    # (tileClass "jetbrains-studio")
+    "noborder, class:^(jetbrains-)(.*)$"
+    "windowdance,class:^(jetbrains-.*)$"
+    "opacity 1 override 1 override,class:^(jetbrains-.*)$"
+    "dimaround,class:^(jetbrains-.*)$,floating:1,title:^(?!win)"
+    "center,class:^(jetbrains-.*)$,floating:1,title:^(?!win)"
+    "noanim,class:^(jetbrains-.*)$,title:^(win.*)$"
+    "noinitialfocus,class:^(jetbrains-.*)$,title:^(win.*)$"
+    "rounding 0,class:^(jetbrains-.*)$,title:^(win.*)$"
+    (float "^(jetbrains-.*)$" "^(win.*)$")
     # kdeconnect
     (floatClass "org.kde.kdeconnect.handler")
     # waydroid

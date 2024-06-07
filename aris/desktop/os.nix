@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }@args:
+{ lib, config, pkgs, ... }:
 let
   isEnabled = builtins.elem true
     (map

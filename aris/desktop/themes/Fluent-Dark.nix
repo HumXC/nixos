@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   fluent-kde = pkgs.fetchFromGitHub {
     owner = "vinceliuice";

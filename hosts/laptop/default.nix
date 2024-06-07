@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs-unstable, ... }:
 let
+  pkgs = pkgs-unstable;
   hostName = "LiKen";
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
@@ -27,14 +27,20 @@ let
     };
 in
 {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    vivaldi = {
+      proprietaryCodecs = true;
+      enableWideVine = true;
+    };
+  };
   aris.hostName = hostName;
   aris.users.HumXC = {
     modules = {
       hyprland = {
         enable = true;
         env = {
-          BROWSER = "brave-browser";
+          BROWSER = "vivaldi-stable";
         };
       };
       mpd = {
