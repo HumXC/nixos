@@ -109,22 +109,24 @@ in
   };
   virtualisation.docker.enable = true;
 
+
   boot = {
+    supportedFilesystems = [ "ntfs" ];
     initrd.verbose = false;
+    plymouth.enable = true;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
     loader = {
-      grub.device = "nodev";
-      grub.efiSupport = true;
-      systemd-boot.enable = true;
+      grub = {
+        device = "nodev";
+        efiSupport = true;
+      };
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = 3;
+      timeout = 1;
     };
-    kernelParams = [
-      "quiet"
-      "splash"
-    ];
+    kernelParams = [ "quiet" "splash" ];
     consoleLogLevel = 0;
   };
 
