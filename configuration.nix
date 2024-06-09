@@ -28,7 +28,7 @@
   users.users.nixos = {
     passwd = "nixos";
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ];
     packages = with pkgs; [
       qq
       vscode

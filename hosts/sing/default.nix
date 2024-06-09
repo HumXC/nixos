@@ -1,7 +1,7 @@
 { config, pkgs, profileName, ... }:
 
 let
-  hostName = "Kana";
+  hostName = "Sing";
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
@@ -141,5 +141,5 @@ in
       permit nopass keepenv :wheel
     '';
   };
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }
