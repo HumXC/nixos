@@ -34,7 +34,7 @@ in
 {
   flake.nixosConfigurations = inputs.nixpkgs.lib.mkMerge [
     (mkHost {
-      name = "laptop";
+      name = "aika";
       system = "x86_64-linux";
     })
     (mkHost {
@@ -42,7 +42,7 @@ in
       system = "x86_64-linux";
     })
     (mkHost {
-      name = "minimal";
+      name = "sing";
       system = "x86_64-linux";
     })
   ];

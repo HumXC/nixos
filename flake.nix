@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.40.0";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.39.1";
 
     nur.url = "github:nix-community/NUR";
 
@@ -25,7 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
-
   outputs = inputs@{ self, flake-parts, nixpkgs, nixpkgs-unstable, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:
       let

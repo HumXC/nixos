@@ -1,4 +1,8 @@
-{ config, pkgs, pkgs-unstable, ... }: {
+{ config, pkgs-stable, pkgs-unstable, ... }:
+let
+  pkgs = pkgs-stable;
+in
+{
   home = {
     packages = with pkgs; [
       mpv
@@ -41,7 +45,6 @@
       godot_4
     ]) ++ (with config.nur.repos;[
       ruixi-rebirth.go-musicfox
-      humxc.hmcl-bin
     ]);
     file.".gitconfig" = {
       force = true;

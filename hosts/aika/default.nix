@@ -1,7 +1,7 @@
 { config, pkgs-unstable, ... }:
 let
   pkgs = pkgs-unstable;
-  hostName = "LiKen";
+  hostName = "Aika";
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
@@ -64,7 +64,9 @@ in
       };
     };
   };
-
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [ ./home.nix ];
   nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   aris.hardware.bluetooth = {
@@ -82,7 +84,6 @@ in
     OS_EDITOR = "code";
     EDITOR = "code";
   };
-  virtualisation.waydroid.enable = true;
   programs.adb.enable = true;
   services.udev.packages = [
     pkgs.android-udev-rules
@@ -98,8 +99,7 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 5353 7890 ];
-    trustedInterfaces = [ "waydroid0" ];
+    allowedUDPPorts = [ 7890 ];
   };
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
@@ -109,7 +109,6 @@ in
 
   boot = {
     supportedFilesystems = [ "ntfs" ];
-    initrd.kernelModules = [ "amdgpu" ];
     initrd.verbose = false;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
@@ -156,4 +155,5 @@ in
       permit nopass keepenv :wheel
     '';
   };
+  system.stateVersion = "24.05";
 }

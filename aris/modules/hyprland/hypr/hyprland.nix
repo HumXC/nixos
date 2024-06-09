@@ -46,7 +46,6 @@ in
     # https://github.com/Pylogmon/pot
   ];
   monitor = [
-    "eDP-1, highrr, auto, ${scale}"
-    "HDMI-A-1, highrr, 0x0, 1"
+    "DP-2, 2560x1440@180, auto, ${scale}"
   ];
 }

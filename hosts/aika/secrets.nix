@@ -1,6 +1,6 @@
 { config, sops, ... }:
 let
-  sopsFile = ./../../secrets/laptop.yaml;
+  sopsFile = ./../../secrets/aika.yaml;
   user = "HumXC";
   homeDirectory = config.home-manager.users."${user}".home.homeDirectory;
 in
