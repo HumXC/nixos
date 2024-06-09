@@ -38,7 +38,7 @@ in
       system = "x86_64-linux";
     })
     (mkHost {
-      name = "home-server";
+      name = "kana";
       system = "x86_64-linux";
     })
     (mkHost {
