@@ -58,7 +58,7 @@ in
     desktop = {
       enable = true;
       theme = {
-        scaleFactor = 1.2;
+        scaleFactor = 1.25;
         cursorSize = 34;
         name = "Fluent-Dark";
       };
@@ -117,12 +117,18 @@ in
         device = "nodev";
         efiSupport = true;
         theme = distro-grub-theme;
+        extraEntries = ''
+          menuentry "Windows" --class windows{
+              search --file --no-floppy --set=root /EFI/Microsoft/Boot/bootmgfw.efi
+              chainloader (''${root})/EFI/Microsoft/Boot/bootmgfw.efi
+          }
+        '';
       };
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = 1;
+      timeout = 60;
     };
     kernelParams = [ "quiet" "splash" ];
     consoleLogLevel = 0;

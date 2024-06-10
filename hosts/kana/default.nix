@@ -128,11 +128,6 @@ in
     consoleLogLevel = 0;
   };
 
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 8 * 1024;
-  }];
-
   console.useXkbConfig = true;
 
   security.doas = {

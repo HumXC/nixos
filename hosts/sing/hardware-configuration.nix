@@ -14,33 +14,32 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";
-      fsType = "btrfs";
-      options = [ "subvol=fsroot" "compress=zstd" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";
+    fsType = "btrfs";
+    options = [ "subvol=fsroot" "compress=zstd" ];
+  };
 
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";
-      fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";
+    fsType = "btrfs";
+    options = [ "subvol=home" "compress=zstd" ];
+  };
 
-  fileSystems."/nix" =
-    {
-      device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" ];
-    };
-
-  fileSystems."/efi" =
-    {
-      device = "/dev/disk/by-uuid/185A-7274";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";
+    fsType = "btrfs";
+    options = [ "subvol=nix" "noatime" "compress=zstd" ];
+  };
+  fileSystems."/disk/data" = {
+    device = "/dev/disk/by-uuid/da14238b-c01a-4cc3-8e43-b8ce0c5dfb87";
+    fsType = "ext4";
+  };
+  fileSystems."/efi" = {
+    device = "/dev/disk/by-uuid/185A-7274";
+    fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
+  };
 
   swapDevices = [ ];
   networking.useDHCP = lib.mkDefault true;
