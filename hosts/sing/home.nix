@@ -21,6 +21,14 @@
       '';
     };
   };
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
+  };
+  home.sessionVariables = {
+    DIRENV_LOG_FORMAT = "";
+  };
   services.vscode-server.enable = true;
   programs.home-manager.enable = true;
   programs.git = {

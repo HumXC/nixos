@@ -12,7 +12,10 @@ let
     group = "www-data";
   };
 in
-{
+{ 
+  services.ollama.enable = true;
+  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.enable = true;
   aris.hostName = hostName;
   aris.users."${userName}" = {
     modules.helix.enable = true;
@@ -34,6 +37,7 @@ in
   users.groups.www-data = { gid = 82; };
   home-manager.users.HumXC.imports = [ ./home.nix ];
   users.users.${userName} = {
+    uid = 1000;
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "www-data" ];
@@ -47,6 +51,7 @@ in
       9090 # clash
       6800 # aria2
       15136 # ntfy
+      7777 # 泰拉瑞亚
     ];
   };
   environment.etc."docker/daemon.json".text = ''
