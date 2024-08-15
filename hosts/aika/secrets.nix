@@ -8,11 +8,11 @@ in
   sops.secrets = {
     "password/${user}" = { sopsFile = sopsFile; neededForUsers = true; };
     "password/root" = { sopsFile = sopsFile; neededForUsers = true; };
-    nix_access_tokens = {
-      mode = "0400";
-      owner = "${user}";
-      path = "${homeDirectory}/.config/nix/nix.conf";
-    };
+    # nix_access_tokens = {
+    #   mode = "0400";
+    #   owner = "${user}";
+    #   path = "${homeDirectory}/.config/nix/nix.conf";
+    # };
     id_rsa = {
       mode = "0400";
       owner = "${user}";

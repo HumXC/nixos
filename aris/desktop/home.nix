@@ -38,12 +38,23 @@ in
 
         LANG = "zh_CN.UTF-8";
         LC_CTYPE = "zh_CN.UTF-8";
-      };
 
+        GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+          pkgs.gst_all_1.gst-plugins-good
+          pkgs.gst_all_1.gst-plugins-bad
+          pkgs.gst_all_1.gst-plugins-ugly
+          pkgs.gst_all_1.gst-libav
+        ];
+      };
     home.packages = (with pkgs; [
       glib
       xdg-utils
-      gnome.nautilus
+      nautilus
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-libav
+      sushi
       easyeffects
     ]) ++ (with pkgs; [
       (hideDesktopEntry ark [ "org.kde.ark" ])

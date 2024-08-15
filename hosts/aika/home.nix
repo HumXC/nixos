@@ -5,8 +5,14 @@ in
 {
   home = {
     packages = with pkgs; [
+      sassc
+      ddcutil
+      bun
       mpv
+      swayimg
       krita
+      go-musicfox
+      obsidian
 
       zoxide
       btop
@@ -44,7 +50,7 @@ in
       blender
       godot_4
     ]) ++ (with config.nur.repos;[
-      ruixi-rebirth.go-musicfox
+
     ]);
     file.".gitconfig" = {
       force = true;

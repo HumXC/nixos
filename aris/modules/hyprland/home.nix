@@ -12,22 +12,22 @@ in
       systemd.enable = true;
       enable = true;
       xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     };
     home.packages = with pkgs;
       [
+        pulseaudio
+        libnotify
         hyprpicker
         swww
         # 剪贴板功能
         wl-clipboard
+        wf-recorder
         cliphist
         wl-clip-persist
         # 截图功能
         grim
         slurp
         swappy
-
-        swaynotificationcenter
       ];
     systemd.user.services.swww = {
       Unit = {

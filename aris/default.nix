@@ -13,7 +13,6 @@ localFlake: { withSystem, self, ... }: {
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
-        inputs.hyprland.nixosModules.default
         inputs.nur.nixosModules.nur
         (import ./home-manager.nix ({ inherit localFlake system self pkgs-stable pkgs-unstable; } // args))
         (import ./nixos.nix ({ inherit localFlake system self pkgs pkgs-unstable; } // args))

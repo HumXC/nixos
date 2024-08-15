@@ -23,7 +23,7 @@ in
 {
   config = lib.mkIf isEnabled {
     home.sessionVariables = {
-      GTK_IM_MODULE = lib.mkForce "";
+      # GTK_IM_MODULE = lib.mkForce "";
     };
     i18n.inputMethod = {
       enabled = "fcitx5";
@@ -52,21 +52,6 @@ in
       "${dataDir}/clover.key_bindings.yaml".source = ./clover.key_bindings.yaml;
       "${dataDir}/default.custom.yaml".source = ./default.custom.yaml;
     };
-
-    # gtk = {
-    #   enable = true;
-    #   gtk3.extraConfig = {
-    #     Settings = ''
-    #       gtk-im-module=fcitx
-    #     '';
-    #   };
-
-    #   gtk4.extraConfig = {
-    #     Settings = ''
-    #       gtk-im-module=fcitx
-    #     '';
-    #   };
-    # };
   };
 }
 

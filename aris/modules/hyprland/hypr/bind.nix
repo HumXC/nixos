@@ -21,9 +21,9 @@ in
   bind = (workspaceWithNumber "${mod}") ++ [
     "super, o, exit"
     # 颜色选择
-    (execModWith "P" "hyprpicker -a")
-    # 隐藏/显示 waybar
-    (execModWith "W" "killall -SIGUSR1 .waybar-wrapped")
+    # (execModWith "P" "hyprpicker -a")
+    # 隐藏/显示 right-bar
+    (execModWith "Q" ''ags -r "toggle_right_bar()"'')
     # 打开vscode
     (execModWith "C" "$bin/launch-desktop.sh $EDITOR")
     # 打开浏览器
@@ -50,6 +50,8 @@ in
     # 截图后打开 swappy 编辑图片
     (exec "${mod}_SHIFT" "S" "$bin/screenshot.sh edit")
     (exec "${mod}_SHIFT_CTRL" "S" "$bin/screenshot.sh edit copy-name")
+    # 录制屏幕
+    (exec "${mod}_SHIFT" "R" "$bin/wfrc.sh")
     # 显示剪贴板历史
     # fcitx5 自带这个功能，默认触发键是 ctrl+; 可以在 fcitx5配置 中的 [附加组件] 里关闭
     (execModWith "V" "cliphist list | $bin/rofi.sh type-1 style-1 -dmenu | cliphist decode | wl-copy")

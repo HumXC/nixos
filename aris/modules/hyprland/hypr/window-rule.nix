@@ -46,6 +46,7 @@ in
 {
   windowrulev2 = [
     # 杂项
+    (opacity "0.98 override 0.96 override" ".+" "")
     (size 950 600 "brave" "保存文件")
     (floatClass "myproject")
     (floatClass "org.kde.polkit-kde-authentication-agent-1")
@@ -59,7 +60,6 @@ in
     (sizeClass 300 300 "mpv")
     (dimaroundTitle "Authenticate")
     (forceinputTitle "Authenticate")
-
     # qq
     (float "QQ" "图片查看器")
     (float "QQ" "群聊的聊天记录")

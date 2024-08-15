@@ -9,7 +9,7 @@
     touchpad = {
       natural_scroll = "yes";
     };
-    sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+    sensitivity = 0.06; # -1.0 - 1.0, 0 means no modification.
   };
   general = {
     gaps_in = 4;
@@ -26,18 +26,35 @@
     rounding = 6;
     blur = {
       passes = 2;
+      noise = 0.06;
+      size = 12;
+      # xray = true;
     };
   };
 
-  # 哪些窗口被模糊
-  windowrulev2 = "opacity 0.94 override 0.91 override, class:^(?!krita$).+$";
+
   layerrule = [
     "blur, rofi"
     "ignorezero, rofi"
-    "blur, waybar"
-    "ignorealpha[0.97], waybar"
+    "blur, top-bar.*"
+    "ignorealpha 0.5, top-bar.*"
+
+    "blur, right-bar.*"
+    "ignorealpha 0.5, right-bar.*"
+
+    "blur, notifications"
+    "ignorealpha 0.5, notifications"
+
+
+    "animation slide right, swaync-control-center"
+    "animation slide right, swaync-notification-window"
+    "blur, swaync-control-center"
+    "blur, swaync-notification-window"
+    "ignorezero, swaync-control-center"
+    "ignorezero, swaync-notification-window"
+    "ignorealpha 0.5, swaync-control-center"
+    "ignorealpha 0.5, swaync-notification-window"
   ];
-  blurls = "notifications";
   bezier = [
     "bz1,0.87, 0, 0.13, 1"
     "bz2,0.04, 0.48, 0.1, 0.79"
@@ -45,20 +62,28 @@
   ];
   animations = {
     enabled = true;
+    layers = {
+      animation = [
+        "layersIn,1,1,bz1"
+        "layersOut,1,1,bz1"
+      ];
+    };
     windows = {
       animation = [
-        "windowsIn,1,4,default"
-        "windowsOut,1,4,default"
-        "windowsMove,1,4,default"
+        "windowsIn,1,2,default"
+        "windowsOut,1,2,bz1"
+        "windowsMove,1,2,default"
       ];
     };
     fade = {
       animation = [
-        "fadeIn,1,1,bz2"
-        "fadeOut,1,8,bz2"
-        "fadeSwitch,1,8,bz3"
-        "fadeShadow,1,8,bz2"
-        "fadeDim,1,4,bz3"
+        "fadeIn,1,2,default"
+        "fadeOut,1,2,bz2"
+        "fadeSwitch,1,2,default"
+        "fadeShadow,1,1,default"
+        "fadeDim,1,2,bz3"
+        "fadeLayersIn,1,1,bz2"
+        "fadeLayersOut,1,1,bz2"
       ];
     };
     animation = [
@@ -77,7 +102,6 @@
     disable_hyprland_logo = "yes";
     animate_mouse_windowdragging = true;
     vfr = false;
-    vrr = 1;
   };
 
   gestures = {

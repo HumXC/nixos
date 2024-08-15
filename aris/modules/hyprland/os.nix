@@ -1,7 +1,7 @@
-{ config, lib, elemUsers, pkgs, inputs, ... }:
+{ config, lib, elemUsers, pkgs, ... }:
 let
   isEnabled = elemUsers true (cfg: cfg.modules.hyprland.enable);
-  pkg = inputs.hyprland.packages.${pkgs.system}.hyprland;
+
   hyprland = name: config.home-manager.users."${name}".wayland.windowManager.hyprland.finalPackage;
   hm_var = name: "/etc/profiles/per-user/${name}/etc/profile.d/hm-session-vars.sh";
   hy_session = name:
@@ -25,6 +25,6 @@ in
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/wayland/hyprland.nix
   config = lib.mkIf isEnabled {
     programs.hyprland.enable = true;
-    programs.hyprland.package = pkg;
+    programs.hyprland.package = config.home-manager.users.HumXC.wayland.windowManager.hyprland.finalPackage;
   };
 }

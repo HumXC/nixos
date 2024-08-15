@@ -13,12 +13,15 @@ in
       fzf
       autojump
     ];
+    programs.command-not-found.enable = false;
     programs.zsh = {
       enable = true;
       # 此选项与 default.nix 中的默认值重复，如果不关闭会严重拖慢启动速度
       enableCompletion = false;
+      # for home-manager, use programs.bash.initExtra instead
       initExtraBeforeCompInit = ''
         # p10k instant prompt
+        source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
         P10K_INSTANT_PROMPT="$XDG_CACHE_HOME/p10k-instant-prompt-''${(%):-%n}.zsh"
         [[ ! -r "$P10K_INSTANT_PROMPT" ]] || source "$P10K_INSTANT_PROMPT"
       '';

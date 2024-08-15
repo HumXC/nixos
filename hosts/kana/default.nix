@@ -23,7 +23,6 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   hardware.cpu.intel.updateMicrocode = true;
   users.mutableUsers = false;
   users.users.root = {

@@ -6,7 +6,5 @@
     default = "";
     description = "Path to the hwmon directory containing the CPU temperature sensor";
   };
-  config.desktop.execOnce = [
-    "${pkgs.waybar}/bin/waybar"
-  ];
+
 }

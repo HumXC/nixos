@@ -38,10 +38,7 @@ in
     "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store" #Stores only image data
     "${pkgs.wl-clipboard}/bin/wl-clip-persist --clipboard both"
 
-    "${pkgs.swaynotificationcenter}/bin/swaync"
-
-    # TODO: 迁移以下几项
-    "${bin}/wait-swww.sh;${bin}/swww-randomize.sh once noargs;${bin}/swww-randomize.sh"
+    "ags"
     # 启动 pot 翻译
     # https://github.com/Pylogmon/pot
   ];

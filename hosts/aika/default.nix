@@ -52,8 +52,6 @@ in
       helix.enable = true;
       kitty.enable = true;
       fcitx5.enable = true;
-      waybar.enable = true;
-      waybar.cpuTemperatureHwmonPath = "/sys/class/hwmon/hwmon0/temp1_input";
     };
     desktop = {
       enable = true;
@@ -68,7 +66,6 @@ in
   services.gvfs.enable = true;
   services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [ ./home.nix ];
-  nix.settings.substituters = [ "https://mirror.sjtu.edu.cn/nix-channels/store" ];
   aris.hardware.bluetooth = {
     enable = true;
     autoStart = true;
@@ -104,7 +101,7 @@ in
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" ];
   };
 
   boot = {
