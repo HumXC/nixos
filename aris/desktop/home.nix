@@ -56,8 +56,9 @@ in
       gst_all_1.gst-libav
       sushi
       easyeffects
+      ark
+      microsoft-edge
     ]) ++ (with pkgs; [
-      (hideDesktopEntry ark [ "org.kde.ark" ])
       (hideDesktopEntry pkgs-unstable.fcitx5-with-addons [
         "org.fcitx.Fcitx5"
         "org.fcitx.fcitx5-migrator"
@@ -93,10 +94,6 @@ in
       };
     };
 
-    programs.vivaldi = {
-      enable = true;
-      commandLineArgs = [ "--ozone-platform=wayland" "--ozone-platform-hint=auto" "--enable-wayland-ime" ];
-    };
     # 隐藏图标
     xdg.desktopEntries."nixos-manual" = hidedDesktopEntry;
   };

@@ -29,10 +29,6 @@ in
 {
   nixpkgs.config = {
     allowUnfree = true;
-    vivaldi = {
-      proprietaryCodecs = true;
-      enableWideVine = true;
-    };
   };
   aris.hostName = hostName;
   aris.users.HumXC = {
@@ -40,7 +36,7 @@ in
       hyprland = {
         enable = true;
         env = {
-          BROWSER = "vivaldi-stable";
+          BROWSER = "microsoft-edge";
         };
       };
       mpd = {

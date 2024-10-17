@@ -20,6 +20,7 @@ let
 in
 {
   home-manager = {
+    backupFileExtension = "hm-back";
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit getAris importHomes inputs pkgs-stable pkgs-unstable; pkgs = pkgs-unstable; };

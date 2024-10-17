@@ -60,6 +60,7 @@ in
     (sizeClass 300 300 "mpv")
     (dimaroundTitle "Authenticate")
     (forceinputTitle "Authenticate")
+    (tileClass "Microsoft-edge")
     # qq
     (float "QQ" "图片查看器")
     (float "QQ" "群聊的聊天记录")
@@ -88,6 +89,7 @@ in
     (floatTitle "^(wps)|(et)|(wpp)|(pdf)$")
     # vscode
     (center "Code" "^(打开文件夹)|(打开文件)$")
+    (dimaround "Code" "^(打开文件夹)|(打开文件)$")
     # Telegram
     (float "org.telegram.desktop" "^(.*)(媒体查看器)$")
     (fullscreen "org.telegram.desktop" "^(.*)(媒体查看器)$")

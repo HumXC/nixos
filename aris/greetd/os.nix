@@ -24,6 +24,7 @@ in
     home-manager.users.greeter = {
       home.stateVersion = "22.11";
       wayland.windowManager.hyprland.enable = true;
+      wayland.windowManager.hyprland.package = pkgs.hyprland;
       wayland.windowManager.hyprland.extraConfig = "-"; # 去除警告
     };
     users.users.greeter = {

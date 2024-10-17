@@ -1,4 +1,4 @@
-{ config, lib, pkgs, getAris, nixosConfig, inputs, ... }:
+{ config, lib, pkgs, pkgs-stable, getAris, nixosConfig, inputs, ... }:
 let
   aris = (getAris config);
   cfg = aris.modules.hyprland;
@@ -10,6 +10,7 @@ in
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       systemd.enable = true;
+      package = pkgs-stable.hyprland;
       enable = true;
       xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
     };

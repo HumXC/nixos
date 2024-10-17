@@ -9,7 +9,7 @@
     touchpad = {
       natural_scroll = "yes";
     };
-    sensitivity = 0.06; # -1.0 - 1.0, 0 means no modification.
+    sensitivity = 0.04; # -1.0 - 1.0, 0 means no modification.
   };
   general = {
     gaps_in = 4;

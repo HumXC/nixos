@@ -10,11 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # hyprland = {
-    #   type = "git";
-    #   url = "https://github.com/hyprwm/Hyprland?rev=v0.41.1";
-    #   submodules = true;
-    # };
     nur.url = "github:nix-community/NUR";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -42,6 +37,7 @@
         ];
         flake = { inherit flakeModules; };
         systems = [ "x86_64-linux" ];
+
         perSystem = { config, pkgs, system, lib, ... }: {
           devShells = import ./shell { inherit inputs pkgs lib system; };
         };
