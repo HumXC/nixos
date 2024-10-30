@@ -30,11 +30,11 @@ in
     git
     wget
     psmisc
-    inputs.nixd.packages.${system}.default
   ] ++ (with pkgs-unstable;[
     helix
     nixpkgs-fmt
     cachix
+    nixd
   ]);
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {

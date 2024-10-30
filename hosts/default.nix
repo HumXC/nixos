@@ -45,5 +45,12 @@ in
       name = "sing";
       system = "x86_64-linux";
     })
+    (mkHost {
+      name = "wsl";
+      system = "x86_64-linux";
+      extraModules = [
+        inputs.nixos-wsl.nixosModules.default
+      ];
+    })
   ];
 }

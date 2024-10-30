@@ -7,15 +7,17 @@ let
   };
 in
 {
-  home.sessionVariables = {
-    TERMINAL = "kitty";
-  };
-  home.packages = with pkgs; [
-    kitty
-  ];
-  xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
-  xdg.configFile."kitty/themes" = {
-    source = themes.outPath + "/themes";
-    recursive = true; # 递归整个文件夹
+  config = lib.mkIf isEnabled {
+    home.sessionVariables = {
+      TERMINAL = "kitty";
+    };
+    home.packages = with pkgs; [
+      kitty
+    ];
+    xdg.configFile."kitty/kitty.conf".source = ./kitty.conf;
+    xdg.configFile."kitty/themes" = {
+      source = themes.outPath + "/themes";
+      recursive = true; # 递归整个文件夹
+    };
   };
 }

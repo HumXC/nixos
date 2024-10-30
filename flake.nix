@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-24.05";
@@ -17,7 +18,6 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     ags.url = "github:Aylur/ags";
-    nixd.url = "github:nix-community/nixd?ref=2.2.0";
     nixpkgs-esp-dev = {
       url = "github:mirrexagon/nixpkgs-esp-dev";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
