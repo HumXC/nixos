@@ -5,8 +5,6 @@
       btop
       diskonaut
       trashy
-      nil # nix 的 lsp
-      nixpkgs-fmt # nix 的格式化程序
       go
     ];
     file.".gitconfig" = {

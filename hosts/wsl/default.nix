@@ -6,11 +6,12 @@ let
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
 in
-{ 
+{
   wsl.enable = true;
   wsl.defaultUser = "HumXC";
+  wsl.usbip.enable = true;
   networking.networkmanager.enable = pkgs.lib.mkForce false;
-
+  networking.proxy.default = "http://127.0.0.1:7890/";
   aris.hostName = hostName;
   aris.users."${userName}" = {
     modules.helix.enable = true;

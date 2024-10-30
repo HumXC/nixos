@@ -1,9 +1,6 @@
 { config, pkgs, sops, ... }: {
   home = {
     packages = with pkgs; [
-      btop
-      nil # nix 的 lsp
-      nixpkgs-fmt # nix 的格式化程序
     ];
     file.".gitconfig" = {
       force = true;
