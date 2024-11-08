@@ -1,4 +1,4 @@
-{ config, pkgs-stable, pkgs-unstable, ... }:
+{ config, pkgs-stable, pkgs-unstable, inputs, ... }:
 let
   pkgs = pkgs-stable;
 in
@@ -48,6 +48,10 @@ in
 
       blender
       godot_4
+      kicad
+
+      winetricks
+      wineWowPackages.waylandFull
     ]) ++ (with config.nur.repos;[
       humxc.qq
     ]);

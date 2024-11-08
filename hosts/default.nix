@@ -46,6 +46,10 @@ in
       system = "x86_64-linux";
     })
     (mkHost {
+      name = "roli";
+      system = "x86_64-linux";
+    })
+    (mkHost {
       name = "wsl";
       system = "x86_64-linux";
       extraModules = [

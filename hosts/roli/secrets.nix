@@ -1,6 +1,6 @@
 { config, sops, ... }:
 let
-  sopsFile = ./../../secrets/home-server.yaml;
+  sopsFile = ./../../secrets/aika.yaml;
   user = "HumXC";
   homeDirectory = config.home-manager.users."${user}".home.homeDirectory;
 in
@@ -8,14 +8,25 @@ in
   sops.secrets = {
     "password/${user}" = { sopsFile = sopsFile; neededForUsers = true; };
     "password/root" = { sopsFile = sopsFile; neededForUsers = true; };
-    "davfs_secrets" = { sopsFile = sopsFile; path = "/etc/davfs2/secrets"; };
+    nix_access_tokens = {
+      mode = "0400";
+      owner = "${user}";
+      path = "${homeDirectory}/.config/nix/nix.conf";
+    };
     id_rsa = {
+      mode = "0400";
       owner = "${user}";
       path = "${homeDirectory}/.ssh/id_rsa";
     };
     id_rsa_pub = {
+      mode = "0400";
       owner = "${user}";
-      path = "${homeDirectory}/.ssh/authorized_keys";
+      path = "${homeDirectory}/.ssh/id_rsa.pub";
     };
   };
 }
+
+
+
+
+
