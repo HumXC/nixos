@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, getAris, ... }:
+{ config, lib, pkgs, pkgs-unstable, getAris, inputs, ... }:
 let
   hidedDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
   hideDesktopEntry = package: entryNames:
@@ -57,7 +57,7 @@ in
       sushi
       easyeffects
       ark
-      microsoft-edge
+      libsForQt5.qtstyleplugin-kvantum
     ]) ++ (with pkgs; [
       (hideDesktopEntry pkgs-unstable.fcitx5-with-addons [
         "org.fcitx.Fcitx5"
@@ -66,7 +66,9 @@ in
         "kcm_fcitx5"
         "kbd-layout-viewer5"
       ])
-    ]);
+    ]) ++ [
+      inputs.zen-browser.packages.x86_64-linux.default
+    ];
     # xdg-mime query filetype filename
     # xdg-mime query default type
     xdg.mimeApps = {

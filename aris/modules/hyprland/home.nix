@@ -2,8 +2,8 @@
 let
   aris = (getAris config);
   cfg = aris.modules.hyprland;
-  env =
-    let e = cfg.env;
+  var =
+    let e = cfg.var;
     in lib.attrsets.listToAttrs (map (key: { name = "\$${key}"; value = e."${key}"; }) (builtins.attrNames e));
 in
 {
@@ -61,7 +61,7 @@ in
             confs
         );
       in
-      env //
+      var //
       importConf [
         ./hypr/hyprland.nix
         ./hypr/main.nix

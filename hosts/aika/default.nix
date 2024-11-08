@@ -35,8 +35,8 @@ in
     modules = {
       hyprland = {
         enable = true;
-        env = {
-          BROWSER = "microsoft-edge";
+        var = {
+          BROWSER = "zen";
         };
       };
       mpd = {
@@ -88,7 +88,6 @@ in
     hashedPasswordFile = "${rootPassFile}";
   };
   networking.networkmanager.enable = true;
-  # virtualisation.docker.enable = true;
 
   networking.firewall = {
     enable = true;

@@ -32,7 +32,6 @@ in
       obs-studio
     ] ++ (with pkgs-unstable;[
       vscode
-      qq
       telegram-desktop
 
       go
@@ -50,8 +49,10 @@ in
       blender
       godot_4
     ]) ++ (with config.nur.repos;[
-
-    ]);
+      humxc.qq
+    ]) ++ [
+      inputs.zen-browser.packages.x86_64-linux.default
+    ];
     file.".gitconfig" = {
       force = true;
       text = ''
