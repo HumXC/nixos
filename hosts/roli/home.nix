@@ -29,6 +29,7 @@ in
         exec ${python3}/bin/python "$@"
       '')
       foliate
+      blender
       obs-studio
     ] ++ (with pkgs-unstable;[
       vscode
@@ -46,7 +47,6 @@ in
       lldb
       gdb
 
-      blender
       godot_4
       kicad
 

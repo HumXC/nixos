@@ -6,7 +6,7 @@ let
   scripts = "${config.home.homeDirectory}/.config/hypr/scripts";
   bin = "${scripts}/bin";
 
-  monitor = map (m: "${m.name},${toString m.size}@${toString (builtins.floor m.rate)},auto,${toString (builtins.floor m.scale)}") desktop.monitor;
+  monitor = map (m: "${m.name},${toString m.size}@${toString m.rate},auto,${toString m.scale}") desktop.monitor;
 in
 {
   # 脚本目录

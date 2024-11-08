@@ -54,8 +54,14 @@ in
       theme = {
         scaleFactor = 1.25;
         cursorSize = 34;
-        name = "Fluent-Dark";
+        name = "Orchis";
       };
+      monitor = [{
+        name = "DP-2";
+        size = "2560x1440";
+        rate = 180.0;
+        scale = 1.25;
+      }];
     };
   };
   services.devmon.enable = true;
@@ -73,6 +79,7 @@ in
   aris.greetd.enable = true;
   aris.greetd.defaultUser = "HumXC";
   aris.modules.easyeffects.enable = true;
+  aris.users.HumXC.desktop.execOnce = [ "ags" ];
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
