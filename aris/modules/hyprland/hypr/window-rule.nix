@@ -62,6 +62,7 @@ in
     (forceinputTitle "Authenticate")
     (tileClass "Microsoft-edge")
     (dimaround "org.gnome.Nautilus" "无法访问位置")
+    (dimaroundClass "gcr-prompter")
     # qq
     (float "QQ" "图片查看器")
     (float "QQ" "群聊的聊天记录")
