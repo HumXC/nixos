@@ -64,12 +64,7 @@ in
     (dimaround "org.gnome.Nautilus" "无法访问位置")
     (dimaroundClass "gcr-prompter")
     # qq
-    (float "QQ" "图片查看器")
-    (float "QQ" "群聊的聊天记录")
-    (float "QQ" "视频播放器")
-    (fullscreen "QQ" "图片查看器")
-    (fullscreen "QQ" "群聊的聊天记录")
-    (fullscreen "QQ" "视频播放器")
+    (float "(QQ)" "^(图片查看器|视频播放器|群聊的聊天记录)$")
     # Rofi
     (floatTitle "^(rofi - dmenu)|(rofi - )$")
     (dimaroundTitle "^(rofi - dmenu)|(rofi - )$")
