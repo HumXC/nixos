@@ -57,14 +57,16 @@ in
     (floatClass "Microsoft-edge")
     (floatClass "vlc")
     (floatClass "ncmpcpp")
-    (sizeClass 300 300 "mpv")
+    (floatClass "mpv")
+    (centerClass "mpv")
     (dimaroundTitle "Authenticate")
     (forceinputTitle "Authenticate")
     (tileClass "Microsoft-edge")
     (dimaround "org.gnome.Nautilus" "无法访问位置")
     (dimaroundClass "gcr-prompter")
     # qq
-    (float "(QQ)" "^(图片查看器|视频播放器|群聊的聊天记录)$")
+    (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
+    (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
     # Rofi
     (floatTitle "^(rofi - dmenu)|(rofi - )$")
     (dimaroundTitle "^(rofi - dmenu)|(rofi - )$")

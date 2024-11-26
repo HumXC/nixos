@@ -8,7 +8,15 @@
     [
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
-
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      onevpl-intel-gpu
+      intel-media-driver
+      libvdpau-va-gl
+    ];
+  };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
   boot.kernelParams = [ "i915.force_probe=4fa0" ];
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "i915" ];

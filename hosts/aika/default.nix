@@ -76,10 +76,8 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  aris.greetd.enable = true;
-  aris.greetd.defaultUser = "HumXC";
   aris.modules.easyeffects.enable = true;
-  aris.users.HumXC.desktop.execOnce = [ "ags" ];
+  aris.users.HumXC.desktop.execOnce = [ "ags run" ];
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
@@ -103,7 +101,7 @@ in
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render" ];
   };
 
   boot = {

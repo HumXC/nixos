@@ -1,4 +1,4 @@
-{ config, pkgs-stable, pkgs-unstable, ... }:
+{ config, pkgs-stable, pkgs-unstable, inputs, ... }:
 let
   pkgs = pkgs-stable;
 in
@@ -96,11 +96,17 @@ in
   };
   programs.ags = {
     enable = true;
-    extraPackages = with pkgs; [
-      glib
-      gtksourceview
-      webkitgtk
-      accountsservice
+    extraPackages = with inputs.ags.packages.${pkgs.system};  [
+      astal3
+      astal4
+      io
+      gjs
+      tray
+      network
+      hyprland
+      wireplumber
+      bluetooth
+      notifd
     ];
   };
 }

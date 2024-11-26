@@ -52,7 +52,7 @@ in
     (exec "${mod}_SHIFT" "S" "$bin/screenshot.sh edit")
     (exec "${mod}_SHIFT_CTRL" "S" "$bin/screenshot.sh edit copy-name")
     # 录制屏幕
-    (exec "${mod}_SHIFT" "R" "$bin/wfrc.sh")
+    (execModWith "R" "ags request recorder")
     # 显示剪贴板历史
     # fcitx5 自带这个功能，默认触发键是 ctrl+; 可以在 fcitx5配置 中的 [附加组件] 里关闭
     (execModWith "V" ''ags -r "toggle_clipboard()"'')
