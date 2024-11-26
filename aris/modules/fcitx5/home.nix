@@ -40,8 +40,11 @@ in
       force = true;
     };
     home.file = {
-      ".local/share/fcitx5/themes/just-dark" = {
-        source = ./just-dark;
+      ".local/share/fcitx5/themes" = {
+        # FIXME: 主题有问题，纯白的
+        source = config.nur.repos.humxc.fcitx5-mellow-themes.overrideAttrs {
+          themeName = "graphite";
+        };
       };
 
       "${dataDir}" = {

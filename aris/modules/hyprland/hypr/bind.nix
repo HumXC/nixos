@@ -55,7 +55,7 @@ in
     (exec "${mod}_SHIFT" "R" "$bin/wfrc.sh")
     # 显示剪贴板历史
     # fcitx5 自带这个功能，默认触发键是 ctrl+; 可以在 fcitx5配置 中的 [附加组件] 里关闭
-    (execModWith "V" "cliphist list | $bin/rofi.sh type-1 style-1 -dmenu | cliphist decode | wl-copy")
+    (execModWith "V" ''ags -r "toggle_clipboard()"'')
     # 登出界面
     (exec "CONTROL_ALT" "DELETE" "$bin/powermenu.sh")
 

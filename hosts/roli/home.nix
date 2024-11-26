@@ -53,7 +53,7 @@ in
       winetricks
       wineWowPackages.waylandFull
     ]) ++ (with config.nur.repos;[
-      humxc.qq
+      xddxdd.qq
     ]);
     file.".gitconfig" = {
       force = true;
@@ -101,10 +101,17 @@ in
   programs.ags = {
     enable = true;
     extraPackages = with pkgs; [
-      glib
-      gtksourceview
-      webkitgtk
-      accountsservice
-    ];
+    ] ++ (with inputs.ags.packages.${pkgs.system};[
+      astal3
+      astal4
+      io
+      gjs
+      tray
+      network
+      hyprland
+      wireplumber
+      bluetooth
+      notifd
+    ]);
   };
 }

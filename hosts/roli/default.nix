@@ -75,9 +75,7 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  aris.users.HumXC.desktop.execOnce = [ "ags" ];
-  aris.greetd.enable = true;
-  aris.greetd.defaultUser = "HumXC";
+  aris.users.HumXC.desktop.execOnce = [ "ags run" ];
   aris.modules.easyeffects.enable = true;
   environment.sessionVariables = {
     OS_EDITOR = "code";
@@ -92,7 +90,6 @@ in
   services.udev.packages = [
     pkgs.android-udev-rules
   ];
-  # OneDrive https://nixos.wiki/wiki/OneDrive
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
