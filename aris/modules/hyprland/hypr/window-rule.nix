@@ -64,6 +64,7 @@ in
     (tileClass "Microsoft-edge")
     (dimaround "org.gnome.Nautilus" "无法访问位置")
     (dimaroundClass "gcr-prompter")
+    (float "gjs" "clipboard")
     # qq
     (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
     (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
