@@ -107,6 +107,8 @@ in
       wireplumber
       bluetooth
       notifd
+      auth
+      pkgs.gtk-session-lock
     ];
   };
 }

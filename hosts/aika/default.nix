@@ -151,7 +151,7 @@ in
     device = "/var/lib/swapfile";
     size = 16 * 1024;
   }];
-
+  security.pam.services.astal-auth = { };
   security.doas = {
     enable = true;
     extraConfig = ''
