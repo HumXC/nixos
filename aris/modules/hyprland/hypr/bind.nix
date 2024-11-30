@@ -58,6 +58,7 @@ in
     (execModWith "V" "ags request clipboard")
     # 登出界面
     (exec "CONTROL_ALT" "DELETE" "ags request powermenu")
+    (execModWith "L" "ags request lockscreen")
 
     # 切换桌面
     "SHIFT_${mod},left,workspace,-1"

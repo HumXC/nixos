@@ -67,6 +67,11 @@ in
       '';
     };
   };
+  programs.zsh.initExtra = ''
+    if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+       exec Hyprland
+    fi
+  '';
 
   programs.zsh.initExtraBeforeCompInit = ''
     eval "$(zoxide init zsh)"

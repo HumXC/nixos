@@ -82,6 +82,11 @@ in
       http.postBuffer = "524288000";
     };
   };
+  programs.zsh.initExtra = ''
+    if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+       exec Hyprland
+    fi
+  '';
   programs.direnv = {
     enable = true;
     enableBashIntegration = true; # see note on other shells below
