@@ -46,7 +46,7 @@ in
 {
   windowrulev2 = [
     # 杂项
-    (opacity "0.98 override 0.96 override" ".+" "")
+    (opacity "0.94 override 0.94 override" ".+" "")
     (size 950 600 "brave" "保存文件")
     (floatClass "myproject")
     (floatClass "org.kde.polkit-kde-authentication-agent-1")

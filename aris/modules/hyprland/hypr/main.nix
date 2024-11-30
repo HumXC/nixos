@@ -25,9 +25,10 @@
     # 圆角
     rounding = 6;
     blur = {
-      passes = 4;
+      popups = true;
+      passes = 2;
       size = 12;
-      # xray = true;
+      noise = 0.06;
     };
   };
 
