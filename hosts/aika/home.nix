@@ -109,6 +109,7 @@ in
       notifd
       auth
       pkgs.gtk-session-lock
+      pkgs.imagemagick
     ];
   };
 }

@@ -25,8 +25,7 @@
     # 圆角
     rounding = 6;
     blur = {
-      passes = 2;
-      noise = 0.06;
+      passes = 4;
       size = 12;
       # xray = true;
     };
