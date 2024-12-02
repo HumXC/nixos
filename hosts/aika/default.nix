@@ -77,7 +77,7 @@ in
     configUrlFile = config.sops.secrets.clash_url.path;
   };
   aris.modules.easyeffects.enable = true;
-  aris.users.HumXC.desktop.execOnce = [ "ags run" "while ! ags request lockscreen; do :; done" ];
+  aris.users.HumXC.desktop.execOnce = [ "ags run" ];
   services.getty.autologinUser = "HumXC";
   environment.sessionVariables = {
     OS_EDITOR = "code";
