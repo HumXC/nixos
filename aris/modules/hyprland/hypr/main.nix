@@ -47,9 +47,8 @@
 
     "blur, popup-window"
     "ignorealpha 0.5, popup-window"
+    "noanim, popup-window"
 
-    "animation slide right, swaync-control-center"
-    "animation slide right, swaync-notification-window"
     "blur, swaync-control-center"
     "blur, swaync-notification-window"
     "ignorezero, swaync-control-center"
