@@ -18,10 +18,6 @@ let
   dimaroundClass = class: dimaround class "";
   dimaroundTitle = title: dimaround "" title;
 
-  forceinput = class: title: rule "forceinput" class title;
-  forceinputClass = class: forceinput class "";
-  forceinputTitle = title: forceinput "" title;
-
   center = class: title: rule "center" class title;
   centerClass = class: center class "";
   centerTitle = title: center "" title;
@@ -60,11 +56,11 @@ in
     (floatClass "mpv")
     (centerClass "mpv")
     (dimaroundTitle "Authenticate")
-    (forceinputTitle "Authenticate")
     (tileClass "Microsoft-edge")
     (dimaround "org.gnome.Nautilus" "无法访问位置")
     (dimaroundClass "gcr-prompter")
     (float "gjs" "clipboard")
+    (floatClass "com.nextcloud.desktopclient.nextcloud")
     # qq
     (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
     (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
@@ -97,7 +93,6 @@ in
     # jetbrains
     # (tileClass "jetbrains-studio")
     "noborder, class:^(jetbrains-)(.*)$"
-    "windowdance,class:^(jetbrains-.*)$"
     "opacity 1 override 1 override,class:^(jetbrains-.*)$"
     "dimaround,class:^(jetbrains-.*)$,floating:1,title:^(?!win)"
     "center,class:^(jetbrains-.*)$,floating:1,title:^(?!win)"

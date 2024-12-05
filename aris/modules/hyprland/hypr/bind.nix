@@ -38,7 +38,7 @@ in
     (modWith "P" "pin" "")
     # 关闭活动2
     "${mod}_BackSpace,BackSpace,killactive"
-    "Alt_Q,Q,killactive"
+    (modWith "Q" "killactive" "")
     # 打开程序启动器
     (execModWith "TAB" "$bin/app-switch.sh '$bin/rofi.sh ${rofiLauncherType} ${rofiLauncherStyle} drun' rofi")
 

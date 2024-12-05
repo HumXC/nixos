@@ -17,12 +17,8 @@
     border_size = 2;
     "col.inactive_border" = "0xf24b4b4b";
     "col.active_border" = "0xffdddddd";
-    apply_sens_to_raw = 1; # whether to apply the sensitivity to raw input (e.g. used by games where you aim using your mouse)
-    #damage_tracking=full # leave it on full unless you hate your GPU and want to make it suffer
   };
   decoration = {
-    drop_shadow = true;
-    # 圆角
     rounding = 6;
     blur = {
       popups = true;
@@ -96,7 +92,6 @@
 
   dwindle = {
     pseudotile = 0; # enable pseudotiling on dwindle
-    no_gaps_when_only = 0;
   };
 
   misc = {

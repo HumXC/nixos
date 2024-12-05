@@ -81,11 +81,6 @@ in
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
-
-    LIBVA_DRIVER_NAME = "nvidia";
-    XDG_SESSION_TYPE = "wayland";
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
   programs.adb.enable = true;
   services.udev.packages = [
@@ -104,6 +99,7 @@ in
   };
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
+    allowedUDPPorts = [ 7890 ];
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" ];
   };

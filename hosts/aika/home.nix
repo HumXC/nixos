@@ -115,6 +115,7 @@ in
       auth
       pkgs.gtk-session-lock
       pkgs.imagemagick
+      pkgs.wtype
     ];
   };
 }
