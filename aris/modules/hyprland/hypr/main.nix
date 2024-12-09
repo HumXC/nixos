@@ -30,20 +30,20 @@
 
 
   layerrule = [
-    "blur, rofi"
-    "ignorezero, rofi"
     "blur, top-bar.*"
     "ignorealpha 0.5, top-bar.*"
 
     "blur, right-bar.*"
     "ignorealpha 0.5, right-bar.*"
 
-    "blur, notifications"
-    "ignorealpha 0.5, notifications"
+    "blur, app-launcher"
+    "ignorealpha 0.5, app-launcher"
 
     "blur, popup-window"
     "ignorealpha 0.5, popup-window"
     "noanim, popup-window"
+
+
 
     "blur, swaync-control-center"
     "blur, swaync-notification-window"

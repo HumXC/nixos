@@ -40,7 +40,7 @@ in
     "${mod}_BackSpace,BackSpace,killactive"
     (modWith "Q" "killactive" "")
     # 打开程序启动器
-    (execModWith "TAB" "$bin/app-switch.sh '$bin/rofi.sh ${rofiLauncherType} ${rofiLauncherStyle} drun' rofi")
+    (execModWith "TAB" "ags request app-launcher")
 
     # 选择区域截图打开 swappy 编辑后写入剪贴板
     # 需要安装 swappy, grim, wl-clipborad,slurp

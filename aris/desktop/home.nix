@@ -58,6 +58,7 @@ in
       easyeffects
       ark
       libsForQt5.qtstyleplugin-kvantum
+      seahorse
     ]) ++ (with pkgs; [
       (hideDesktopEntry pkgs-unstable.fcitx5-with-addons [
         "org.fcitx.Fcitx5"
