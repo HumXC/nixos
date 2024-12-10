@@ -113,6 +113,7 @@ in
       bluetooth
       notifd
       auth
+      apps
       pkgs.gtk-session-lock
       pkgs.imagemagick
       pkgs.wtype

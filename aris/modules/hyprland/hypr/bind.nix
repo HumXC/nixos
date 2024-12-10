@@ -12,10 +12,6 @@ let
       "${key},${n},workspace,${if (n=="0") then "10" else n}"
       "${key}_CTRL,${n},movetoworkspace,${if (n=="0") then "10" else n}"
     ]) [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "0" ]);
-
-  # rofi启动器名称：https://github.com/adi1090x/rofi
-  rofiLauncherType = "type-3";
-  rofiLauncherStyle = "style-3";
 in
 {
   bind = (workspaceWithNumber "${mod}") ++ [
@@ -34,6 +30,7 @@ in
     (execModWith "E" "nautilus")
     # 更改浮动状态
     (modWith "SHIFT_R" "togglefloating" "")
+    (modWith "mouse:274" "togglefloating" "")
     # 固定浮动窗口
     (modWith "P" "pin" "")
     # 关闭活动2
@@ -100,6 +97,7 @@ in
   ];
   bindm = [
     "${mod},mouse:272,movewindow"
+    "${mod},mouse:274,movewindow"
     "${mod},mouse:273,resizewindow"
   ];
 

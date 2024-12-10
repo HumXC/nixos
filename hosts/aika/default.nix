@@ -44,7 +44,6 @@ in
         musicDirectory = "/disk/files/HumXC/Music";
       };
       zsh.enable = true;
-      rofi.enable = true;
       helix.enable = true;
       kitty.enable = true;
       fcitx5.enable = true;

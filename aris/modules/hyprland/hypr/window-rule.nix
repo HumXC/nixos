@@ -61,15 +61,10 @@ in
     (dimaroundClass "gcr-prompter")
     (float "gjs" "clipboard")
     (floatClass "com.nextcloud.desktopclient.nextcloud")
+    (floatClass "org.kde.ark")
     # qq
     (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
     (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
-    # Rofi
-    (floatTitle "^(rofi - dmenu)|(rofi - )$")
-    (dimaroundTitle "^(rofi - dmenu)|(rofi - )$")
-    (pinTitle "^(rofi - dmenu)$")
-    (sizeTitle 800 600 "^(rofi - dmenu)$")
-    (fullscreenTitle "^(rofi - )|(rofi - Uptime:.+)$")
     # Wine
     (tileClass "explorer.exe")
     (fullscreenClass "fl64.exe")
