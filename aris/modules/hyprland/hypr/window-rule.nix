@@ -62,6 +62,7 @@ in
     (float "gjs" "clipboard")
     (floatClass "com.nextcloud.desktopclient.nextcloud")
     (floatClass "org.kde.ark")
+    (floatClass "xdg-desktop-portal-gtk")
     # qq
     (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
     (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
@@ -85,6 +86,9 @@ in
     (float "org.telegram.desktop" "^(.*)(媒体查看器)$")
     (fullscreen "org.telegram.desktop" "^(.*)(媒体查看器)$")
     (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(媒体查看器)$")
+    (float "org.telegram.desktop" "^(.*)(Media viewer)$")
+    (fullscreen "org.telegram.desktop" "^(.*)(Media viewer)$")
+    (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(Media viewer)$")
     # jetbrains
     # (tileClass "jetbrains-studio")
     "noborder, class:^(jetbrains-)(.*)$"

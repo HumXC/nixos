@@ -98,7 +98,6 @@ in
   };
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
-    allowedUDPPorts = [ 7890 ];
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" ];
   };

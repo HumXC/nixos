@@ -52,8 +52,8 @@ in
 
       winetricks
       wineWowPackages.waylandFull
-    ]) ++ (with config.nur.repos;[
-      xddxdd.qq
+    ]) ++ (with pkgs.nur.repos;[
+      humxc.qq
     ]);
     file.".gitconfig" = {
       force = true;
@@ -118,6 +118,7 @@ in
       bluetooth
       notifd
       auth
+      apps
       pkgs.gtk-session-lock
       pkgs.imagemagick
       pkgs.wtype

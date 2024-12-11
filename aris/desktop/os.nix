@@ -40,7 +40,7 @@ in
         (nerdfonts.override { fonts = [ "FiraCode" ]; })
         twemoji-color-font
         babelstone-han
-      ]) ++ (with config.nur.repos;[
+      ]) ++ (with pkgs.nur.repos;[
         humxc.misans
       ]);
       fontconfig = {

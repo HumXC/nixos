@@ -48,7 +48,7 @@ in
       gdb
 
       godot_4
-    ]) ++ (with config.nur.repos;[
+    ]) ++ (with pkgs.nur.repos;[
       humxc.qq
     ]);
     file.".gitconfig" = {

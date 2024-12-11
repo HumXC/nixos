@@ -1,4 +1,4 @@
-{ inputs, localFlake, system, lib, pkgs, pkgs-unstable, config, ... }@args:
+{ inputs, localFlake, system, lib, pkgs-stable, pkgs-unstable, config, ... }@args:
 localFlake.withSystem system ({ ... }:
 let
   osConfigs = [
@@ -12,12 +12,12 @@ let
     ./modules
     ./greetd
   ];
-
+  pkgs = pkgs-stable;
   elemUsers = value: function: builtins.elem value (map function (builtins.attrValues config.aris.users));
   importOs = paths:
-    map (path: import (path + /os.nix) ({ inherit elemUsers importOs pkgs pkgs-unstable; } // args)) paths;
+    map (path: import (path + /os.nix) (args // { inherit elemUsers importOs pkgs pkgs-stable pkgs-unstable; })) paths;
   importUser = name: paths:
-    map (path: import (path + /user.nix) ({ inherit name pkgs pkgs-unstable; importUser = importUser name; } // args)) paths;
+    map (path: import (path + /user.nix) (args // { inherit name pkgs pkgs-stable pkgs-unstable; importUser = importUser name; })) paths;
 
   arisUser = lib.types.submoduleWith {
     description = "Home Manager module";

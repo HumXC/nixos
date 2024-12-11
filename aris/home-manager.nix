@@ -17,19 +17,19 @@ let
       })
       config.aris.users
   ;
+  pkgs = pkgs-unstable;
 in
 {
   home-manager = {
     backupFileExtension = "hm-back";
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit getAris importHomes inputs pkgs-stable pkgs-unstable; pkgs = pkgs-unstable; };
+    extraSpecialArgs = { inherit getAris importHomes inputs pkgs pkgs-stable pkgs-unstable; };
     users = importUserConfig;
     sharedModules = [
       inputs.ags.homeManagerModules.default
       inputs.sops-nix.homeManagerModules.sops
       inputs.vscode-server.homeModules.default
-      inputs.nur.hmModules.nur
     ];
   };
 })

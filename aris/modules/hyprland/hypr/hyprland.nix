@@ -30,6 +30,7 @@ in
     "LIBVA_DRIVER_NAME,nvidia"
     "GBM_BACKEND,nvidia-drm"
     "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+    "NVD_BACKEND,direct"
   ] else [ ]);
   cursor.no_hardware_cursors = desktop.useNvidia;
   exec-once = desktop.execOnce ++ [

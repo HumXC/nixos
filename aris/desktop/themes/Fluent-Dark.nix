@@ -17,7 +17,7 @@ rec
     # cursorTheme = "phinger-cursors";
     # cursorThemePackage = pkgs.phinger-cursors;
     # cursorTheme = "Fluent-cursors-dark";
-    # cursorThemePackage = config.nur.repos.humxc.fluent-cursors-theme;
+    # cursorThemePackage = pkgs.nur.repos.humxc.fluent-cursors-theme;
     cursorTheme = "Adwaita";
     cursorThemePackage = pkgs.gnome.adwaita-icon-theme;
   };
