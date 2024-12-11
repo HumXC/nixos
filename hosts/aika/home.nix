@@ -1,4 +1,4 @@
-{ config, pkgs-stable, pkgs-unstable, inputs, ... }:
+{ config, pkgs-stable, pkgs-unstable, inputs, system, ... }:
 let
   pkgs = pkgs-stable;
 in
@@ -50,7 +50,11 @@ in
       godot_4
     ]) ++ (with pkgs.nur.repos;[
       humxc.qq
-    ]);
+    ]) ++ [
+      inputs.aika-shell.packages.${system}.aika-shell
+      inputs.aika-shell.packages.${system}.astal
+    ];
+
     file.".gitconfig" = {
       force = true;
       text = ''
@@ -82,11 +86,6 @@ in
       http.postBuffer = "524288000";
     };
   };
-  programs.zsh.initExtra = ''
-    if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-       exec Hyprland
-    fi
-  '';
   programs.direnv = {
     enable = true;
     enableBashIntegration = true; # see note on other shells below
@@ -98,25 +97,5 @@ in
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
-  };
-  programs.ags = {
-    enable = true;
-    extraPackages = with inputs.ags.packages.${pkgs.system};  [
-      astal3
-      astal4
-      io
-      gjs
-      tray
-      network
-      hyprland
-      wireplumber
-      bluetooth
-      notifd
-      auth
-      apps
-      pkgs.gtk-session-lock
-      pkgs.imagemagick
-      pkgs.wtype
-    ];
   };
 }

@@ -19,7 +19,7 @@ in
     # 颜色选择
     # (execModWith "P" "hyprpicker -a")
     # 隐藏/显示 right-bar
-    (execModWith "Q" ''ags -r "toggle_right_bar()"'')
+    (execModWith "Q" "astal rightbar")
     # 打开vscode
     (execModWith "C" "$bin/launch-desktop.sh $EDITOR")
     # 打开浏览器
@@ -37,7 +37,7 @@ in
     "${mod}_BackSpace,BackSpace,killactive"
     (modWith "Q" "killactive" "")
     # 打开程序启动器
-    (execModWith "TAB" "ags request app-launcher")
+    (execModWith "TAB" "astal app-launcher")
 
     # 选择区域截图打开 swappy 编辑后写入剪贴板
     # 需要安装 swappy, grim, wl-clipborad,slurp
@@ -49,13 +49,13 @@ in
     (exec "${mod}_SHIFT" "S" "$bin/screenshot.sh edit")
     (exec "${mod}_SHIFT_CTRL" "S" "$bin/screenshot.sh edit copy-name")
     # 录制屏幕
-    (execModWith "R" "ags request recorder")
+    (execModWith "R" "astal recorder")
     # 显示剪贴板历史
     # fcitx5 自带这个功能，默认触发键是 ctrl+; 可以在 fcitx5配置 中的 [附加组件] 里关闭
-    (execModWith "V" "ags request clipboard")
+    (execModWith "V" "astal clipboard")
     # 登出界面
-    (exec "CONTROL_ALT" "DELETE" "ags request powermenu")
-    (execModWith "L" "ags request lockscreen")
+    (exec "CONTROL_ALT" "DELETE" "astal powermenu")
+    (execModWith "L" "astal lockscreen")
 
     # 切换桌面
     "SHIFT_${mod},left,workspace,-1"

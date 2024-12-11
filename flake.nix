@@ -17,11 +17,12 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
-    ags.url = "github:Aylur/ags";
     nixpkgs-esp-dev = {
       url = "github:mirrexagon/nixpkgs-esp-dev";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    aika-shell.url = "github:HumXC/aika-shell";
+    aika-shell.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
   outputs = inputs@{ self, flake-parts, nixpkgs, nixpkgs-unstable, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:

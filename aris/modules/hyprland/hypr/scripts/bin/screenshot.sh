@@ -10,24 +10,24 @@ img=""
 # 如果第一个参数的值是“edit”，则调用 swappy
 if [ "$1" == "edit" ]; then
     if [ "$2" == "copy-name" ]; then
-        result=$(ags request "screenshot \"$file\"")
+        result=$(astal "screenshot \"$file\"")
         if [ "$result" == "" ]; then
             swappy -f $file -o \"$file\" && wl-copy \"$file\"
         fi
     else
-        result=$(ags request "screenshot \"$file\"")
+        result=$(astal "screenshot \"$file\"")
         if [ "$result" == "" ]; then
             swappy -f $file -o - | tee \"$file\" | wl-copy -t image/png
         fi
     fi
 else
     if [ "$2" == "copy-name" ]; then
-        result=$(ags request "screenshot $file")
+        result=$(astal "screenshot $file")
         if [ "$result" == "" ]; then
             wl-copy \"$file\"
         fi
     else
-        result=$(ags request "screenshot \"$file\"")
+        result=$(astal "screenshot \"$file\"")
         if [ "$result" == "" ]; then
             cat $file | wl-copy -t image/png
         fi

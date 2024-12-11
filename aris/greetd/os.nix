@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, system, inputs, ... }:
 let
   cfg = config.aris.greetd;
   session = builtins.concatLists (builtins.attrValues
@@ -35,28 +35,13 @@ in
     services.greetd =
       let
         hyprland = config.home-manager.users.greeter.wayland.windowManager.hyprland.finalPackage;
-        agsConfig = pkgs.writeText "greeter-ags-conf"
-          (
-            ''const ags = "${ags}/bin/ags";'' +
-            "const sessions = new Map();" +
-            (toString (builtins.map (s: "sessions.set(\"${s.user}\", \"${s.command}\");\n") session) +
-            (builtins.readFile ./ags.js))
-          );
+        # FIXME：
         hyprConf = pkgs.writeText "greeter-hyprland-conf" ''
-          exec-once = ${ags}/bin/ags --config ${agsConfig}; ${hyprland}/bin/hyprctl dispatch exit
-          bind = super, p ,exit
+          exec-once = ${inputs.aika-shell.packages.${system}.aika-greet}/bin/aika-greet -s HumXC "/etc/profiles/per-user/HumXC/bin/Hyprland" > /home/greeter/log.txt 2>&1; ${hyprland}/bin/hyprctl dispatch exit
           misc {
             disable_hyprland_logo=yes 
           }
         '';
-        ags = config.home-manager.users.greeter.programs.ags.package.override {
-          extraPackages = with pkgs; [
-            glib
-            gtksourceview
-            webkitgtk
-            accountsservice
-          ];
-        };
       in
       {
         enable = true;

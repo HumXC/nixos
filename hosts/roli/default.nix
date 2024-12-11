@@ -70,12 +70,12 @@ in
     enable = true;
     autoStart = true;
   };
+  aris.greetd.enable = true;
   aris.modules.clash = {
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
-  aris.users.HumXC.desktop.execOnce = [ "ags run" ];
-  services.getty.autologinUser = "HumXC";
+  aris.users.HumXC.desktop.execOnce = [ "aika-shell" ];
   aris.modules.easyeffects.enable = true;
   environment.sessionVariables = {
     OS_EDITOR = "code";

@@ -8,10 +8,10 @@
     [
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      onevpl-intel-gpu
+      vpl-gpu-rt
       intel-media-driver
       libvdpau-va-gl
     ];

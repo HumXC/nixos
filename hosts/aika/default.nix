@@ -75,9 +75,9 @@ in
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
+  aris.greetd.enable = true;
   aris.modules.easyeffects.enable = true;
-  aris.users.HumXC.desktop.execOnce = [ "ags run" ];
-  services.getty.autologinUser = "HumXC";
+  aris.users.HumXC.desktop.execOnce = [ "aika-shell" ];
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";

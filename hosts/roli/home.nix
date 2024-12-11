@@ -54,7 +54,10 @@ in
       wineWowPackages.waylandFull
     ]) ++ (with pkgs.nur.repos;[
       humxc.qq
-    ]);
+    ]) ++ [
+      inputs.aika-shell.packages.aika-shell
+      inputs.aika-shell.packages.astal
+    ];
     file.".gitconfig" = {
       force = true;
       text = ''
@@ -102,26 +105,5 @@ in
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
-  };
-  programs.ags = {
-    enable = true;
-    extraPackages = with pkgs; [
-    ] ++ (with inputs.ags.packages.${pkgs.system};[
-      astal3
-      astal4
-      io
-      gjs
-      tray
-      network
-      hyprland
-      wireplumber
-      bluetooth
-      notifd
-      auth
-      apps
-      pkgs.gtk-session-lock
-      pkgs.imagemagick
-      pkgs.wtype
-    ]);
   };
 }

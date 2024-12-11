@@ -24,10 +24,9 @@ in
     backupFileExtension = "hm-back";
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit getAris importHomes inputs pkgs pkgs-stable pkgs-unstable; };
+    extraSpecialArgs = { inherit getAris importHomes system inputs pkgs pkgs-stable pkgs-unstable; };
     users = importUserConfig;
     sharedModules = [
-      inputs.ags.homeManagerModules.default
       inputs.sops-nix.homeManagerModules.sops
       inputs.vscode-server.homeModules.default
     ];

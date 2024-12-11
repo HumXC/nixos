@@ -15,8 +15,8 @@ localFlake: { withSystem, self, ... }: {
     {
       imports = [
         inputs.home-manager.nixosModules.home-manager
-        (import ./home-manager.nix (args // { inherit localFlake system self pkgs-stable pkgs-unstable; }))
-        (import ./nixos.nix (args // { inherit localFlake system self pkgs-stable pkgs-unstable; }))
+        (import ./home-manager.nix (args // { inherit localFlake system self pkgs-stable pkgs-unstable inputs; }))
+        (import ./nixos.nix (args // { inherit localFlake system self pkgs-stable pkgs-unstable inputs; }))
       ];
     };
 }
