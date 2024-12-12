@@ -156,5 +156,5 @@ in
       permit nopass keepenv :wheel
     '';
   };
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }

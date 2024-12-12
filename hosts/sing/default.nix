@@ -12,7 +12,7 @@ let
     group = "www-data";
   };
 in
-{ 
+{
   services.ollama.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";
   powerManagement.enable = true;
@@ -147,5 +147,5 @@ in
       permit nopass keepenv :wheel
     '';
   };
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }

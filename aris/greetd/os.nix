@@ -21,27 +21,19 @@ in
   };
   options.aris.greetd.enable = lib.mkEnableOption "Greetd";
   config = lib.mkIf cfg.enable {
-    home-manager.users.greeter = {
-      home.stateVersion = "22.11";
-      wayland.windowManager.hyprland.enable = true;
-      wayland.windowManager.hyprland.package = pkgs.hyprland;
-      wayland.windowManager.hyprland.extraConfig = "-"; # 去除警告
-    };
+    environment.systemPackages = [ pkgs.kitty ];
+    programs.hyprland.enable = true;
     users.users.greeter = {
-      isSystemUser = lib.mkForce false;
-      isNormalUser = true;
+      isSystemUser = true;
       group = "greeter";
     };
     services.greetd =
       let
-        hyprland = config.home-manager.users.greeter.wayland.windowManager.hyprland.finalPackage;
-        # FIXME：
+        hyprland = pkgs.hyprland;
         hyprConf = pkgs.writeText "greeter-hyprland-conf" ''
-          exec-once = ${inputs.aika-shell.packages.${system}.aika-greet}/bin/aika-greet -s HumXC "/etc/profiles/per-user/HumXC/bin/Hyprland" > /home/greeter/log.txt 2>&1; ${hyprland}/bin/hyprctl dispatch exit
-          misc {
-            disable_hyprland_logo=yes 
-          }
+          exec-once = ${inputs.aika-shell.packages.${system}.aika-greet}/bin/aika-greet -s HumXC Hyprland; ${hyprland}/bin/hyprctl dispatch exit
         '';
+
       in
       {
         enable = true;
@@ -49,6 +41,7 @@ in
           default_session = {
             command = "${hyprland}/bin/Hyprland --config ${hyprConf}";
             user = "greeter";
+
           };
         };
       };

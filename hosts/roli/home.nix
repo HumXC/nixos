@@ -55,8 +55,8 @@ in
     ]) ++ (with pkgs.nur.repos;[
       humxc.qq
     ]) ++ [
-      inputs.aika-shell.packages.aika-shell
-      inputs.aika-shell.packages.astal
+      inputs.aika-shell.packages.${system}.aika-shell
+      inputs.aika-shell.packages.${system}.astal
     ];
     file.".gitconfig" = {
       force = true;
