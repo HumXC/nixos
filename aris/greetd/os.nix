@@ -29,19 +29,17 @@ in
     };
     services.greetd =
       let
-        hyprland = pkgs.hyprland;
-        hyprConf = pkgs.writeText "greeter-hyprland-conf" ''
-          exec-once = ${inputs.aika-shell.packages.${system}.aika-greet}/bin/aika-greet -s HumXC Hyprland; ${hyprland}/bin/hyprctl dispatch exit
-        '';
-
+        argv = {
+          sessionDirs = [ "${config.services.displayManager.sessionData.desktops}" ];
+          defaultSession = "Hyprland";
+        };
       in
       {
         enable = true;
         settings = {
           default_session = {
-            command = "${hyprland}/bin/Hyprland --config ${hyprConf}";
+            command = "${inputs.aika-shell.packages.${system}.aika-greet-hyprland argv}";
             user = "greeter";
-
           };
         };
       };
