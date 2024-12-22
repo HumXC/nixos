@@ -23,6 +23,9 @@
     };
     aika-shell.url = "github:HumXC/aika-shell";
     aika-shell.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    aikadm.url = "github:HumXC/aikadm";
+    aikadm.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
   outputs = inputs@{ self, flake-parts, nixpkgs, nixpkgs-unstable, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ withSystem, flake-parts-lib, ... }:

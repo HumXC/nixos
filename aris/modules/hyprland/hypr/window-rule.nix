@@ -89,16 +89,6 @@ in
     (float "org.telegram.desktop" "^(.*)(Media viewer)$")
     (fullscreen "org.telegram.desktop" "^(.*)(Media viewer)$")
     (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(Media viewer)$")
-    # jetbrains
-    # (tileClass "jetbrains-studio")
-    "noborder, class:^(jetbrains-)(.*)$"
-    "opacity 1 override 1 override,class:^(jetbrains-.*)$"
-    "dimaround,class:^(jetbrains-.*)$,floating:1,title:^(?!win)"
-    "center,class:^(jetbrains-.*)$,floating:1,title:^(?!win)"
-    "noanim,class:^(jetbrains-.*)$,title:^(win.*)$"
-    "noinitialfocus,class:^(jetbrains-.*)$,title:^(win.*)$"
-    "rounding 0,class:^(jetbrains-.*)$,title:^(win.*)$"
-    (float "^(jetbrains-.*)$" "^(win.*)$")
     # kdeconnect
     (floatClass "org.kde.kdeconnect.handler")
     # waydroid

@@ -86,8 +86,6 @@ in
   services.udev.packages = [
     pkgs.android-udev-rules
   ];
-  # OneDrive https://nixos.wiki/wiki/OneDrive
-  services.onedrive.enable = true;
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";

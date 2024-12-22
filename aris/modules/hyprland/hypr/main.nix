@@ -98,6 +98,7 @@
     disable_hyprland_logo = "yes";
     animate_mouse_windowdragging = true;
     vfr = false;
+    middle_click_paste = false;
   };
 
   gestures = {
