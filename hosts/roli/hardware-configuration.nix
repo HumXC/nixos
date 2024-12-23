@@ -13,10 +13,12 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "i2c-dev" ];
   boot.extraModulePackages = [ ];
+  services.xserver.enable = true;
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs;[
       nvidia-vaapi-driver
+      libva
     ];
   };
   services.udev.extraRules = ''
@@ -25,7 +27,7 @@
   users.groups.i2c = { };
   boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   hardware.nvidia = {
-    open = false;
+    open = true;
     powerManagement.enable = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;

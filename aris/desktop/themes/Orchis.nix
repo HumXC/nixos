@@ -20,10 +20,10 @@ rec
     iconThemePackage = pkgs.fluent-icon-theme;
     # cursorTheme = "phinger-cursors-dark";
     # cursorThemePackage = pkgs.phinger-cursors;
-    cursorTheme = "Fluent-cursors-dark";
-    cursorThemePackage = pkgs.nur.repos.humxc.fluent-cursors-theme;
-    # cursorTheme = "Adwaita";
-    # cursorThemePackage = pkgs.gnome.adwaita-icon-theme;
+    # cursorTheme = "Fluent-cursors-dark";
+    # cursorThemePackage = pkgs.nur.repos.humxc.fluent-cursors-theme;
+    cursorTheme = "Adwaita";
+    cursorThemePackage = pkgs.gnome.adwaita-icon-theme;
   };
   # home 由 home-manager.users.<name>.imports 导入
   home = { config, getAris, pkgs, ... }: {
