@@ -18,11 +18,9 @@ in
     services.greetd =
       let
         argv = {
-          sessionDirs = [ "${config.services.displayManager.sessionData.desktops}" ];
-          defaultSession = "Hyprland";
+          sessionDirs = [ "${config.services.displayManager.sessionData.desktops}/share/wayland-sessions" ];
           wallpaperDir = "/home/greeter/wallpaper";
         };
-        # flake aikadm.url = "github:HumXC/aikadm";
         cmd = "${inputs.aikadm.lib.${system}.aikadm-hyprland-script argv}";
       in
       {
