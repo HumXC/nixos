@@ -64,6 +64,9 @@ in
     (floatClass "org.kde.ark")
     (floatClass "xdg-desktop-portal-gtk")
     (float "zen-beta" "^正在打开.+")
+    (floatTitle "^Yoshimi.+")
+    # steam
+    (floatClass "steam")
     # qq
     (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
     (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
