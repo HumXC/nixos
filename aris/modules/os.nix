@@ -4,5 +4,6 @@
     ./hyprland
     ./zsh
     ./easyeffects
+    ./daw
   ];
 }
