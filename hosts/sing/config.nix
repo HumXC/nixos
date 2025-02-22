@@ -13,6 +13,8 @@ let
 in
 {
   services.ollama.enable = true;
+  services.tlp.enable = true;
+  services.upower.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";
   powerManagement.enable = true;
   aris.clash = {
@@ -42,7 +44,6 @@ in
       8080 # nginx
       7890
       9090 # clash
-      6800 # aria2
       15136 # ntfy
       7777 # 泰拉瑞亚
     ];
