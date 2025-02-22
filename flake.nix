@@ -20,6 +20,8 @@
       aikadm.inputs.nixpkgs.follows = "nixpkgs-unstable";
       musnix.url = "github:musnix/musnix";
       musnix.inputs.nixpkgs.follows = "nixpkgs-unstable";
+      stylix.url = "github:danth/stylix/release-24.11";
+      stylix.inputs.nixpkgs.follows = "nixpkgs";
     };
   outputs = inputs@{ self, nixpkgs, ... }:
     let

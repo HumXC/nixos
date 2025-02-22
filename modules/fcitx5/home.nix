@@ -40,11 +40,11 @@ in
       force = true;
     };
     home.file = {
-      ".local/share/fcitx5/themes" = {
-        source = pkgs.fcitx5-mellow-themes.overrideAttrs {
-          themeName = "graphite";
-        };
-      };
+      # ".local/share/fcitx5/themes" = {
+      #   source = pkgs.fcitx5-mellow-themes.overrideAttrs {
+      #     themeName = "graphite";
+      #   };
+      # };
       ".local/share/fcitx5/rime" = {
         recursive = true;
         source = rime-ice;

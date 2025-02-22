@@ -37,6 +37,7 @@ in
       sharedModules = hmImports ++ [
         inputs.sops-nix.homeManagerModules.sops
         inputs.vscode-server.homeModules.default
+        inputs.stylix.homeManagerModules.stylix
         ({ pkgs, ... }: {
           programs.git.extraConfig = {
             safe.directory = "/etc/nixos";

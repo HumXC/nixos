@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   desktop = config.aris.desktop;
   scripts = "${config.home.homeDirectory}/.config/hypr/scripts";
@@ -22,13 +22,12 @@ in
     "XDG_CURRENT_DESKTOP,Hyprland"
     "XDG_SESSION_DESKTOP,Hyprland"
     "XDG_SESSION_TYPE,wayland"
+    "HYPRCURSOR_THEME,${config.stylix.cursor.name}"
+    "HYPRCURSOR_SIZE,${builtins.toString config.stylix.cursor.size}"
   ] ++ (if desktop.useNvidia then [
     "LIBVA_DRIVER_NAME,nvidia"
     "__GLX_VENDOR_LIBRARY_NAME,nvidia"
     "NVD_BACKEND,direct"
-  ] else [ ]) ++ (if (desktop.theme.cursorTheme.name != "") then [
-    "HYPRCURSOR_THEME,${desktop.theme.cursorTheme.name}"
-    "HYPRCURSOR_SIZE,${builtins.toString desktop.theme.cursorTheme.size}"
   ] else [ ]);
   cursor.no_hardware_cursors = desktop.useNvidia;
   exec-once = desktop.execOnce ++ [
@@ -42,8 +41,7 @@ in
     "${pkgs.wl-clipboard}/bin/wl-clip-persist --clipboard both"
     # 启动 pot 翻译
     # https://github.com/Pylogmon/pot
-  ] ++ (if (desktop.theme.cursorTheme.name != "") then [
-    "hyprctl setcursor ${desktop.theme.cursorTheme.name} ${builtins.toString desktop.theme.cursorTheme.size}"
-  ] else [ ]);
+    "hyprctl setcursor ${config.stylix.cursor.name} ${builtins.toString config.stylix.cursor.size}"
+  ];
   monitor = monitor;
 }

@@ -29,94 +29,10 @@ in
   options.aris.desktop = with lib; {
     enable = mkEnableOption "Enable desktop.";
     useNvidia = mkEnableOption "useNvidia";
-    theme = mkOption {
-      description = "Theme configuration";
-      type = types.submodule {
-        options = {
-          x11Scale = lib.mkOption {
-            type = lib.types.float;
-            default = 1.0;
-            description = "Xwayland scale factor.";
-          };
-          gtkTheme = mkOption {
-            description = "GTK theme configuration";
-            default = { name = ""; package = null; darkTheme = false; };
-            type = types.submodule {
-              options = {
-                name = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = "GTK theme name.";
-                };
-                package = mkPackageOption pkgs null {
-                  nullable = true;
-                };
-                darkTheme = mkOption {
-                  type = types.bool;
-                  default = false;
-                  description = "Whether to use a dark theme.";
-                };
-              };
-            };
-
-          };
-          iconTheme = mkOption {
-            description = "Icon theme configuration";
-            default = { name = ""; package = null; };
-            type = types.submodule {
-              options = {
-                name = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = "Icon theme name.";
-                };
-                package = mkPackageOption pkgs null {
-                  nullable = true;
-                };
-              };
-            };
-          };
-          cursorTheme = mkOption {
-            description = "Cursor theme configuration";
-            default = { size = 24; name = ""; package = null; };
-            type = types.submodule {
-              options = {
-                size = mkOption {
-                  type = types.int;
-                  default = 24;
-                  description = "Cursor size.";
-                };
-                name = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = "Cursor theme name.";
-                };
-                package = mkPackageOption pkgs null {
-                  nullable = true;
-                };
-              };
-            };
-          };
-          kvantumTheme = mkOption {
-            description = "Kvantum theme configuration";
-            default = { name = ""; source = ""; };
-            type = types.submodule {
-              options = {
-                name = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = "Kvantum theme name.";
-                };
-                source = mkOption {
-                  type = types.path;
-                  default = "";
-                  description = "Kvantum theme source.";
-                };
-              };
-            };
-          };
-        };
-      };
+    x11Scale = lib.mkOption {
+      type = lib.types.float;
+      default = 1.0;
+      description = "Xwayland scale factor.";
     };
     monitor = lib.mkOption {
       type = lib.types.listOf (lib.types.submodule {
@@ -158,58 +74,15 @@ in
   };
 
 
-  config = lib.mkIf cfg.enable (with cfg.theme;{
-    qt = lib.mkIf (kvantumTheme.name != "") {
-      enable = true;
-      platformTheme.name = "qtct";
-      style.name = "kvantum";
-    };
-    xdg.configFile = lib.mkIf (kvantumTheme.name != "" && kvantumTheme.source != "") {
-      "Kvantum/kvantum.kvconfig".text = ''
-        [General]
-        theme=${kvantumTheme.name}
-      '';
-      "Kvantum/${kvantumTheme.name}" = {
-        source = kvantumTheme.source;
-      };
-    };
-    home.pointerCursor = lib.mkIf (cursorTheme.name != "") {
-      gtk.enable = true;
-      x11.enable = true;
-      size = cursorTheme.size;
-      name = cursorTheme.name;
-      package = cursorTheme.package;
-    };
-
-
-    gtk = {
-      enable = true;
-      theme = lib.mkIf (gtkTheme.name != "") {
-        name = gtkTheme.name;
-        package = gtkTheme.package;
-      };
-      iconTheme = lib.mkIf (iconTheme.name != "") {
-        name = iconTheme.name;
-        package = iconTheme.package;
-      };
-
-      gtk3.extraConfig.Settings = lib.mkIf gtkTheme.darkTheme ''
-        gtk-application-prefer-dark-theme=1
-      '';
-
-      gtk4.extraConfig.Settings = lib.mkIf gtkTheme.darkTheme ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
+  config = lib.mkIf cfg.enable {
     # 设置 xwayland 窗口的 dpi
-    xresources.properties."Xft.dpi" = builtins.toString (x11Scale * 96);
+    xresources.properties."Xft.dpi" = builtins.toString (cfg.x11Scale * 96);
     home.sessionVariables =
       let
         schema = pkgs.gsettings-desktop-schemas;
         datadir = "${schema}/share/gsettings-schemas/${schema.name}";
       in
       {
-        GTK_THEME = gtkTheme.name;
         GTK_USE_PORTAL = "1";
         XDG_DATA_DIRS = "${datadir}:$XDG_DATA_DIRS";
         GDK_BACKEND = "wayland";
@@ -235,7 +108,6 @@ in
       sushi
       easyeffects
       ark
-      libsForQt5.qtstyleplugin-kvantum
       seahorse
     ]) ++ (with pkgs; [
       (hideDesktopEntry pkgs.unstable.fcitx5-with-addons [
@@ -274,9 +146,9 @@ in
         "application/x-tar" = [ "org.kde.ark.desktop" ];
       };
     };
-
+    programs.vscode.enable = true;
     # 隐藏图标
     xdg.desktopEntries."nixos-manual" = hidedDesktopEntry;
-  });
+  };
 }
 

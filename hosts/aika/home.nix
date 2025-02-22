@@ -1,8 +1,6 @@
-{ pkgs, inputs, ... }:
-let
-  theme = (import ../../themes { inherit pkgs; }).Orchis;
-in
-{
+{ pkgs, inputs, ... }: {
+  imports = [ ../theme.nix ];
+  stylix.cursor.size = 34;
   aris = {
     hyprland = {
       enable = true;
@@ -21,18 +19,14 @@ in
     daw.enable = true;
     desktop = {
       enable = true;
-      theme = theme // {
-        cursorTheme = theme.cursorTheme // {
-          size = 34;
-        };
-        x11Scale = 1.25;
-      };
+      x11Scale = 1.25;
       monitor = [{
         name = "DP-2";
         size = "2560x1440";
         rate = 180.0;
         scale = 1.25;
       }];
+      execOnce = [ "aika-shell" ];
     };
   };
 
@@ -66,7 +60,6 @@ in
       blender
       obs-studio
     ] ++ (with pkgs.unstable;[
-      vscode
       telegram-desktop
 
       go

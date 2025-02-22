@@ -1,8 +1,6 @@
-{ inputs, pkgs, ... }:
-let
-  theme = (import ../../themes { inherit pkgs; }).Orchis;
-in
-{
+{ inputs, pkgs, ... }: {
+  imports = [ ../theme.nix ];
+  stylix.cursor.size = 34;
   aris = {
     hyprland = {
       enable = true;
@@ -20,11 +18,6 @@ in
       {
         enable = true;
         useNvidia = true;
-        theme = theme // {
-          cursorTheme = theme.cursorTheme // {
-            size = 34;
-          };
-        };
         monitor = [{
           name = "HDMI-A-1";
           size = "1920x1080";
@@ -65,7 +58,6 @@ in
       blender
       obs-studio
     ] ++ (with pkgs.unstable;[
-      vscode
       telegram-desktop
 
       go
