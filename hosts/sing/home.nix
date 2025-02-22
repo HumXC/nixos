@@ -8,7 +8,6 @@
     packages = with pkgs; [
       htop
       btop
-      diskonaut
       trashy
       go
     ];
