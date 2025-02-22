@@ -1,6 +1,6 @@
 { inputs, outputs, ... }:
 let
-  mkHost = name:
+  mkHost_ = name:
     let
       host = import ./${name}/host.nix { inherit inputs; };
       system = host.system;
@@ -21,5 +21,10 @@ let
         ] ++ (if isUseSops then [ inputs.sops-nix.nixosModules.sops ] else [ ]);
       };
     };
+  mkHost = hosts: builtins.foldl' (acc: host: acc // mkHost_ host) { } hosts;
 in
-(mkHost "roli")
+mkHost [
+  "roli"
+  "aika"
+  "sing"
+]

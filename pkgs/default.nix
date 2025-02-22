@@ -1,8 +1,16 @@
-pkgs: {
-  misans = pkgs.callPackage ./misans { };
-  hmcl-bin = pkgs.callPackage ./hmcl-bin { };
-  qq = pkgs.callPackage ./qq { };
-  fluent-cursors-theme = pkgs.callPackage ./fluent-cursors-theme { };
-  orchis-gtk = pkgs.callPackage ./orchis-gtk { };
-  fcitx5-mellow-themes = pkgs.callPackage ./fcitx5-mellow-themes { };
-}
+{ nixpkgs, system, ... }:
+let
+  pkgs = import nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+  };
+  package = packages: builtins.foldl' (acc: name: acc // { "${name}" = pkgs.callPackage ./${name} { }; }) { } packages;
+in
+package [
+  "misans"
+  "hmcl-bin"
+  "qq"
+  "fluent-cursors-theme"
+  "orchis-gtk"
+  "fcitx5-mellow-themes"
+]

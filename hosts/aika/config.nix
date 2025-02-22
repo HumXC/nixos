@@ -1,6 +1,5 @@
-{ config, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 let
-  pkgs = pkgs-unstable;
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;

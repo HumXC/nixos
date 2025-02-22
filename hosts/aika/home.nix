@@ -1,6 +1,5 @@
-{ pkgs-stable, pkgs-unstable, inputs, system, ... }:
+{ pkgs, inputs, ... }:
 let
-  pkgs = pkgs-stable;
   theme = (import ../../themes { inherit pkgs; }).Orchis;
 in
 {
@@ -19,23 +18,26 @@ in
     helix.enable = true;
     kitty.enable = true;
     fcitx5.enable = true;
-  };
-  desktop = {
-    enable = true;
-    theme = theme // {
-      cursorTheme = theme.cursorTheme // {
-        size = 34;
+    daw.enable = true;
+    desktop = {
+      enable = true;
+      theme = theme // {
+        cursorTheme = theme.cursorTheme // {
+          size = 34;
+        };
+        x11Scale = 1.25;
       };
-      x11Scale = 1.25;
+      monitor = [{
+        name = "DP-2";
+        size = "2560x1440";
+        rate = 180.0;
+        scale = 1.25;
+      }];
     };
-    monitor = [{
-      name = "DP-2";
-      size = "2560x1440";
-      rate = 180.0;
-      scale = 1.25;
-    }];
   };
+
   home = {
+    stateVersion = "24.11"; # TODO: remove this
     packages = with pkgs; [
       sassc
       ddcutil
@@ -63,7 +65,7 @@ in
       foliate
       blender
       obs-studio
-    ] ++ (with pkgs-unstable;[
+    ] ++ (with pkgs.unstable;[
       vscode
       telegram-desktop
 
