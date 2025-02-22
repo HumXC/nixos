@@ -1,8 +1,40 @@
-{ config, pkgs-stable, pkgs-unstable, inputs, system, ... }:
+{ pkgs-stable, pkgs-unstable, inputs, system, ... }:
 let
   pkgs = pkgs-stable;
+  theme = (import ../../themes { inherit pkgs; }).Orchis;
 in
 {
+  aris = {
+    hyprland = {
+      enable = true;
+      var = {
+        BROWSER = "zen";
+      };
+    };
+    mpd = {
+      enable = true;
+      musicDirectory = "/disk/files/HumXC/Music";
+    };
+    zsh.enable = true;
+    helix.enable = true;
+    kitty.enable = true;
+    fcitx5.enable = true;
+  };
+  desktop = {
+    enable = true;
+    theme = theme // {
+      cursorTheme = theme.cursorTheme // {
+        size = 34;
+      };
+      x11Scale = 1.25;
+    };
+    monitor = [{
+      name = "DP-2";
+      size = "2560x1440";
+      rate = 180.0;
+      scale = 1.25;
+    }];
+  };
   home = {
     packages = with pkgs; [
       sassc

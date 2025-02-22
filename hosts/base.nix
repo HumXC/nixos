@@ -1,18 +1,30 @@
-{ config, pkgs-unstable, pkgs, lib, inputs, profileName, self, system, ... }:
+{ profileName, host }: { config, pkgs, lib, inputs, outputs, system, ... }:
 let
-  ifExists = path: lib.optional (builtins.pathExists path) path;
   isUseSops = builtins.pathExists ./${profileName}/secrets.nix;
 in
 {
   imports = [
-    ././${profileName}
-    ./${profileName}/hardware-configuration.nix
+    ./${profileName}/hardware.nix
+    ./${profileName}/config.nix
   ]
-  ++ ifExists ./${profileName}/secrets.nix;
+  ++ (if isUseSops then [
+    ../secrets
+    ./${profileName}/secrets.nix
+  ] else [ ]);
   aris.profileName = profileName;
   programs.nix-ld.enable = true;
 
+  nixpkgs = {
+    overlays = [
+      inputs.nur.overlays.default
+      outputs.overlays.unstable-packages
+      outputs.overlays.additions
+    ];
+    config.allowUnfree = true;
+  };
+
   networking = {
+    hostName = host.hostName;
     nameservers = [ "223.5.5.5" "223.6.6.6" "114.114.114.114" "114.114.115.115" "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
     networkmanager.enable = true;
     hosts = {
@@ -30,7 +42,7 @@ in
     git
     wget
     psmisc
-  ] ++ (with pkgs-unstable;[
+  ] ++ (with pkgs.unstable;[
     helix
     nixpkgs-fmt
     cachix

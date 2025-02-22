@@ -1,4 +1,9 @@
-{ config, pkgs, sops, ... }: {
+{ pkgs, ... }: {
+  aris = {
+    helix.enable = true;
+    zsh.enable = true;
+    zsh.p10kType = "2";
+  };
   home = {
     packages = with pkgs; [
       htop
@@ -7,17 +12,6 @@
       trashy
       go
     ];
-    file.".gitconfig" = {
-      force = true;
-      text = ''
-        [safe]
-        	directory = /etc/nixos
-        [credential "https://github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential
-        [credential "https://gist.github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential      
-      '';
-    };
   };
   programs.direnv = {
     enable = true;

@@ -1,10 +1,43 @@
-{ config, pkgs-stable, pkgs-unstable, inputs, ... }:
+{ inputs, pkgs, ... }:
 let
-  pkgs = pkgs-stable;
+  theme = (import ../../themes { inherit pkgs; }).Orchis;
 in
 {
+  aris = {
+    hyprland = {
+      enable = true;
+      enableBlurAndOpacity = false;
+      var = {
+        BROWSER = "zen";
+        AQ_NO_MODIFIERS = "1";
+      };
+    };
+    zsh.enable = true;
+    helix.enable = true;
+    kitty.enable = true;
+    fcitx5.enable = true;
+    desktop =
+      {
+        enable = true;
+        useNvidia = true;
+        theme = theme // {
+          cursorTheme = theme.cursorTheme // {
+            size = 34;
+          };
+        };
+        monitor = [{
+          name = "HDMI-A-1";
+          size = "1920x1080";
+          rate = 100.09;
+        }];
+        execOnce = [ "aika-shell" ];
+      };
+    daw.enable = true;
+  };
   home = {
+    stateVersion = "24.11";
     packages = with pkgs; [
+      egl-wayland
       sassc
       ddcutil
       bun
@@ -31,7 +64,7 @@ in
       foliate
       blender
       obs-studio
-    ] ++ (with pkgs-unstable;[
+    ] ++ (with pkgs.unstable;[
       vscode
       telegram-desktop
 
@@ -49,32 +82,16 @@ in
 
       godot_4
       kicad
-
+      qq
       winetricks
       wineWowPackages.waylandFull
     ]) ++ (with pkgs.nur.repos;[
-      humxc.qq
+
     ]) ++ [
       inputs.aika-shell.packages.${system}.aika-shell
       inputs.aika-shell.packages.${system}.astal
     ];
-    file.".gitconfig" = {
-      force = true;
-      text = ''
-        [safe]
-        	directory = /etc/nixos
-        [credential "https://github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential
-        [credential "https://gist.github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential      
-      '';
-    };
   };
-  programs.zsh.initExtra = ''
-    if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
-       exec Hyprland
-    fi
-  '';
 
   programs.zsh.initExtraBeforeCompInit = ''
     eval "$(zoxide init zsh)"

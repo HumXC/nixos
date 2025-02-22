@@ -1,60 +1,25 @@
-localFlake: { withSystem, self, inputs, ... }:
+{ inputs, outputs, ... }:
 let
-  mkHost =
-    { name
-    , system
-    , extraModules ? [ ]
-    , extraSpecialArgs ? { }
-    }: {
-      ${name} = withSystem system (ctx@{ config, inputs', ... }:
-        let
-          pkgs-unstable = (import inputs.nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          });
-        in
-        inputs.nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = {
-            inherit
-              inputs
-              pkgs-unstable
-              system;
-            profileName = name;
-          } // extraSpecialArgs;
-          modules = extraModules ++ [
-            ./base.nix
-            ./secrets.nix
-            inputs.sops-nix.nixosModules.sops
-            self.nixosModules.aris
-          ];
-        });
+  mkHost = name:
+    let
+      host = import ./${name}/host.nix { inherit inputs; };
+      system = host.system;
+      isUseSops = builtins.pathExists ./${name}/secrets.nix;
+    in
+    {
+      ${name} = inputs.nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          inherit
+            inputs
+            outputs
+            system;
+        } // host.extraSpecialArgs;
+        modules = host.extraModules ++ [
+          outputs.nixosModules.aris
+          (import ./base.nix { profileName = name; host = host; })
+        ] ++ (if isUseSops then [ inputs.sops-nix.nixosModules.sops ] else [ ]);
+      };
     };
 in
-{
-  flake.nixosConfigurations = inputs.nixpkgs.lib.mkMerge [
-    (mkHost {
-      name = "aika";
-      system = "x86_64-linux";
-    })
-    (mkHost {
-      name = "kana";
-      system = "x86_64-linux";
-    })
-    (mkHost {
-      name = "sing";
-      system = "x86_64-linux";
-    })
-    (mkHost {
-      name = "roli";
-      system = "x86_64-linux";
-    })
-    (mkHost {
-      name = "wsl";
-      system = "x86_64-linux";
-      extraModules = [
-        inputs.nixos-wsl.nixosModules.default
-      ];
-    })
-  ];
-}
+(mkHost "roli")
