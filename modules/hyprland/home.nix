@@ -26,6 +26,26 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    services.hypridle.enable = true;
+    services.hypridle.settings = {
+      general = {
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+        lock_cmd = "astal lockscreen";
+      };
+
+      listener = [
+        {
+          timeout = 300;
+          on-timeout = "astal lockscreen";
+        }
+        {
+          timeout = 330;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+      ];
+    };
     wayland.windowManager.hyprland = {
       systemd.enable = true;
       # package = null; # FIXME
@@ -50,15 +70,15 @@ in {
     systemd.user.services.swww = {
       Unit = {
         Description = "Swww daemon";
-        Wants = ["hyprland-session.target"];
-        After = ["hyprland-session.target"];
+        After = ["graphical-session-pre.target"];
+        PartOf = ["graphical-session.target"];
       };
       Service = {
         Type = "simple";
         ExecStart = "${pkgs.swww}/bin/swww-daemon";
         ExecStop = "${pkgs.swww}/bin/swww kill";
       };
-      Install.WantedBy = ["hyprland-session.target"];
+      Install = {WantedBy = ["graphical-session.target"];};
     };
     xdg.configFile."hypr/scripts" = {
       source = ./hypr/scripts;
