@@ -7,7 +7,6 @@
   lib,
   inputs,
   outputs,
-  system,
   ...
 }: let
   isUseSops = builtins.pathExists ./${profileName}/secrets.nix;

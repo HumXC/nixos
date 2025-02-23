@@ -27,26 +27,5 @@ in {
         TimeoutStopSec = 10;
       };
     };
-    fonts = {
-      fontDir.enable = true;
-      enableDefaultPackages = true;
-      packages =
-        (with pkgs; [
-          (nerdfonts.override {fonts = ["FiraCode"];})
-          twemoji-color-font
-          babelstone-han
-          misans
-        ])
-        ++ (with pkgs.nur.repos; [
-          ]);
-      fontconfig = {
-        defaultFonts = {
-          serif = ["MiSans" "FiraCode Nerd Font"];
-          sansSerif = ["MiSans" "FiraCode Nerd Font"];
-          monospace = ["MiSans" "FiraCode Nerd Font"];
-          emoji = ["Twitter Color Emoji"];
-        };
-      };
-    };
   };
 }

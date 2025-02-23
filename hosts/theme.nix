@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  firaCode = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
+in {
   stylix.enable = true;
   stylix.autoEnable = true;
   services.hyprpaper.enable = lib.mkForce false;
@@ -21,5 +23,30 @@
   stylix.cursor = {
     package = pkgs.adwaita-icon-theme;
     name = "Adwaita";
+  };
+  home.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["FiraCode"];})
+    twemoji-color-font
+    babelstone-han
+    misans
+  ];
+  stylix.fonts = {
+    serif.name = "MiSans";
+    serif.package = pkgs.misans;
+    sansSerif.name = "MiSans";
+    sansSerif.package = pkgs.misans;
+    monospace.name = "FiraCode Nerd Font";
+    monospace.package = firaCode;
+    emoji.name = "Twitter Color Emoji";
+    emoji.package = pkgs.twemoji-color-font;
+  };
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      serif = ["MiSans" "FiraCode Nerd Font"];
+      sansSerif = ["MiSans" "FiraCode Nerd Font"];
+      monospace = ["FiraCode Nerd Font"];
+      emoji = ["Twitter Color Emoji"];
+    };
   };
 }

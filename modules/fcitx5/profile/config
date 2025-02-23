@@ -13,6 +13,10 @@ EnumerateSkipFirst=False
 ActivateKeys=
 # 取消激活输入法
 DeactivateKeys=
+# 默认上一页
+PrevPage=
+# 默认下一页
+NextPage=
 
 [Hotkey/AltTriggerKeys]
 0=Shift_L
@@ -22,12 +26,6 @@ DeactivateKeys=
 
 [Hotkey/EnumerateGroupBackwardKeys]
 0=Shift+Super+space
-
-[Hotkey/PrevPage]
-0=Up
-
-[Hotkey/NextPage]
-0=Down
 
 [Hotkey/PrevCandidate]
 0=Shift+Tab
@@ -41,6 +39,8 @@ DeactivateKeys=
 [Behavior]
 # 默认状态为激活
 ActiveByDefault=False
+# 重新聚焦时重置状态
+resetStateWhenFocusIn=No
 # 共享输入状态
 ShareInputState=No
 # 在程序中显示预编辑文本
