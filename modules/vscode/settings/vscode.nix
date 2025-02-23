@@ -64,4 +64,9 @@
   explorer.confirmDelete = false;
   explorer.confirmDragAndDrop = false;
   explorer.confirmPasteNative = false;
+
+  window.menuBarVisibility = "toggle";
+  window.commandCenter = false;
+  window.customTitleBarVisibility = "never";
+  window.titleBarStyle = "native";
 }

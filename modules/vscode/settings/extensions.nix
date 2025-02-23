@@ -57,8 +57,6 @@
   cmake.showConfigureWithDebuggerNotification = false;
   cmake.options.statusBarVisibility = "visible";
   cmake.showOptionsMovedNotification = false;
-  window.menuBarVisibility = "toggle";
-  window.commandCenter = false;
   python.createEnvironment.trigger = "off";
   githubPullRequests.pullBranch = "never";
 }
