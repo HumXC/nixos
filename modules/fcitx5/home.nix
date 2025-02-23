@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.aris.fcitx5;
 
   # See: https://github.com/fkxxyz/rime-cloverpinyin/wiki/linux#%E5%AE%89%E8%A3%85%E8%AF%A5%E8%BE%93%E5%85%A5%E6%96%B9%E6%A1%88
@@ -13,12 +17,11 @@ let
     mkdir -p $HOME/.local/share/fcitx5/rime
     cp -r ${rime-ice}/* $HOME/.local/share/fcitx5/rime/
   '';
-in
-{
+in {
   options.aris.fcitx5.enable = lib.mkEnableOption "fcitx5";
 
   config = lib.mkIf cfg.enable {
-    aris.desktop.execOnce = [ "${config.i18n.inputMethod.package}/bin/fcitx5 -d" ];
+    aris.desktop.execOnce = ["${config.i18n.inputMethod.package}/bin/fcitx5 -d"];
     home.sessionVariables = {
       GTK_IM_MODULE = lib.mkForce "";
     };
@@ -54,4 +57,3 @@ in
     };
   };
 }
-

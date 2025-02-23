@@ -1,13 +1,16 @@
-{ lib, pkgs, config, ... }:
-let
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
   cfg = config.aris.daw;
-  hideDesktopEntry = package: entryNames:
-    let
-      names = (builtins.toString (map (e: "\"" + e + "\"") entryNames));
-    in
+  hideDesktopEntry = package: entryNames: let
+    names = builtins.toString (map (e: "\"" + e + "\"") entryNames);
+  in
     with pkgs;
-    lib.hiPrio
-      (runCommand "$patched-desktop-entry-for-${package.name}" { } ''
+      lib.hiPrio
+      (runCommand "$patched-desktop-entry-for-${package.name}" {} ''
         ${coreutils}/bin/mkdir -p $out/share/applications
         if [ -z "${names}" ]; then
           # 如果 names 为空，则隐藏所有的 .desktop 文件
@@ -23,19 +26,20 @@ let
           done
         fi
       '');
-in
-{
+in {
   options.aris.daw = {
     enable = lib.mkEnableOption "daw";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;[
-      vital
-      yoshimi
-      lsp-plugins
-      (hideDesktopEntry lsp-plugins [ ])
-    ] ++ (with pkgs.unstable;[
-      ardour
-    ]);
+    home.packages = with pkgs;
+      [
+        vital
+        yoshimi
+        lsp-plugins
+        (hideDesktopEntry lsp-plugins [])
+      ]
+      ++ (with pkgs.unstable; [
+        ardour
+      ]);
   };
 }

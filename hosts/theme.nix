@@ -1,7 +1,11 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   stylix.enable = true;
   stylix.autoEnable = true;
-  services.hyprpaper.enable = lib.mkForce false; 
+  services.hyprpaper.enable = lib.mkForce false;
   stylix.targets.hyprpaper.enable = lib.mkForce false;
   stylix.image = pkgs.fetchurl {
     url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";

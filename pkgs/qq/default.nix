@@ -1,6 +1,8 @@
-{ pkgs, stdenv, ... }:
-
-let
+{
+  pkgs,
+  stdenv,
+  ...
+}: let
   sources = import ./sources.nix;
   srcs = {
     x86_64-linux = pkgs.fetchurl {
@@ -15,7 +17,7 @@ let
   src =
     srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
-pkgs.qq.overrideAttrs (final: prev: {
-  version = sources.version;
-  src = src;
-})
+  pkgs.qq.overrideAttrs (final: prev: {
+    version = sources.version;
+    src = src;
+  })

@@ -114,7 +114,7 @@ in {
         ark
         seahorse
       ])
-      ++ (with pkgs; [
+      ++ [
         (hideDesktopEntry pkgs.unstable.fcitx5-with-addons [
           "org.fcitx.Fcitx5"
           "org.fcitx.fcitx5-migrator"
@@ -122,7 +122,7 @@ in {
           "kcm_fcitx5"
           "kbd-layout-viewer5"
         ])
-      ])
+      ]
       ++ [
         inputs.zen-browser.packages.x86_64-linux.default
       ];

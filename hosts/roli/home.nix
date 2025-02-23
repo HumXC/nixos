@@ -1,5 +1,9 @@
-{ inputs, pkgs, ... }: {
-  imports = [ ../theme.nix ];
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  imports = [../theme.nix];
   stylix.cursor.size = 34;
   aris = {
     hyprland = {
@@ -14,75 +18,79 @@
     helix.enable = true;
     kitty.enable = true;
     fcitx5.enable = true;
-    desktop =
-      {
-        enable = true;
-        useNvidia = true;
-        monitor = [{
+    desktop = {
+      enable = true;
+      useNvidia = true;
+      monitor = [
+        {
           name = "HDMI-A-1";
           size = "1920x1080";
           rate = 100.09;
-        }];
-        execOnce = [ "aika-shell" ];
-      };
+        }
+      ];
+      execOnce = ["aika-shell"];
+    };
     daw.enable = true;
   };
   home = {
     stateVersion = "24.11";
-    packages = with pkgs; [
-      egl-wayland
-      sassc
-      ddcutil
-      bun
-      mpv
-      swayimg
-      krita
-      go-musicfox
-      obsidian
+    packages = with pkgs;
+      [
+        egl-wayland
+        sassc
+        ddcutil
+        bun
+        mpv
+        swayimg
+        krita
+        go-musicfox
+        obsidian
 
-      zoxide
-      btop
-      diskonaut
-      trashy
+        zoxide
+        btop
+        diskonaut
+        trashy
 
-      gcc
-      ffmpeg
-      p7zip
-      cowsay
-      file
-      (writeShellScriptBin "python" ''
-        export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
-        exec ${python3}/bin/python "$@"
-      '')
-      foliate
-      blender
-      obs-studio
-    ] ++ (with pkgs.unstable;[
-      telegram-desktop
+        gcc
+        ffmpeg
+        p7zip
+        cowsay
+        file
+        (writeShellScriptBin "python" ''
+          export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
+          exec ${python3}/bin/python "$@"
+        '')
+        foliate
+        blender
+        obs-studio
+      ]
+      ++ (with pkgs.unstable; [
+        telegram-desktop
 
-      go
-      protobuf
-      wails
-      upx
-      nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
-      corepack_20
+        go
+        protobuf
+        wails
+        upx
+        nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
+        corepack_20
 
-      zig
-      zls
-      lldb
-      gdb
+        zig
+        zls
+        lldb
+        gdb
 
-      godot_4
-      kicad
-      qq
-      winetricks
-      wineWowPackages.waylandFull
-    ]) ++ (with pkgs.nur.repos;[
-
-    ]) ++ [
-      inputs.aika-shell.packages.${system}.aika-shell
-      inputs.aika-shell.packages.${system}.astal
-    ];
+        godot_4
+        kicad
+        qq
+        winetricks
+        wineWowPackages.waylandFull
+      ])
+      ++ (with pkgs.nur.repos; [
+        ])
+      ++ [
+        inputs.aika-shell.packages.${system}.aika-shell
+        inputs.aika-shell.packages.${system}.astal
+      ];
   };
 
   programs.zsh.initExtraBeforeCompInit = ''

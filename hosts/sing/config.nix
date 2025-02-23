@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
@@ -10,8 +12,7 @@ let
     isNormalUser = false;
     group = "www-data";
   };
-in
-{
+in {
   services.ollama.enable = true;
   services.tlp.enable = true;
   services.upower.enable = true;
@@ -29,13 +30,13 @@ in
   # docker 容器 nextcloud:fpm-alphin 内的 www-data 的 gid 就是 82
   # 由于 nextcloud 只能操作属于 www-data 的文件，所以添加 www-data 用户组附加到主机的普通用户
   users.users.www-data = wwwDataUser;
-  users.groups.www-data = { gid = 82; };
-  home-manager.users.HumXC.imports = [ ./home.nix ];
+  users.groups.www-data = {gid = 82;};
+  home-manager.users.HumXC.imports = [./home.nix];
   users.users.${userName} = {
     uid = 1000;
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "www-data" ];
+    extraGroups = ["wheel" "docker" "www-data"];
   };
   networking.firewall = {
     enable = true;
@@ -76,7 +77,7 @@ in
       ClientAliveCountMax = 3;
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
-      Macs = [ "hmac-sha1" "hmac-md5" ];
+      Macs = ["hmac-sha1" "hmac-md5"];
     };
   };
   services.fail2ban = {
@@ -107,9 +108,8 @@ in
   };
   virtualisation.docker.enable = true;
 
-
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     initrd.verbose = false;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
@@ -124,14 +124,16 @@ in
       };
       timeout = 1;
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = ["quiet" "splash"];
     consoleLogLevel = 0;
   };
 
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 8 * 1024;
-  }];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024;
+    }
+  ];
 
   console.useXkbConfig = true;
 

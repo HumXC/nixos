@@ -1,5 +1,9 @@
-{ pkgs, inputs, ... }: {
-  imports = [ ../theme.nix ];
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [../theme.nix];
   stylix.cursor.size = 34;
   aris = {
     hyprland = {
@@ -20,67 +24,73 @@
     desktop = {
       enable = true;
       x11Scale = 1.25;
-      monitor = [{
-        name = "DP-2";
-        size = "2560x1440";
-        rate = 180.0;
-        scale = 1.25;
-      }];
-      execOnce = [ "aika-shell" ];
+      monitor = [
+        {
+          name = "DP-2";
+          size = "2560x1440";
+          rate = 180.0;
+          scale = 1.25;
+        }
+      ];
+      execOnce = ["aika-shell"];
     };
   };
 
   home = {
     stateVersion = "24.11"; # TODO: remove this
-    packages = with pkgs; [
-      sassc
-      ddcutil
-      bun
-      mpv
-      swayimg
-      krita
-      go-musicfox
-      obsidian
+    packages = with pkgs;
+      [
+        sassc
+        ddcutil
+        bun
+        mpv
+        swayimg
+        krita
+        go-musicfox
+        obsidian
 
-      zoxide
-      btop
-      diskonaut
-      trashy
+        zoxide
+        btop
+        diskonaut
+        trashy
 
-      gcc
-      ffmpeg
-      p7zip
-      cowsay
-      file
-      (writeShellScriptBin "python" ''
-        export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
-        exec ${python3}/bin/python "$@"
-      '')
-      foliate
-      blender
-      obs-studio
-    ] ++ (with pkgs.unstable;[
-      telegram-desktop
+        gcc
+        ffmpeg
+        p7zip
+        cowsay
+        file
+        (writeShellScriptBin "python" ''
+          export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
+          exec ${python3}/bin/python "$@"
+        '')
+        foliate
+        blender
+        obs-studio
+      ]
+      ++ (with pkgs.unstable; [
+        telegram-desktop
 
-      go
-      protobuf
-      wails
-      upx
-      nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
-      corepack_20
+        go
+        protobuf
+        wails
+        upx
+        nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
+        corepack_20
 
-      zig
-      zls
-      lldb
-      gdb
+        zig
+        zls
+        lldb
+        gdb
 
-      godot_4
-    ]) ++ (with pkgs.nur.repos;[
-      humxc.qq
-    ]) ++ [
-      inputs.aika-shell.packages.${system}.aika-shell
-      inputs.aika-shell.packages.${system}.astal
-    ];
+        godot_4
+      ])
+      ++ (with pkgs.nur.repos; [
+        humxc.qq
+      ])
+      ++ [
+        inputs.aika-shell.packages.${system}.aika-shell
+        inputs.aika-shell.packages.${system}.astal
+      ];
 
     file.".gitconfig" = {
       force = true;
@@ -90,7 +100,7 @@
         [credential "https://github.com"]
         	helper = !${pkgs.gh}/bin/gh auth git-credential
         [credential "https://gist.github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential      
+        	helper = !${pkgs.gh}/bin/gh auth git-credential
       '';
     };
   };

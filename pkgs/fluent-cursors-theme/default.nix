@@ -1,19 +1,17 @@
 # Base adwaita-icon-theme
 # 2 Name: Fluent-cursors, Fluent-cursors-dark
-
-{ lib
-, stdenv
-, fetchFromGitHub
-, gtk3
-, nix-update-script
-, pkg-config
-, gdk-pixbuf
-, librsvg
-, hicolor-icon-theme
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk3,
+  nix-update-script,
+  pkg-config,
+  gdk-pixbuf,
+  librsvg,
+  hicolor-icon-theme,
 }:
-
-
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "fluent-cursors-theme";
   version = "2024-02-25";
   src = fetchFromGitHub {
@@ -47,7 +45,7 @@ stdenv.mkDerivation rec{
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = with lib; {

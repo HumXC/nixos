@@ -1,8 +1,6 @@
-{ config, ... }:
-let
+{config, ...}: let
   cfg = config.aris.hyprland;
-in
-{
+in {
   xwayland = {
     force_zero_scaling = true;
   };
@@ -32,7 +30,6 @@ in
       noise = 0.06;
     };
   };
-
 
   layerrule = [
     "blur, .+"
@@ -92,5 +89,4 @@ in
     workspace_swipe = "yes";
     workspace_swipe_fingers = 3;
   };
-
 }

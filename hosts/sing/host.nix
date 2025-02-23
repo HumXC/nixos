@@ -1,6 +1,6 @@
-{ inputs, ... }: {
+{inputs, ...}: {
   system = "x86_64-linux";
-  extraModules = [ ];
-  extraSpecialArgs = { };
+  extraModules = [];
+  extraSpecialArgs = {};
   hostName = "Sing";
 }

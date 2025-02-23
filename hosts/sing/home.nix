@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   aris = {
     helix.enable = true;
     zsh.enable = true;

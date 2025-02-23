@@ -1,12 +1,14 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/${userName}".path;
-  distro-grub-theme =
-    let
-      rev = "v3.2";
-    in
+  distro-grub-theme = let
+    rev = "v3.2";
+  in
     pkgs.stdenv.mkDerivation {
       pname = "distro-grub-theme";
       version = rev;
@@ -23,8 +25,7 @@ let
         runHook postInstall
       ";
     };
-in
-{
+in {
   aris = {
     greetd.enable = true;
     clash = {
@@ -36,7 +37,7 @@ in
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
-  home-manager.users.HumXC.imports = [ ./home.nix ];
+  home-manager.users.HumXC.imports = [./home.nix];
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
@@ -54,12 +55,12 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 7890 ];
+    allowedUDPPorts = [7890];
   };
   users.users.${userName} = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" ];
+    extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c"];
   };
   programs.steam = {
     enable = true;
@@ -69,7 +70,7 @@ in
   };
 
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     initrd.verbose = false;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
@@ -91,16 +92,15 @@ in
       };
       timeout = 60;
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = ["quiet" "splash"];
     consoleLogLevel = 0;
   };
-
 
   console.useXkbConfig = true;
   services = {
     dbus = {
       enable = true;
-      packages = [ pkgs.gcr ];
+      packages = [pkgs.gcr];
     };
     pipewire = {
       enable = true;
@@ -110,11 +110,13 @@ in
       jack.enable = true;
     };
   };
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 16 * 1024;
-  }];
-  security.pam.services.astal-auth = { };
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+  security.pam.services.astal-auth = {};
   security.doas = {
     enable = true;
     extraConfig = ''

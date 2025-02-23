@@ -1,32 +1,30 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gitUpdater
-, gnome-themes-extra
-, gtk-engine-murrine
-, jdupes
-, sassc
-, themeVariants ? [ ] # default: blue
-, colorVariants ? [ ] # default: all
-, sizeVariants ? [ ] # default: standard
-, tweaks ? [ ]
-, roundVariants ? [ ]
-}:
-
-let
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gitUpdater,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+  jdupes,
+  sassc,
+  themeVariants ? [], # default: blue
+  colorVariants ? [], # default: all
+  sizeVariants ? [], # default: standard
+  tweaks ? [],
+  roundVariants ? [],
+}: let
   pname = "Orchis-gtk";
 in
-lib.checkListOfEnum "${pname}: theme variants" [ "default" "purple" "pink" "red" "orange" "yellow" "green" "teal" "grey" "all" ]
+  lib.checkListOfEnum "${pname}: theme variants" ["default" "purple" "pink" "red" "orange" "yellow" "green" "teal" "grey" "all"]
   themeVariants
-  lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ]
+  lib.checkListOfEnum "${pname}: color variants" ["standard" "light" "dark"]
   colorVariants
-  lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ]
+  lib.checkListOfEnum "${pname}: size variants" ["standard" "compact"]
   sizeVariants
-  lib.checkListOfEnum "${pname}: tweaks" [ "compact" "black" "primary" "macos" "submenu" "nord" "dracula" "dock" ]
+  lib.checkListOfEnum "${pname}: tweaks" ["compact" "black" "primary" "macos" "submenu" "nord" "dracula" "dock"]
   tweaks
-  lib.checkListOfEnum "${pname}: round" [ "3px" "4px" "5px" "6px" "7px" "8px" "9px" "10px" "11px" "12px" "13px" "14px" "15px" ]
+  lib.checkListOfEnum "${pname}: round" ["3px" "4px" "5px" "6px" "7px" "8px" "9px" "10px" "11px" "12px" "13px" "14px" "15px"]
   roundVariants
-
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     inherit pname;
@@ -73,7 +71,7 @@ lib.checkListOfEnum "${pname}: theme variants" [ "default" "purple" "pink" "red"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = {
       description = "Material Design gtk theme";

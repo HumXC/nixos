@@ -1,10 +1,14 @@
-{ config, lib, pkgs, nixosConfig, ... }:
-let
+{
+  config,
+  lib,
+  pkgs,
+  nixosConfig,
+  ...
+}: let
   cfg = config.aris.zsh;
   profileName = nixosConfig.aris.profileName;
   p10kType = cfg.p10kType;
-in
-{
+in {
   options.aris.zsh.enable = lib.mkEnableOption "zsh";
   options.aris.zsh.p10kType = lib.mkOption {
     type = lib.types.str;
@@ -13,7 +17,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     home.file.".p10k.zsh" = {
-      source = ./.p10k-${ p10kType }.zsh;
+      source = ./.p10k-${p10kType}.zsh;
     };
     home.packages = with pkgs; [
       fzf
@@ -62,7 +66,7 @@ in
           doas chown -R HumXC:users /etc/nixos
           cd "$pwd"
         }
-    
+
         # 重新构建系统
         function os-build() {
           # https://github.com/NixOS/nix/issues/10202
@@ -72,7 +76,7 @@ in
 
         # 尝试评估构建系统
         function os-dry-build() {
-          local flake_identifier=''${1:-${profileName}}  
+          local flake_identifier=''${1:-${profileName}}
           doas nixos-rebuild dry-build --flake /etc/nixos#$flake_identifier
         }
 
@@ -90,12 +94,12 @@ in
 
         os-rollback() {
           backup_dir="/etc/nixos/backup"
-    
+
           if [ ! -d "$backup_dir" ]; then
               echo "Error: backup directory does not exist."
               return 1
           fi
-    
+
           case $1 in
           list)
               # 使用ls命令列出按时间排序的文件，并添加行号
@@ -166,27 +170,27 @@ in
         }
 
         ${lib.optionalString nixosConfig.virtualisation.waydroid.enable ''
-        waydroid-settings() {
-          waydroid prop set persist.waydroid.multi_windows false;
-          waydroid prop set persist.waydroid.cursor_on_subsurface false;
-          waydroid prop set persist.waydroid.height 0;
-          waydroid prop set persist.waydroid.width 0;
-        }
-        waydroid-hide-desktops() {
-          local dir="$HOME/.local/share/applications"
+          waydroid-settings() {
+            waydroid prop set persist.waydroid.multi_windows false;
+            waydroid prop set persist.waydroid.cursor_on_subsurface false;
+            waydroid prop set persist.waydroid.height 0;
+            waydroid prop set persist.waydroid.width 0;
+          }
+          waydroid-hide-desktops() {
+            local dir="$HOME/.local/share/applications"
 
-          if [ ! -d "$dir" ]; then
-            echo "Directory $dir not found."
-            return 1
-          fi
-
-          # 遍历指定目录下的以waydroid.开头的文件, 排除 waydroid.desktop
-          for file in "$dir"/waydroid.*; do
-            if [ -f "$file" ] && [ "$file" != "waydroid.desktop" ]; then
-              grep -q 'NoDisplay=true' "$file" || sed -i '/^\[Desktop Entry\]$/a NoDisplay=true' "$file"
+            if [ ! -d "$dir" ]; then
+              echo "Directory $dir not found."
+              return 1
             fi
-          done
-        }
+
+            # 遍历指定目录下的以waydroid.开头的文件, 排除 waydroid.desktop
+            for file in "$dir"/waydroid.*; do
+              if [ -f "$file" ] && [ "$file" != "waydroid.desktop" ]; then
+                grep -q 'NoDisplay=true' "$file" || sed -i '/^\[Desktop Entry\]$/a NoDisplay=true' "$file"
+              fi
+            done
+          }
         ''}
       '';
       shellAliases = {
@@ -202,10 +206,13 @@ in
       zplug = {
         enable = true;
         plugins = [
-          { name = "zsh-users/zsh-autosuggestions"; }
-          { name = "zsh-users/zsh-completions"; }
-          { name = "zsh-users/zsh-syntax-highlighting"; }
-          { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+          {name = "zsh-users/zsh-autosuggestions";}
+          {name = "zsh-users/zsh-completions";}
+          {name = "zsh-users/zsh-syntax-highlighting";}
+          {
+            name = "romkatv/powerlevel10k";
+            tags = ["as:theme" "depth:1"];
+          } # Installations with additional options. For the list of options, please refer to Zplug README.
         ];
       };
     };

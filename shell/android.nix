@@ -1,19 +1,18 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   ndkVersions = "25.1.8937393";
   androidComposition = pkgs.androidenv.composeAndroidPackages {
     toolsVersion = "26.1.1";
     platformToolsVersion = "33.0.3";
-    buildToolsVersions = [ "30.0.3" ];
+    buildToolsVersions = ["30.0.3"];
     includeEmulator = false;
-    platformVersions = [ "26" ];
+    platformVersions = ["26"];
     includeSources = false;
     includeSystemImages = false;
-    systemImageTypes = [ "google_apis_playstore" ];
-    abiVersions = [ "arm64-v8a" ];
-    cmakeVersions = [ "3.10.2" ];
+    systemImageTypes = ["google_apis_playstore"];
+    abiVersions = ["arm64-v8a"];
+    cmakeVersions = ["3.10.2"];
     includeNDK = true;
-    ndkVersions = [ ndkVersions ];
+    ndkVersions = [ndkVersions];
     useGoogleAPIs = false;
     useGoogleTVAddOns = false;
     includeExtras = [
@@ -21,15 +20,13 @@ let
     ];
   };
 in
-(pkgs.buildFHSUserEnv {
-  name = "android-sdk-env";
-  targetPkgs = pkgs: (with pkgs;
-    [
+  (pkgs.buildFHSUserEnv {
+    name = "android-sdk-env";
+    targetPkgs = pkgs: (with pkgs; [
       glibc
       # android-studio
-    ]) ++ [ androidComposition.androidsdk ];
-  profile =
-    ''
+    ]) ++ [androidComposition.androidsdk];
+    profile = ''
       export ANDROID_HOME=${androidComposition.androidsdk}/libexec/android-sdk
       echo ANDROID_HOME: $ANDROID_HOME
 
@@ -42,4 +39,5 @@ in
       export LDFLAGS="-L$SYSROOT/usr/lib -lz"
 
     '';
-}).env
+  })
+  .env

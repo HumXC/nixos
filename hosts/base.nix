@@ -1,16 +1,30 @@
-{ profileName, host }: { config, pkgs, lib, inputs, outputs, system, ... }:
-let
-  isUseSops = builtins.pathExists ./${profileName}/secrets.nix;
-in
 {
-  imports = [
-    ./${profileName}/hardware.nix
-    ./${profileName}/config.nix
-  ]
-  ++ (if isUseSops then [
-    ../secrets
-    ./${profileName}/secrets.nix
-  ] else [ ]);
+  profileName,
+  host,
+}: {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  outputs,
+  system,
+  ...
+}: let
+  isUseSops = builtins.pathExists ./${profileName}/secrets.nix;
+in {
+  imports =
+    [
+      ./${profileName}/hardware.nix
+      ./${profileName}/config.nix
+    ]
+    ++ (
+      if isUseSops
+      then [
+        ../secrets
+        ./${profileName}/secrets.nix
+      ]
+      else []
+    );
   aris.profileName = profileName;
   programs.nix-ld.enable = true;
 
@@ -25,34 +39,42 @@ in
 
   networking = {
     hostName = host.hostName;
-    nameservers = [ "223.5.5.5" "223.6.6.6" "114.114.114.114" "114.114.115.115" "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
+    nameservers = ["223.5.5.5" "223.6.6.6" "114.114.114.114" "114.114.115.115" "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4"];
     networkmanager.enable = true;
     hosts = {
-      "185.199.109.133" = [ "raw.githubusercontent.com" ];
-      "185.199.111.133" = [ "raw.githubusercontent.com" ];
-      "185.199.110.133" = [ "raw.githubusercontent.com" ];
-      "185.199.108.133" = [ "raw.githubusercontent.com" ];
+      "185.199.109.133" = ["raw.githubusercontent.com"];
+      "185.199.111.133" = ["raw.githubusercontent.com"];
+      "185.199.110.133" = ["raw.githubusercontent.com"];
+      "185.199.108.133" = ["raw.githubusercontent.com"];
     };
   };
   time.timeZone = "Asia/Shanghai";
-  i18n.supportedLocales = [ "zh_CN.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
+  i18n.supportedLocales = ["zh_CN.UTF-8/UTF-8" "en_US.UTF-8/UTF-8"];
   i18n.defaultLocale = "en_US.UTF-8";
-  environment.systemPackages = with pkgs; [
-    linux-firmware
-    git
-    wget
-    psmisc
-  ] ++ (with pkgs.unstable;[
-    helix
-    alejandra
-    cachix
-    nixd
-  ]);
+  environment.systemPackages = with pkgs;
+    [
+      linux-firmware
+      git
+      wget
+      psmisc
+    ]
+    ++ (with pkgs.unstable; [
+      helix
+      alejandra
+      cachix
+      nixd
+    ]);
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {
     registry.os = {
-      from = { type = "indirect"; id = "os"; };
-      to = { type = "path"; path = "/etc/nixos"; };
+      from = {
+        type = "indirect";
+        id = "os";
+      };
+      to = {
+        type = "path";
+        path = "/etc/nixos";
+      };
     };
     channel.enable = false;
     settings = {
@@ -69,7 +91,7 @@ in
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = ["root" "@wheel"];
       nix-path = "nixpkgs=flake:nixpkgs";
       # https://wiki.hyprland.org/Nix/Cachix/
       experimental-features = [
@@ -92,8 +114,8 @@ in
     package = pkgs.nixVersions.latest;
     extraOptions = lib.optionalString isUseSops (
       lib.optionalString
-        (builtins.hasAttr "nix_access_tokens" config.sops.secrets)
-        "!include ${config.sops.secrets.nix_access_tokens.path}"
+      (builtins.hasAttr "nix_access_tokens" config.sops.secrets)
+      "!include ${config.sops.secrets.nix_access_tokens.path}"
     );
   };
   boot.swraid.enable = false;

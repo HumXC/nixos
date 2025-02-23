@@ -1,11 +1,13 @@
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   rootPassFile = config.sops.secrets."password/root".path;
   userPassFile = config.sops.secrets."password/HumXC".path;
-  distro-grub-theme =
-    let
-      rev = "v3.2";
-    in
+  distro-grub-theme = let
+    rev = "v3.2";
+  in
     pkgs.stdenv.mkDerivation {
       pname = "distro-grub-theme";
       version = rev;
@@ -22,12 +24,11 @@ let
         runHook postInstall
       ";
     };
-in
-{
+in {
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
-  home-manager.users.HumXC.imports = [ ./home.nix ];
+  home-manager.users.HumXC.imports = [./home.nix];
   aris.clash = {
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
@@ -50,16 +51,16 @@ in
 
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 7890 ];
+    allowedUDPPorts = [7890];
   };
   users.users.HumXC = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render" ];
+    extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render"];
   };
 
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = ["ntfs"];
     initrd.verbose = false;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
@@ -81,16 +82,15 @@ in
       };
       timeout = 60;
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = ["quiet" "splash"];
     consoleLogLevel = 0;
   };
-
 
   console.useXkbConfig = true;
   services = {
     dbus = {
       enable = true;
-      packages = [ pkgs.gcr ];
+      packages = [pkgs.gcr];
     };
     pipewire = {
       enable = true;
@@ -101,11 +101,13 @@ in
     };
   };
 
-  swapDevices = [{
-    device = "/var/lib/swapfile";
-    size = 16 * 1024;
-  }];
-  security.pam.services.astal-auth = { };
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+  security.pam.services.astal-auth = {};
   security.doas = {
     enable = true;
     extraConfig = ''

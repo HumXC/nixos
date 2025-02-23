@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   hugo-new-content = pkgs.writeScriptBin "hugo-new-content" ''
     name=post/$*
     if [[ $name == *" "* ]]; then
@@ -11,15 +10,15 @@ let
   '';
   hugo-server = pkgs.writeScriptBin "hugo-server" ''${pkgs.hugo}/bin/hugo server -D'';
 in
-pkgs.mkShell {
-  buildInputs = [
-    pkgs.hugo
-    pkgs.go
-    hugo-new-content
-    hugo-server
-  ];
-  shellHook = ''
-    echo "hugo-new-content <name> : create a new post"
-    echo "hugo-server : start a hugo server with \"-D\""
-  '';
-}
+  pkgs.mkShell {
+    buildInputs = [
+      pkgs.hugo
+      pkgs.go
+      hugo-new-content
+      hugo-server
+    ];
+    shellHook = ''
+      echo "hugo-new-content <name> : create a new post"
+      echo "hugo-server : start a hugo server with \"-D\""
+    '';
+  }

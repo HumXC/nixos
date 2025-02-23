@@ -1,8 +1,11 @@
-{ pkgs, lib, config, ... }:
-let
-  cfg = config.aris.mpd;
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.aris.mpd;
+in {
   options.aris.mpd = {
     enable = lib.mkEnableOption "mpd";
     musicDirectory = lib.mkOption {

@@ -1,5 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
-
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 stdenvNoCC.mkDerivation {
   pname = "misans";
   version = "1.0";
@@ -9,7 +12,6 @@ stdenvNoCC.mkDerivation {
     stripRoot = false;
     hash = "sha256-497H20SYzzUFaUHkqUkYlROLrqXRBLkBkylsRqZ6KfM=";
   };
-
 
   # only extract the variable font because everything else is a duplicate
   installPhase = ''
