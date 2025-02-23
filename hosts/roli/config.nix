@@ -3,9 +3,8 @@
   pkgs,
   ...
 }: let
-  userName = "HumXC";
   rootPassFile = config.sops.secrets."password/root".path;
-  userPassFile = config.sops.secrets."password/${userName}".path;
+  userPassFile = config.sops.secrets."password/HumXC".path;
   distro-grub-theme = let
     rev = "v3.2";
   in
@@ -27,12 +26,12 @@
     };
 in {
   aris = {
-    greetd.enable = true;
+    sddm.enable = true;
+    easyeffects.enable = true;
     clash = {
       enable = true;
       configUrlFile = config.sops.secrets.clash_url.path;
     };
-    easyeffects.enable = true;
   };
   services.devmon.enable = true;
   services.gvfs.enable = true;
@@ -57,7 +56,7 @@ in {
     enable = true;
     allowedUDPPorts = [7890];
   };
-  users.users.${userName} = {
+  users.users.HumXC = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
     extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c"];

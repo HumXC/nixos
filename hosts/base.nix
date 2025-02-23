@@ -66,15 +66,12 @@ in {
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {
     registry.os = {
-      from = {
-        type = "indirect";
-        id = "os";
-      };
-      to = {
-        type = "path";
-        path = "/etc/nixos";
-      };
+      from .type = "indirect";
+      from.id = "os";
+      to.type = "path";
+      to.path = "/etc/nixos";
     };
+    registry.nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
     channel.enable = false;
     settings = {
       substituters = [

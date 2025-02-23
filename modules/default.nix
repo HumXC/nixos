@@ -6,12 +6,12 @@
     ./desktop
     ./easyeffects
     ./fcitx5
-    ./greetd
     ./helix
     ./hyprland
     ./kitty
     ./mpd
     ./zsh
+    ./sddm
     ./vscode
   ];
   nixosImports = pathFilter modulesPath "nixos.nix";

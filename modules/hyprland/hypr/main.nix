@@ -17,8 +17,6 @@ in {
     gaps_in = 4;
     gaps_out = 8;
     border_size = 2;
-    # "col.inactive_border" = "0xf24b4b4b";
-    # "col.active_border" = "0xffdddddd";
   };
   decoration = {
     rounding = 6;

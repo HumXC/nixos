@@ -8,12 +8,14 @@
   bin = "${scripts}/bin";
 
   monitor = map (m: "${m.name},${toString m.size}@${toString m.rate},auto,${toString m.scale}") desktop.monitor;
+  convertToKeyValue = env: builtins.attrValues (builtins.mapAttrs (name: value: "${name},${toString value}") env);
 in {
   # 脚本目录
   "$scripts" = scripts;
   "$bin" = bin;
   env =
-    [
+    (convertToKeyValue (config.home.sessionVariables))
+    ++ [
       "GLFW_IM_MODULE,ibus"
       "QT_QPA_PLATFORMTHEME,gtk3"
       "MOZ_ENABLE_WAYLAND,1"

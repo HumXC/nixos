@@ -29,12 +29,14 @@ in {
   services.gvfs.enable = true;
   services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [./home.nix];
-  aris.clash = {
-    enable = true;
-    configUrlFile = config.sops.secrets.clash_url.path;
+  aris = {
+    sddm.enable = true;
+    easyeffects.enable = true;
+    clash = {
+      enable = true;
+      configUrlFile = config.sops.secrets.clash_url.path;
+    };
   };
-  aris.greetd.enable = true;
-  aris.easyeffects.enable = true;
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";
@@ -54,6 +56,7 @@ in {
     allowedUDPPorts = [7890];
   };
   users.users.HumXC = {
+    description = "Hum-XC";
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
     extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render"];
