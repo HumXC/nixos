@@ -38,7 +38,7 @@
       nixosConfigurations = import ./hosts { inherit inputs outputs; };
       nixosModules = import ./modules { inherit inputs outputs; };
       overlays = import ./overlays { inherit inputs; };
-      # packages = forAllSystems (system: import ./pkgs { nixpkgs = inputs.nixpkgs; system = system; });
+      packages = forAllSystems (system: import ./pkgs { nixpkgs = inputs.nixpkgs; system = system; });
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     };
 }

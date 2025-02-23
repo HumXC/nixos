@@ -13,6 +13,7 @@ let
     ./kitty
     ./mpd
     ./zsh
+    ./vscode
   ];
   nixosImports = pathFilter modulesPath "nixos.nix";
   hmImports = pathFilter modulesPath "home.nix";

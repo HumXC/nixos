@@ -44,7 +44,7 @@ in
     psmisc
   ] ++ (with pkgs.unstable;[
     helix
-    nixpkgs-fmt
+    alejandra
     cachix
     nixd
   ]);

@@ -1,13 +1,20 @@
-{ config, lib, pkgs, inputs, ... }:
-let
-  hidedDesktopEntry = { name = "HiddenEntry"; noDisplay = true; };
-  hideDesktopEntry = package: entryNames:
-    let
-      names = (builtins.toString (map (e: "\"" + e + "\"") entryNames));
-    in
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
+  hidedDesktopEntry = {
+    name = "HiddenEntry";
+    noDisplay = true;
+  };
+  hideDesktopEntry = package: entryNames: let
+    names = builtins.toString (map (e: "\"" + e + "\"") entryNames);
+  in
     with pkgs;
-    lib.hiPrio
-      (runCommand "$patched-desktop-entry-for-${package.name}" { } ''
+      lib.hiPrio
+      (runCommand "$patched-desktop-entry-for-${package.name}" {} ''
         ${coreutils}/bin/mkdir -p $out/share/applications
         if [ -z "${names}" ]; then
           # 如果 names 为空，则隐藏所有的 .desktop 文件
@@ -24,8 +31,7 @@ let
         fi
       '');
   cfg = config.aris.desktop;
-in
-{
+in {
   options.aris.desktop = with lib; {
     enable = mkEnableOption "Enable desktop.";
     useNvidia = mkEnableOption "useNvidia";
@@ -58,97 +64,96 @@ in
           };
         };
       });
-      default = [ ];
+      default = [];
       description = "Monitor configuration list";
     };
     execOnce = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = "Execute commands once after the WM is initialized.";
     };
     env = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       description = "env.";
     };
   };
 
-
   config = lib.mkIf cfg.enable {
     # 设置 xwayland 窗口的 dpi
     xresources.properties."Xft.dpi" = builtins.toString (cfg.x11Scale * 96);
-    home.sessionVariables =
-      let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in
-      {
-        GTK_USE_PORTAL = "1";
-        XDG_DATA_DIRS = "${datadir}:$XDG_DATA_DIRS";
-        GDK_BACKEND = "wayland";
+    home.sessionVariables = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in {
+      GTK_USE_PORTAL = "1";
+      XDG_DATA_DIRS = "${datadir}:$XDG_DATA_DIRS";
+      GDK_BACKEND = "wayland";
 
-        LANG = "zh_CN.UTF-8";
-        LC_CTYPE = "zh_CN.UTF-8";
+      LANG = "zh_CN.UTF-8";
+      LC_CTYPE = "zh_CN.UTF-8";
 
-        GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
-          pkgs.gst_all_1.gst-plugins-good
-          pkgs.gst_all_1.gst-plugins-bad
-          pkgs.gst_all_1.gst-plugins-ugly
-          pkgs.gst_all_1.gst-libav
-        ];
-      };
-    home.packages = (with pkgs; [
-      glib
-      xdg-utils
-      nautilus
-      gst_all_1.gst-plugins-ugly
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-plugins-bad
-      gst_all_1.gst-libav
-      sushi
-      easyeffects
-      ark
-      seahorse
-    ]) ++ (with pkgs; [
-      (hideDesktopEntry pkgs.unstable.fcitx5-with-addons [
-        "org.fcitx.Fcitx5"
-        "org.fcitx.fcitx5-migrator"
-        "fcitx5-configtool"
-        "kcm_fcitx5"
-        "kbd-layout-viewer5"
+      GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+        pkgs.gst_all_1.gst-plugins-good
+        pkgs.gst_all_1.gst-plugins-bad
+        pkgs.gst_all_1.gst-plugins-ugly
+        pkgs.gst_all_1.gst-libav
+      ];
+    };
+    home.packages =
+      (with pkgs; [
+        glib
+        xdg-utils
+        nautilus
+        gst_all_1.gst-plugins-ugly
+        gst_all_1.gst-plugins-good
+        gst_all_1.gst-plugins-bad
+        gst_all_1.gst-libav
+        sushi
+        easyeffects
+        ark
+        seahorse
       ])
-    ]) ++ [
-      inputs.zen-browser.packages.x86_64-linux.default
-    ];
+      ++ (with pkgs; [
+        (hideDesktopEntry pkgs.unstable.fcitx5-with-addons [
+          "org.fcitx.Fcitx5"
+          "org.fcitx.fcitx5-migrator"
+          "fcitx5-configtool"
+          "kcm_fcitx5"
+          "kbd-layout-viewer5"
+        ])
+      ])
+      ++ [
+        inputs.zen-browser.packages.x86_64-linux.default
+      ];
     # xdg-mime query filetype filename
     # xdg-mime query default type
     xdg.mimeApps = {
       enable = true;
       associations.added = {
-        "video/x-matroska" = [ "mpv.desktop" ];
-        "text/plain" = [ "code.desktop" ];
-        "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
-        "application/zip" = [ "org.kde.ark.desktop" ];
-        "application/x-tar" = [ "org.kde.ark.desktop" ];
+        "video/x-matroska" = ["mpv.desktop"];
+        "text/plain" = ["code.desktop"];
+        "x-scheme-handler/tg" = ["org.telegram.desktop.desktop"];
+        "application/zip" = ["org.kde.ark.desktop"];
+        "application/x-tar" = ["org.kde.ark.desktop"];
       };
       defaultApplications = {
-        "x-scheme-handler/http" = [ "google-chrome.desktop" ];
-        "x-scheme-handler/https" = [ "google-chrome.desktop" ];
-        "x-scheme-handler/about" = [ "google-chrome.desktop" ];
-        "x-scheme-handler/unknown" = [ "google-chrome.desktop" ];
-        "x-scheme-handler/mailto" = [ "google-chrome.desktop" ];
-        "text/html" = [ "google-chrome.desktop" ];
-        "video/x-matroska" = [ "mpv.desktop" ];
-        "application/json" = [ "code.desktop" ];
-        "text/plain" = [ "code.desktop" ];
-        "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
-        "application/zip" = [ "org.kde.ark.desktop" ];
-        "application/x-tar" = [ "org.kde.ark.desktop" ];
+        "x-scheme-handler/http" = ["google-chrome.desktop"];
+        "x-scheme-handler/https" = ["google-chrome.desktop"];
+        "x-scheme-handler/about" = ["google-chrome.desktop"];
+        "x-scheme-handler/unknown" = ["google-chrome.desktop"];
+        "x-scheme-handler/mailto" = ["google-chrome.desktop"];
+        "text/html" = ["google-chrome.desktop"];
+        "video/x-matroska" = ["mpv.desktop"];
+        "application/json" = ["code.desktop"];
+        "text/plain" = ["code.desktop"];
+        "x-scheme-handler/tg" = ["org.telegram.desktop.desktop"];
+        "application/zip" = ["org.kde.ark.desktop"];
+        "application/x-tar" = ["org.kde.ark.desktop"];
       };
     };
-    programs.vscode.enable = true;
+    aris.vscode.enable = true;
     # 隐藏图标
     xdg.desktopEntries."nixos-manual" = hidedDesktopEntry;
   };
 }
-

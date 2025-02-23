@@ -3,7 +3,7 @@
         "expr": "import (builtins.getFlake \"/etc/nixos\").inputs.nixpkgs { }"
     },
     "formatting": {
-        "command": ["nixpkgs-fmt"]
+        "command": ["alejandra"]
     },
     "options": {
         "nixos": {
