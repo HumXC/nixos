@@ -13,6 +13,7 @@ in {
   config = lib.mkIf isEnabled {
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
+    services.gvfs.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       enable = true;
       description = "polkit-gnome-authentication-agent-1";
