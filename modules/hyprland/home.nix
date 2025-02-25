@@ -70,6 +70,7 @@ in {
       grim
       slurp
       swappy
+      unstable.hyprprop
     ];
     systemd.user.services.swww = {
       Unit = {
