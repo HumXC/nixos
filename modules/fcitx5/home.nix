@@ -11,7 +11,7 @@ in {
   config = lib.mkIf cfg.enable {
     aris.desktop.execOnce = ["${config.i18n.inputMethod.package}/bin/fcitx5 -d"];
     home.sessionVariables = {
-      GTK_IM_MODULE = lib.mkForce "";
+      # GTK_IM_MODULE = lib.mkForce "";
     };
     home.packages = with pkgs; [
       fcitx5-gtk

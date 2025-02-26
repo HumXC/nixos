@@ -68,6 +68,7 @@ in {
       (floatClass "xdg-desktop-portal-gtk")
       (float "zen-beta" "^正在打开.+")
       (floatTitle "^Yoshimi.+")
+      (float "zen" "画中画")
       # steam
       (floatClass "steam")
       # qq
