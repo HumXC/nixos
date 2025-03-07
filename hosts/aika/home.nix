@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [../theme.nix];
-  stylix.cursor.size = 34;
   aris = {
     hyprland = {
       enable = true;
@@ -69,18 +68,6 @@
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
-
-        go
-        protobuf
-        wails
-        upx
-        nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
-        corepack_20
-
-        zig
-        zls
-        lldb
-        gdb
 
         godot_4
       ])

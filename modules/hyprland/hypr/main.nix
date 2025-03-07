@@ -29,11 +29,18 @@ in {
     };
   };
 
-  layerrule = [
-    "blur, .+"
-    "ignorealpha 0, .+"
-    "noanim, popup-window"
-  ];
+  layerrule =
+    (
+      if cfg.enableBlurAndOpacity
+      then [
+        "blur, .+"
+        "ignorealpha 0, .+"
+      ]
+      else []
+    )
+    ++ [
+      "noanim, popup-window"
+    ];
   bezier = [
     "bz1,0.87, 0, 0.13, 1"
     "bz2,0.04, 0.48, 0.1, 0.79"

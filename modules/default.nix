@@ -13,6 +13,7 @@
     ./zsh
     ./sddm
     ./vscode
+    ./sound-system
   ];
   nixosImports = pathFilter modulesPath "nixos.nix";
   hmImports = pathFilter modulesPath "home.nix";

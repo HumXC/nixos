@@ -25,9 +25,15 @@
       ";
     };
 in {
+  # QEMU/KVM
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
+  users.groups.libvirtd.members = ["HumXC"];
+  virtualisation.spiceUSBRedirection.enable = true;
   aris = {
     sddm.enable = true;
     easyeffects.enable = true;
+    soundSystem.enable = true;
     clash = {
       enable = true;
       configUrlFile = config.sops.secrets.clash_url.path;
@@ -59,7 +65,15 @@ in {
   users.users.HumXC = {
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c"];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "libvirtd"
+      "video"
+      "audio"
+      "dialout"
+      "i2c"
+    ];
   };
   programs.steam = {
     enable = true;
@@ -95,20 +109,6 @@ in {
     consoleLogLevel = 0;
   };
 
-  console.useXkbConfig = true;
-  services = {
-    dbus = {
-      enable = true;
-      packages = [pkgs.gcr];
-    };
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
-  };
   swapDevices = [
     {
       device = "/var/lib/swapfile";

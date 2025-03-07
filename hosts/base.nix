@@ -37,7 +37,7 @@ in {
     ];
     config.allowUnfree = true;
   };
-
+  console.useXkbConfig = true;
   networking = {
     hostName = host.hostName;
     nameservers = ["223.5.5.5" "223.6.6.6" "114.114.114.114" "114.114.115.115" "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4"];

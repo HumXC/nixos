@@ -59,4 +59,5 @@
   cmake.showOptionsMovedNotification = false;
   python.createEnvironment.trigger = "off";
   githubPullRequests.pullBranch = "never";
+  direnv.restart.automatic = true;
 }

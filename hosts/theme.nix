@@ -23,6 +23,7 @@ in {
   stylix.cursor = {
     package = pkgs.adwaita-icon-theme;
     name = "Adwaita";
+    size = 32;
   };
   home.packages = with pkgs; [
     (nerdfonts.override {fonts = ["FiraCode"];})

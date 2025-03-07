@@ -31,6 +31,7 @@ in {
   home-manager.users.HumXC.imports = [./home.nix];
   aris = {
     sddm.enable = true;
+    soundSystem.enable = true;
     easyeffects.enable = true;
     clash = {
       enable = true;
@@ -87,21 +88,6 @@ in {
     };
     kernelParams = ["quiet" "splash"];
     consoleLogLevel = 0;
-  };
-
-  console.useXkbConfig = true;
-  services = {
-    dbus = {
-      enable = true;
-      packages = [pkgs.gcr];
-    };
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
   };
 
   swapDevices = [

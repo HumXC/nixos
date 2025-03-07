@@ -31,15 +31,12 @@ in {
     enable = lib.mkEnableOption "daw";
   };
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs;
-      [
-        vital
-        yoshimi
-        lsp-plugins
-        (hideDesktopEntry lsp-plugins [])
-      ]
-      ++ (with pkgs.unstable; [
-        ardour
-      ]);
+    home.packages = with pkgs.unstable; [
+      ardour
+      vital
+      yoshimi
+      lsp-plugins
+      (hideDesktopEntry lsp-plugins [])
+    ];
   };
 }

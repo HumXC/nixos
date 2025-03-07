@@ -11,6 +11,10 @@
       (builtins.attrValues config.home-manager.users));
 in {
   config = lib.mkIf isEnabled {
+    services.dbus = {
+      enable = true;
+      packages = [pkgs.gcr];
+    };
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
     services.gvfs.enable = true;

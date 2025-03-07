@@ -4,14 +4,12 @@
   ...
 }: {
   imports = [../theme.nix];
-  stylix.cursor.size = 34;
   aris = {
     hyprland = {
       enable = true;
       enableBlurAndOpacity = false;
       var = {
         BROWSER = "zen";
-        AQ_NO_MODIFIERS = "1";
       };
     };
     zsh.enable = true;
@@ -51,10 +49,7 @@
         diskonaut
         trashy
 
-        gcc
-        ffmpeg
         p7zip
-        cowsay
         file
         (writeShellScriptBin "python" ''
           export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
@@ -67,26 +62,12 @@
       ++ (with pkgs.unstable; [
         telegram-desktop
 
-        go
-        protobuf
-        wails
-        upx
-        nodejs_20 # https://matthewrhone.dev/nixos-npm-globally
-        corepack_20
-
-        zig
-        zls
-        lldb
-        gdb
-
         godot_4
         kicad
         qq
         winetricks
         wineWowPackages.waylandFull
       ])
-      ++ (with pkgs.nur.repos; [
-        ])
       ++ [
         inputs.aika-shell.packages.${system}.aika-shell
         inputs.aika-shell.packages.${system}.astal
