@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   rootPassFile = config.sops.secrets."password/root".path;
@@ -25,11 +26,6 @@
       ";
     };
 in {
-  # QEMU/KVM
-  programs.virt-manager.enable = true;
-  virtualisation.libvirtd.enable = true;
-  users.groups.libvirtd.members = ["HumXC"];
-  virtualisation.spiceUSBRedirection.enable = true;
   aris = {
     greetd.enable = true;
     easyeffects.enable = true;

@@ -19,7 +19,6 @@
     stylix.url = "github:danth/stylix/release-24.11";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     html-greet.url = "github:HumXC/html-greet";
-    html-greet-frontend.url = "github:HumXC/html-greet-frontend";
   };
   outputs = inputs @ {
     self,
