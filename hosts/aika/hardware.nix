@@ -20,7 +20,7 @@
     ];
   };
   environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
-  boot.kernelParams = ["i915.force_probe=4fa0"];
+  boot.kernelParams = ["i915.force_probe=4fa0" "amd_iommu=on"];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = ["i915"];
   services.udev.extraRules = ''

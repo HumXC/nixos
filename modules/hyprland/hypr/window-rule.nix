@@ -69,6 +69,7 @@ in {
       (float "zen-beta" "^正在打开.+")
       (floatTitle "^Yoshimi.+")
       (float "zen" "画中画")
+      "allowsinput,class:Ardour"
       # steam
       (floatClass "steam")
       # qq

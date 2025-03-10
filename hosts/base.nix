@@ -37,6 +37,12 @@ in {
     ];
     config.allowUnfree = true;
   };
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/etc/nixos";
+  };
   console.useXkbConfig = true;
   networking = {
     hostName = host.hostName;
@@ -77,7 +83,7 @@ in {
     channel.enable = false;
     settings = {
       substituters = [
-        "https://mirror.sjtu.edu.cn/nix-channels/store"
+        # "https://mirror.sjtu.edu.cn/nix-channels/store"
         "https://hyprland.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
         "https://nix-community.cachix.org"
@@ -104,11 +110,6 @@ in {
       keep-outputs = true;
       keep-derivations = true;
     };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
     package = pkgs.nixVersions.latest;
     extraOptions = lib.optionalString isUseSops (
       lib.optionalString
@@ -116,5 +117,10 @@ in {
       "!include ${config.sops.secrets.nix_access_tokens.path}"
     );
   };
+  system.stateVersion = "24.11";
   boot.swraid.enable = false;
+  security.sudo.enable = true;
+  security.doas.enable = true;
+  security.sudo.wheelNeedsPassword = false;
+  security.doas.wheelNeedsPassword = false;
 }

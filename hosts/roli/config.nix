@@ -31,7 +31,7 @@ in {
   users.groups.libvirtd.members = ["HumXC"];
   virtualisation.spiceUSBRedirection.enable = true;
   aris = {
-    sddm.enable = true;
+    greetd.enable = true;
     easyeffects.enable = true;
     soundSystem.enable = true;
     clash = {

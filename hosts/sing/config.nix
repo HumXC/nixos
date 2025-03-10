@@ -134,14 +134,4 @@ in {
       size = 8 * 1024;
     }
   ];
-
-  console.useXkbConfig = true;
-
-  security.doas = {
-    enable = true;
-    extraConfig = ''
-      permit nopass keepenv :wheel
-    '';
-  };
-  system.stateVersion = "24.11";
 }

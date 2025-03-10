@@ -60,10 +60,8 @@ in {
           cd /etc/nixos
           now=$(date +"%Y-%m-%d-%T")
           cp flake.lock backup/$now
-          doas chown -R root:users /etc/nixos
           pwd=$(pwd)
           doas nix flake update
-          doas chown -R HumXC:users /etc/nixos
           cd "$pwd"
         }
 
@@ -71,7 +69,8 @@ in {
         function os-build() {
           # https://github.com/NixOS/nix/issues/10202
           doas git config --global --add safe.directory /etc/nixos
-          doas nixos-rebuild switch --flake /etc/nixos#${profileName} "$@"
+          nh os switch /etc/nixos -H ${profileName} "$@"
+          # doas nixos-rebuild switch --flake /etc/nixos#${profileName} "$@"
         }
 
         # 尝试评估构建系统

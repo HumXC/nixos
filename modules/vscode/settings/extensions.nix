@@ -59,5 +59,6 @@
   cmake.showOptionsMovedNotification = false;
   python.createEnvironment.trigger = "off";
   githubPullRequests.pullBranch = "never";
+  mesonbuild.configureOnOpen = false;
   direnv.restart.automatic = true;
 }

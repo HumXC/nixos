@@ -6,6 +6,7 @@
     ./desktop
     ./easyeffects
     ./fcitx5
+    ./greetd
     ./helix
     ./hyprland
     ./kitty

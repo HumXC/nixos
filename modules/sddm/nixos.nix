@@ -16,13 +16,12 @@
 in {
   options.aris.sddm.enable = lib.mkEnableOption "sddm";
   config = lib.mkIf cfg.enable {
-    services.xserver.displayManager.setupCommands = "";
-    services.xserver.enable = true;
     services.displayManager.sddm = {
       enable = true;
       package = pkgs.unstable.kdePackages.sddm; # qt6 sddm version
       theme = "sddm-astronaut-theme";
       extraPackages = [sddm-astronaut];
+      wayland.enable = true;
     };
     environment.systemPackages = [sddm-astronaut];
   };

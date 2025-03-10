@@ -63,4 +63,7 @@
     editor.defaultFormatter = "ms-python.black-formatter";
     editor.formatOnType = true;
   };
+  "[blueprint-gtk]" = {
+    editor.defaultFormatter = "bodil.blueprint-gtk";
+  };
 }

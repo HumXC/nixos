@@ -26,11 +26,10 @@
     };
 in {
   services.devmon.enable = true;
-  services.gvfs.enable = true;
   services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [./home.nix];
   aris = {
-    sddm.enable = true;
+    greetd.enable = true;
     soundSystem.enable = true;
     easyeffects.enable = true;
     clash = {
@@ -97,11 +96,4 @@ in {
     }
   ];
   security.pam.services.astal-auth = {};
-  security.doas = {
-    enable = true;
-    extraConfig = ''
-      permit nopass keepenv :wheel
-    '';
-  };
-  system.stateVersion = "24.11";
 }

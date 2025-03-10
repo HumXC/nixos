@@ -14,11 +14,12 @@
     nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
     nixpkgs-esp-dev.inputs.nixpkgs.follows = "nixpkgs-unstable";
     aika-shell.url = "github:HumXC/aika-shell/gtk3";
-    aika-shell.inputs.nixpkgs.follows = "nixpkgs-unstable";
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     stylix.url = "github:danth/stylix/release-24.11";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    html-greet.url = "github:HumXC/html-greet";
+    html-greet-frontend.url = "github:HumXC/html-greet-frontend";
   };
   outputs = inputs @ {
     self,

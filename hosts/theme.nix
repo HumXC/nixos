@@ -1,3 +1,4 @@
+# Home Manager configuration for Stylix
 {
   pkgs,
   lib,
