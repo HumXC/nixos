@@ -52,7 +52,7 @@ in {
     };
     wayland.windowManager.hyprland = {
       systemd.enable = true;
-      # package = null; # FIXME
+      package = null;
       enable = true;
       xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
     };

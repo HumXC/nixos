@@ -55,11 +55,11 @@ in {
         os-build = ''
           # https://github.com/NixOS/nix/issues/10202
           doas git config --global --add safe.directory /etc/nixos
-          nh os switch /etc/nixos -H ${profileName} $argv
+          nh os switch -H ${profileName} $argv
         '';
         os-build-dry = ''
           doas git config --global --add safe.directory /etc/nixos
-          nh os build --dry /etc/nixos -H ${profileName} $argv
+          nh os build --dry -H ${profileName} $argv
         '';
         os-rollback = ''
           set backup_dir "/etc/nixos/backup"
