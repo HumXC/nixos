@@ -46,7 +46,6 @@
 
         zoxide
         btop
-        diskonaut
         trashy
 
         p7zip

@@ -66,4 +66,7 @@
   "[blueprint-gtk]" = {
     editor.defaultFormatter = "bodil.blueprint-gtk";
   };
+  "[svelte]" = {
+    editor.defaultFormatter = "svelte.svelte-vscode";
+  };
 }

@@ -9,7 +9,7 @@
     programs.vscode = {
       package = pkgs.unstable.vscode;
       enable = true;
-      userSettings = import ./settings;
+      profiles.default.userSettings = import ./settings;
     };
   };
 }

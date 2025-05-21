@@ -9,9 +9,9 @@ in {
     follow_mouse = 1;
     float_switch_override_focus = 2;
     touchpad = {
-      natural_scroll = "yes";
+      natural_scroll = true;
     };
-    sensitivity = 0.04; # -1.0 - 1.0, 0 means no modification.
+    sensitivity = -1; # -1.0 - 1.0, 0 means no modification.
   };
   general = {
     gaps_in = 4;
@@ -34,12 +34,13 @@ in {
       if cfg.enableBlurAndOpacity
       then [
         "blur, .+"
-        "ignorealpha 0, .+"
+        "ignorealpha 0.5, .+"
       ]
       else []
     )
     ++ [
       "noanim, popup-window"
+      "noanim, mikami-layer"
     ];
   bezier = [
     "bz1,0.87, 0, 0.13, 1"
@@ -84,10 +85,11 @@ in {
   };
 
   misc = {
-    disable_hyprland_logo = "yes";
+    disable_hyprland_logo = true;
     animate_mouse_windowdragging = true;
     vfr = false;
     middle_click_paste = false;
+    focus_on_activate = true;
   };
 
   gestures = {

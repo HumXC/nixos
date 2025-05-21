@@ -111,7 +111,7 @@ in {
         gst_all_1.gst-libav
         sushi
         easyeffects
-        ark
+        kdePackages.ark
         seahorse
       ])
       ++ [
@@ -128,6 +128,9 @@ in {
       ];
     # xdg-mime query filetype filename
     # xdg-mime query default type
+    home.activation.removeHomeMimeappsList = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+      rm -f "${config.xdg.configHome}/mimeapps.list"
+    '';
     xdg.mimeApps = {
       enable = true;
       associations.added = {

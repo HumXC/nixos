@@ -8,14 +8,14 @@
     hyprland = {
       enable = true;
       var = {
-        BROWSER = "zen";
+        BROWSER = "zen-beta";
       };
     };
     mpd = {
       enable = true;
       musicDirectory = "/disk/files/HumXC/Music";
     };
-    zsh.enable = true;
+    fish.enable = true;
     helix.enable = true;
     kitty.enable = true;
     fcitx5.enable = true;
@@ -46,13 +46,11 @@
         swayimg
         krita
         go-musicfox
-        obsidian
 
         zoxide
         btop
-        diskonaut
         trashy
-
+        chromium
         gcc
         ffmpeg
         p7zip
@@ -65,14 +63,12 @@
         foliate
         blender
         obs-studio
+        qq
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
 
         godot_4
-      ])
-      ++ (with pkgs.nur.repos; [
-        humxc.qq
       ])
       ++ [
         inputs.aika-shell.packages.${system}.aika-shell
@@ -91,14 +87,6 @@
       '';
     };
   };
-
-  programs.zsh.initExtraBeforeCompInit = ''
-    eval "$(zoxide init zsh)"
-    export PATH=$HOME/.npm-packages/bin:$PATH
-    export NODE_PATH=~/.npm-packages/lib/node_modules
-    export PNPM_HOME=~/.npm-packages/pnpm
-    export PATH=$PNPM_HOME:$PATH
-  '';
 
   programs.home-manager.enable = true;
   programs.git = {

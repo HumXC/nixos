@@ -69,4 +69,7 @@
   window.commandCenter = false;
   window.customTitleBarVisibility = "never";
   window.titleBarStyle = "native";
+
+  # ========== 傻逼 Copilot ==========
+  github.copilot.enable = {"*" = false;};
 }

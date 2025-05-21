@@ -93,8 +93,8 @@ in {
       "${mod},RETURN,fullscreen,1"
       "${mod}_SHIFT,RETURN,fullscreen"
 
-      "${mod},mouse_down,workspace,e+1"
-      "${mod},mouse_up,workspace,e-1"
+      "${mod},mouse_down,workspace,e-1"
+      "${mod},mouse_up,workspace,e+1"
     ];
 
   # 调整窗口大小

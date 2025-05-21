@@ -14,7 +14,5 @@ in {
       pulse.enable = true;
       jack.enable = true;
     };
-    nixpkgs.config.pulseaudio = true;
-    hardware.pulseaudio.extraConfig = "load-module module-combine-sink";
   };
 }

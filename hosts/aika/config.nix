@@ -25,6 +25,16 @@
       ";
     };
 in {
+  services.openssh = {
+    enable = true;
+    settings = {
+      ClientAliveInterval = 60;
+      ClientAliveCountMax = 3;
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = false;
+      Macs = ["hmac-sha1" "hmac-md5"];
+    };
+  };
   services.devmon.enable = true;
   services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [./home.nix];

@@ -45,14 +45,12 @@ in {
     ++ [
       # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87
       "${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr"
-      "${builtins.replaceStrings ["\n" "\n\n"] [";" ";"] config.xsession.initExtra}"
+      "${builtins.replaceStrings ["\n"] [";"] config.xsession.profileExtra}"
       # 启动剪贴板
       # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Clipboard-Managers/
       "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store" #Stores only text data
       "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store" #Stores only image data
       "${pkgs.wl-clipboard}/bin/wl-clip-persist --clipboard both"
-      # 启动 pot 翻译
-      # https://github.com/Pylogmon/pot
       "hyprctl setcursor ${config.stylix.cursor.name} ${builtins.toString config.stylix.cursor.size}"
     ];
   monitor = monitor;

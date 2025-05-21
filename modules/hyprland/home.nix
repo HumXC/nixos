@@ -57,7 +57,6 @@ in {
       xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
     };
     home.packages = with pkgs; [
-      pulseaudio
       libnotify
       hyprpicker
       swww

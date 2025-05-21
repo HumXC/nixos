@@ -61,4 +61,7 @@
   githubPullRequests.pullBranch = "never";
   mesonbuild.configureOnOpen = false;
   direnv.restart.automatic = true;
+  git.replaceTagsWhenPull = true;
+  svelte.enable-ts-plugin = true;
+  fittencode.selection.showCodeLens = false;
 }

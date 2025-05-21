@@ -6,6 +6,7 @@
     ./desktop
     ./easyeffects
     ./fcitx5
+    ./fish
     ./greetd
     ./helix
     ./hyprland
@@ -33,7 +34,6 @@ in {
         })
       ];
     home-manager = {
-      backupFileExtension = "hm-back";
       useGlobalPkgs = true;
       useUserPackages = true;
       extraSpecialArgs = {inherit inputs;};
@@ -42,7 +42,7 @@ in {
         ++ [
           inputs.sops-nix.homeManagerModules.sops
           inputs.vscode-server.homeModules.default
-          inputs.stylix.homeManagerModules.stylix
+          inputs.stylix.homeModules.stylix
           ({pkgs, ...}: {
             programs.git.extraConfig = {
               safe.directory = "/etc/nixos";

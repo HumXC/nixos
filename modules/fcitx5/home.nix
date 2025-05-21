@@ -17,7 +17,8 @@ in {
       fcitx5-gtk
     ];
     i18n.inputMethod = {
-      enabled = "fcitx5";
+      enable = true;
+      type = "fcitx5";
       fcitx5 = {
         addons = with pkgs; [
           fcitx5-chinese-addons
@@ -25,16 +26,9 @@ in {
           fcitx5-pinyin-minecraft
           fcitx5-pinyin-zhwiki
         ];
+        waylandFrontend = true;
+        settings = import ./settings.nix;
       };
     };
-    xdg.configFile."fcitx5" = {
-      recursive = true;
-      source = ./profile;
-      force = true;
-    };
-    home.activation.removeExistingFcitx5Profile = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
-      rm -f "${config.xdg.configHome}/fcitx5/config"
-      rm -rf "${config.xdg.configHome}/fcitx5/conf"
-    '';
   };
 }

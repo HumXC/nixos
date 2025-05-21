@@ -5,14 +5,14 @@
   ...
 }: let
   cfg = config.aris.clash;
-  Country_mmdb_url = "https://mirror.ghproxy.com/https://github.com/Dreamacro/maxmind-geoip/releases/download/20240412/Country.mmdb";
+  Country_mmdb_url = "https://ghfast.top/https://github.com/Dreamacro/maxmind-geoip/releases/download/20240412/Country.mmdb";
   clash-tool = pkgs.stdenv.mkDerivation {
     name = "clash-tool";
     clashinit = pkgs.writeText "clash-init" ''
       #!/usr/bin/env sh
       [ ! -e "${cfg.workDir}" ] && mkdir -p ${cfg.workDir}
-      ${lib.optionalString (cfg.configUrlFile != "") "[ ! -e \"${cfg.workDir}/config.yaml\" ] && ${pkgs.curl}/bin/curl -o ${cfg.workDir}/config.yaml \"$(${pkgs.coreutils}/bin/cat ${cfg.configUrlFile})\""}
-      [ ! -e "${cfg.workDir}/Country.mmdb" ] && ${pkgs.curl}/bin/curl -o ${cfg.workDir}/Country.mmdb "${Country_mmdb_url}"
+      ${lib.optionalString (cfg.configUrlFile != "") "[ ! -e \"${cfg.workDir}/config.yaml\" ] && ${pkgs.wget}/bin/wget -O ${cfg.workDir}/config.yaml \"$(${pkgs.coreutils}/bin/cat ${cfg.configUrlFile})\""}
+      [ ! -e "${cfg.workDir}/Country.mmdb" ] && ${pkgs.wget}/bin/wget ${cfg.workDir}/Country.mmdb "${Country_mmdb_url}"
       exit 0
     '';
     unpackPhase = "true";

@@ -27,7 +27,7 @@ in {
     size = 32;
   };
   home.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode"];})
+    nerd-fonts.fira-code
     twemoji-color-font
     babelstone-han
     misans
@@ -38,7 +38,7 @@ in {
     sansSerif.name = "MiSans";
     sansSerif.package = pkgs.misans;
     monospace.name = "FiraCode Nerd Font";
-    monospace.package = firaCode;
+    monospace.package = pkgs.nerd-fonts.fira-code;
     emoji.name = "Twitter Color Emoji";
     emoji.package = pkgs.twemoji-color-font;
   };
