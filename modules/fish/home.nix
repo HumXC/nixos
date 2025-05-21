@@ -12,6 +12,7 @@
 in {
   options.aris.fish.enable = lib.mkEnableOption "fish";
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [zoxide];
     programs.starship = {
       enable = true;
       settings =

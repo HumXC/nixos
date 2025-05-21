@@ -44,7 +44,6 @@
         go-musicfox
         obsidian
 
-        zoxide
         btop
         trashy
 

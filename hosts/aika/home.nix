@@ -47,7 +47,6 @@
         krita
         go-musicfox
 
-        zoxide
         btop
         trashy
         chromium

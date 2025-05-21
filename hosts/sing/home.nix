@@ -1,10 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   aris = {
     helix.enable = true;
-    zsh.enable = true;
-    zsh.p10kType = "2";
+    fish.enable = true;
   };
   home = {
+    stateVersion = "25.05";
     packages = with pkgs; [
       htop
       btop
