@@ -69,4 +69,7 @@
   "[svelte]" = {
     editor.defaultFormatter = "svelte.svelte-vscode";
   };
+  "[markdown]" = {
+    editor.defaultFormatter = "DavidAnson.vscode-markdownlint";
+  };
 }

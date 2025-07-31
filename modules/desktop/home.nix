@@ -100,11 +100,25 @@ in {
         pkgs.gst_all_1.gst-libav
       ];
     };
-    home.packages =
+    home.packages = let
+      zen = inputs.zen-browser.packages.x86_64-linux.default;
+      wrappedZen = pkgs.symlinkJoin {
+        name = "wrapped-zen-browser";
+        paths = [zen];
+        buildInputs = [pkgs.makeWrapper];
+        postBuild = ''
+          rm -f $out/bin/zen
+          rm -f $out/bin/zen-beta
+          makeWrapper ${zen}/bin/zen $out/bin/zen --set GTK_IM_MODULE ""
+          cp $out/bin/zen $out/bin/zen-beta
+        '';
+      };
+    in
       (with pkgs; [
         glib
         xdg-utils
         nautilus
+        gst_all_1.gst-plugins-base
         gst_all_1.gst-plugins-ugly
         gst_all_1.gst-plugins-good
         gst_all_1.gst-plugins-bad
@@ -113,6 +127,7 @@ in {
         easyeffects
         kdePackages.ark
         seahorse
+        d-spy
       ])
       ++ [
         (hideDesktopEntry pkgs.unstable.fcitx5-with-addons [
@@ -124,14 +139,16 @@ in {
         ])
       ]
       ++ [
-        inputs.zen-browser.packages.x86_64-linux.default
+        wrappedZen
       ];
     # xdg-mime query filetype filename
     # xdg-mime query default type
     home.activation.removeHomeMimeappsList = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
       rm -f "${config.xdg.configHome}/mimeapps.list"
     '';
-    xdg.mimeApps = {
+    xdg.mimeApps = let
+      browser = "zen-beta.desktop";
+    in {
       enable = true;
       associations.added = {
         "video/x-matroska" = ["mpv.desktop"];
@@ -141,12 +158,12 @@ in {
         "application/x-tar" = ["org.kde.ark.desktop"];
       };
       defaultApplications = {
-        "x-scheme-handler/http" = ["google-chrome.desktop"];
-        "x-scheme-handler/https" = ["google-chrome.desktop"];
-        "x-scheme-handler/about" = ["google-chrome.desktop"];
-        "x-scheme-handler/unknown" = ["google-chrome.desktop"];
-        "x-scheme-handler/mailto" = ["google-chrome.desktop"];
-        "text/html" = ["google-chrome.desktop"];
+        "x-scheme-handler/http" = [browser];
+        "x-scheme-handler/https" = [browser];
+        "x-scheme-handler/about" = [browser];
+        "x-scheme-handler/unknown" = [browser];
+        "x-scheme-handler/mailto" = [browser];
+        "text/html" = [browser];
         "video/x-matroska" = ["mpv.desktop"];
         "application/json" = ["code.desktop"];
         "text/plain" = ["code.desktop"];

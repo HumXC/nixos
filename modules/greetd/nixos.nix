@@ -8,7 +8,7 @@
   args = {
     sessionDir = [config.services.displayManager.sessionData.desktops.out];
   };
-  cmd = "${pkgs.aikadm.cmdWithArgs args}";
+  cmd = "${pkgs.aikadm.cmdWithArgs args} > /tmp/aikadm.log 2>&1";
 in {
   options.aris.greetd.enable = lib.mkEnableOption "greetd";
   config = lib.mkIf cfg.enable {

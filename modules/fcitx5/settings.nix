@@ -7,6 +7,7 @@
   addons.keyboard.globalSection = {
     PageSize = 10;
     EnableEmoji = "True";
+    UseNewComposeBehavior = "True";
   };
   addons.pinyin.globalSection = {
     PageSize = 7;
@@ -26,9 +27,59 @@
     BackSpaceToUnselect = "True";
     NumberOfSentence = 2;
     LongWordLengthLimit = 4;
-    QuickPhraseKey = "semicolon";
-    VAsQuickphrase = "True";
+    QuickPhraseKey = "";
+    VAsQuickphrase = "False";
     FirstRun = "False";
+  };
+
+  addons.pinyin.sections.PrevPage = {
+    "0" = "minus";
+    "1" = "Up";
+    "2" = "KP_Up";
+    "3" = "bracketleft";
+  };
+  addons.pinyin.sections.NextPage = {
+    "0" = "equal";
+    "1" = "Down";
+    "2" = "KP_Down";
+    "3" = "bracketright";
+  };
+  addons.pinyin.sections.PrevCandidate = {
+    "0" = "Shift+Tab";
+  };
+  addons.pinyin.sections.NextCandidate = {
+    "0" = "Tab";
+  };
+  addons.pinyin.sections.CurrentCandidate = {
+    "0" = "space";
+    "1" = "KP_Space";
+  };
+  addons.pinyin.sections.CommitRawInput = {
+    "0" = "Return";
+    "1" = "KP_Enter";
+    "2" = "Control+Return";
+    "3" = "Control+KP_Enter";
+    "4" = "Shift+Return";
+    "5" = "Shift+KP_Enter";
+    "6" = "Control+Shift+Return";
+    "7" = "Control+Shift+KP_Enter";
+    "8" = "-";
+    "9" = "(";
+    "10" = ")";
+    "11" = "/";
+    "12" = "*";
+    "13" = ".";
+    "14" = ",";
+    "15" = ";";
+    "16" = ":";
+    "17" = "?";
+    "18" = "!";
+    "19" = "|";
+    "23" = "}";
+    "24" = "{";
+    "25" = ">";
+    "26" = "<";
+    "27" = "\"";
   };
   addons.cloudpinyin.globalSection = {
     MinimumPinyinLength = 2;
@@ -36,7 +87,6 @@
     "Toggle Key" = "";
   };
   addons.quickphrase.globalSection.TriggerKey = "";
-  addons.punctuation.globalSection.Enabled = "False";
   addons.clipboard.globalSection.TriggerKey = "";
   globalOptions = {
     Hotkey = {

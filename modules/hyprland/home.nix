@@ -36,10 +36,6 @@ in {
 
       listener = [
         {
-          timeout = 300;
-          on-timeout = "astal lockscreen";
-        }
-        {
           timeout = 330;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";

@@ -67,6 +67,7 @@ in {
       psmisc
     ]
     ++ (with pkgs.unstable; [
+      bat
       helix
       alejandra
       cachix

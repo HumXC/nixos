@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   aris = {
     helix.enable = true;
     fish.enable = true;
@@ -16,9 +16,7 @@
     enable = true;
     enableBashIntegration = true; # see note on other shells below
     nix-direnv.enable = true;
-  };
-  home.sessionVariables = {
-    DIRENV_LOG_FORMAT = "";
+    silent = true;
   };
   services.vscode-server.enable = true;
   programs.home-manager.enable = true;

@@ -35,6 +35,7 @@ in {
       Macs = ["hmac-sha1" "hmac-md5"];
     };
   };
+  services.blueman.enable = true;
   services.devmon.enable = true;
   services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [./home.nix];
@@ -69,7 +70,7 @@ in {
     description = "Hum-XC";
     hashedPasswordFile = "${userPassFile}";
     isNormalUser = true;
-    extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render"];
+    extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render" "input"];
   };
 
   boot = {

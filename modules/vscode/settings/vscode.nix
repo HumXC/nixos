@@ -56,6 +56,7 @@
   debug.console.acceptSuggestionOnEnter = "on";
   debug.openExplorerOnEnd = true;
   debug.showInStatusBar = "always";
+  debug.onTaskErrors = "abort";
 
   # ========== 安全设置 ==========
   security.workspace.trust.untrustedFiles = "open";

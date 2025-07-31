@@ -20,6 +20,7 @@
     kitty.enable = true;
     fcitx5.enable = true;
     daw.enable = true;
+    waydroid.enable = true;
     desktop = {
       enable = true;
       x11Scale = 1.25;
@@ -39,9 +40,6 @@
     stateVersion = "24.11"; # TODO: remove this
     packages = with pkgs;
       [
-        sassc
-        ddcutil
-        bun
         mpv
         swayimg
         krita
@@ -66,12 +64,12 @@
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
-
         godot_4
       ])
       ++ [
         inputs.aika-shell.packages.${system}.aika-shell
         inputs.aika-shell.packages.${system}.astal
+        ddcutil
       ];
 
     file.".gitconfig" = {
@@ -86,7 +84,6 @@
       '';
     };
   };
-
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
@@ -101,9 +98,7 @@
     enable = true;
     enableBashIntegration = true; # see note on other shells below
     nix-direnv.enable = true;
-  };
-  home.sessionVariables = {
-    DIRENV_LOG_FORMAT = "";
+    silent = true;
   };
   services.nextcloud-client = {
     enable = true;

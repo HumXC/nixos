@@ -64,4 +64,5 @@
   git.replaceTagsWhenPull = true;
   svelte.enable-ts-plugin = true;
   fittencode.selection.showCodeLens = false;
+  zig.zls.enableArgumentPlaceholders = false;
 }

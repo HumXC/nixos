@@ -24,7 +24,6 @@ in {
   bind =
     (workspaceWithNumber "${mod}")
     ++ [
-      "super, o, exit"
       # 颜色选择
       # (execModWith "P" "hyprpicker -a")
       # 隐藏/显示 right-bar

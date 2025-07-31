@@ -12,7 +12,7 @@
 in {
   options.aris.fish.enable = lib.mkEnableOption "fish";
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide];
+    home.packages = with pkgs; [zoxide eza];
     programs.starship = {
       enable = true;
       settings =
@@ -172,7 +172,9 @@ in {
         zoxide init fish | source
       '';
       shellAliases = {
-        ll = "ls -l";
+        ls = "eza --icons";
+        ll = "eza --icons -l";
+        la = "eza --icons -la";
         icat = "kitty +kitten icat";
         Tp = "trash put";
         Tl = "trash list";

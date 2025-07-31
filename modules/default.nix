@@ -16,6 +16,7 @@
     ./sddm
     ./vscode
     ./sound-system
+    ./waydroid
   ];
   nixosImports = pathFilter modulesPath "nixos.nix";
   hmImports = pathFilter modulesPath "home.nix";
