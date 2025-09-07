@@ -16,7 +16,7 @@ in {
   services.ollama.enable = true;
   services.tlp.enable = true;
   services.upower.enable = true;
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "performance";
   powerManagement.enable = true;
   aris.clash = {
     enable = true;
@@ -42,11 +42,9 @@ in {
     enable = true;
     allowedTCPPorts = [
       22
-      8080 # nginx
+      8080 # web
       7890
-      9090 # clash
       15136 # ntfy
-      7777 # 泰拉瑞亚
     ];
   };
   environment.etc."docker/daemon.json".text = ''
