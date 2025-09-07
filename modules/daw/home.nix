@@ -5,38 +5,72 @@
   ...
 }: let
   cfg = config.aris.daw;
-  hideDesktopEntry = package: entryNames: let
-    names = builtins.toString (map (e: "\"" + e + "\"") entryNames);
-  in
-    with pkgs;
-      lib.hiPrio
-      (runCommand "$patched-desktop-entry-for-${package.name}" {} ''
-        ${coreutils}/bin/mkdir -p $out/share/applications
-        if [ -z "${names}" ]; then
-          # 如果 names 为空，则隐藏所有的 .desktop 文件
-          for file in ${package}/share/applications/*.desktop; do
-            ${gawk}/bin/awk '/^\[/{if(flag){print "NoDisplay=true"} flag=0} /^\[Desktop Entry\]$/ { flag=1 } { print } END {if(flag) print "NoDisplay=true"}' \
-            $file > $out/share/applications/$(basename $file)
-          done
-        else
-          # 否则仅处理指定的 names 列表中的文件
-          for name in ${names}; do
-            ${gawk}/bin/awk '/^\[/{if(flag){print "NoDisplay=true"} flag=0} /^\[Desktop Entry\]$/ { flag=1 } { print } END {if(flag) print "NoDisplay=true"}' \
-            ${package}/share/applications/$name.desktop > $out/share/applications/$name.desktop
-          done
-        fi
-      '');
+  patchScript = packages: plugin: let
+    so = "${config.xdg.configHome}/REAPER/UserPlugins/${plugin}.so";
+  in {
+    executable = true;
+    text = ''
+      #! /usr/bin/env bash
+      nix-shell -p ${lib.concatStringsSep " " packages} autoPatchelfHook --run "autoPatchelf ${so}"
+      chmod +x ${so}
+    '';
+  };
 in {
   options.aris.daw = {
     enable = lib.mkEnableOption "daw";
   };
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs.unstable; [
-      ardour
+      (symlinkJoin {
+        name = "Reaper";
+        paths = [reaper];
+        inherit (reaper) meta;
+        buildInputs = [
+          makeWrapper
+        ];
+        postBuild = ''
+          rm $out/share/applications/cockos-reaper.desktop
+          cp ${reaper}/share/applications/cockos-reaper.desktop $out/share/applications/cockos-reaper.desktop
+          substituteInPlace $out/share/applications/cockos-reaper.desktop \
+            --replace-fail "Exec=\"${reaper}/opt/REAPER/reaper\" %F" "Exec=env GDK_BACKEND=x11 ${reaper}/bin/reaper %F"
+        '';
+      })
+      yabridge
+      yabridgectl
+      helvum
+      noise-repellent
       vital
       yoshimi
-      lsp-plugins
-      (hideDesktopEntry lsp-plugins [])
+      (pkgs.lib.hideDesktopEntry lsp-plugins [])
     ];
+
+    xdg.configFile."fontconfig/conf.d/60-reaper-fallback-chinese.conf".text = ''
+      <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+        <fontconfig>
+          <!-- REAPER fonts patch -->
+          <match target="pattern">
+            <test name="prgname">
+              <string>.reaper-wrapped</string>
+            </test>
+            <edit name="family" mode="assign">
+              <string>MiSans</string>
+            </edit>
+          </match>
+        </fontconfig>
+    '';
+    xdg.configFile."REAPER" = {
+      source = pkgs.symlinkJoin {
+        name = "reaper-userplugins";
+        paths = with pkgs; [
+          reaper-sws-extension
+          reaper-reapack-extension
+        ];
+      };
+      recursive = true;
+    };
+    # https://github.com/Ubunteous/NixOS-System/blob/master/pkgs/reaimgui/auto_fetch.sh
+    xdg.configFile."REAPER/nixos-support/patch-reaimgui" = patchScript ["cairo" "libepoxy" "gtk3"] "reaper_imgui-x86_64";
+    xdg.configFile."REAPER/nixos-support/patch-reaper-js" = patchScript ["gtk3"] "reaper_js_ReaScriptAPI64";
   };
 }

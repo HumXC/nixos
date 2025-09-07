@@ -65,7 +65,7 @@ in {
       (float "gjs" "clipboard")
       (floatClass "com.nextcloud.desktopclient.nextcloud")
       (floatClass "org.kde.ark")
-      (floatClass "xdg-desktop-portal-gtk")
+      (floatClass "xdg-desktop-portal.+")
       (float "zen-beta" "^正在打开.+")
       (floatTitle "^Yoshimi.+")
       (float "zen" "画中画")
@@ -102,7 +102,23 @@ in {
       (floatClass "org.kde.kdeconnect.handler")
       # waydroid
       (fullscreen " Waydroid" "Waydroid")
+      # ardour
+      "center,class:^(Ardour-.*)$,initialTitle:negative:Ardour"
+      "dimaround,class:^(Ardour-.*)$,title:Add Track/Bus/VCA"
+      # reaper
+      "noinitialfocus,xwayland:1"
+      "tile,title:REAPER v.*"
     ]
+    ++ (let
+      dimaround = title: "dimaround,class:^(Ardour-.*)$,title:${title}";
+    in [
+      "float, class:^(Ardour-.*)$"
+      (dimaround "Add Track/Bus/VCA")
+      (dimaround "Remove.*")
+      (dimaround "Color Selection.*")
+      (dimaround "Region.*")
+      (dimaround "^$")
+    ])
     ++ (
       if (!cfg.enableBlurAndOpacity)
       then [

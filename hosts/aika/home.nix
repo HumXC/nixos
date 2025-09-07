@@ -32,44 +32,51 @@
           scale = 1.25;
         }
       ];
-      execOnce = ["aika-shell"];
+      execOnce = ["mika-shell daemon"];
     };
   };
-
+  home.sessionVariables = {
+    TERMINAL = "kitty"; # mika-shell uses this
+  };
   home = {
     stateVersion = "24.11"; # TODO: remove this
     packages = with pkgs;
       [
-        mpv
-        swayimg
-        krita
-        go-musicfox
-
         btop
         trashy
-        chromium
         gcc
         ffmpeg
         p7zip
         cowsay
         file
+
         (writeShellScriptBin "python" ''
           export LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH
           exec ${python3}/bin/python "$@"
         '')
         foliate
-        blender
-        obs-studio
-        qq
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
         godot_4
+        hmcl
+        blender
+        mpv
+        swayimg
+        krita
+        go-musicfox
+        (qq.override {
+          commandLineArgs = "--ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --disable-gpu";
+        })
       ])
       ++ [
         inputs.aika-shell.packages.${system}.aika-shell
         inputs.aika-shell.packages.${system}.astal
+
+        inputs.mika-shell.packages.${system}.default
+        wtype
         ddcutil
+        grim
       ];
 
     file.".gitconfig" = {
@@ -93,6 +100,15 @@
       init.defaultBranch = "main";
       http.postBuffer = "524288000";
     };
+  };
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-gstreamer
+      obs-vkcapture
+    ];
   };
   programs.direnv = {
     enable = true;

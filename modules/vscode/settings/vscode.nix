@@ -73,4 +73,10 @@
 
   # ========== 傻逼 Copilot ==========
   github.copilot.enable = {"*" = false;};
+  remote.defaultExtensionsIfInstalledLocally = [];
+
+  remote.SSH.useLocalServer = false;
+  remote.SSH.remotePlatform = {
+    Home = "linux";
+  };
 }

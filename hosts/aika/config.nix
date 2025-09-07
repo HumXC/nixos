@@ -72,12 +72,15 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render" "input"];
   };
-
+  environment.systemPackages = [pkgs.lan-mouse_git];
   boot = {
     supportedFilesystems = ["ntfs"];
     initrd.verbose = false;
     plymouth.enable = true;
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    # https://github.com/chaotic-cx/nyx/issues/1158
+    # kernelPackages = pkgs.linuxPackages_cachyos;
+
     loader = {
       grub = {
         device = "nodev";

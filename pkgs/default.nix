@@ -11,8 +11,6 @@
 in
   package [
     "misans"
-    "hmcl-bin"
-    "qq"
     "fluent-cursors-theme"
     "orchis-gtk"
     "fcitx5-mellow-themes"

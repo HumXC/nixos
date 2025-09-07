@@ -72,4 +72,7 @@
   "[markdown]" = {
     editor.defaultFormatter = "DavidAnson.vscode-markdownlint";
   };
+  "[yaml]" = {
+    editor.defaultFormatter = "redhat.vscode-yaml";
+  };
 }

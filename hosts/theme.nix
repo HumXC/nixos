@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}: let
-  firaCode = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
-in {
+}: {
   stylix.enable = true;
   stylix.autoEnable = true;
   services.hyprpaper.enable = lib.mkForce false;
@@ -47,7 +45,7 @@ in {
     defaultFonts = {
       serif = ["MiSans" "FiraCode Nerd Font"];
       sansSerif = ["MiSans" "FiraCode Nerd Font"];
-      monospace = ["FiraCode Nerd Font"];
+      monospace = ["FiraCode Nerd Font" "MiSans"];
       emoji = ["Twitter Color Emoji"];
     };
   };

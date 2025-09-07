@@ -1,4 +1,8 @@
-{inputs, ...}: let
+{
+  inputs,
+  outputs,
+  ...
+}: let
   pathFilter = paths: name: builtins.map (dir: dir + "/${name}") (builtins.filter (dir: builtins.pathExists (dir + "/${name}")) paths);
   modulesPath = [
     ./clash
@@ -35,7 +39,6 @@ in {
         })
       ];
     home-manager = {
-      useGlobalPkgs = true;
       useUserPackages = true;
       extraSpecialArgs = {inherit inputs;};
       sharedModules =
@@ -45,6 +48,15 @@ in {
           inputs.vscode-server.homeModules.default
           inputs.stylix.homeModules.stylix
           ({pkgs, ...}: {
+            nixpkgs = {
+              overlays = [
+                inputs.nur.overlays.default
+                outputs.overlays.unstable-packages
+                outputs.overlays.additions
+                outputs.overlays.extra-lib
+              ];
+              config.allowUnfree = true;
+            };
             programs.git.extraConfig = {
               safe.directory = "/etc/nixos";
               credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";

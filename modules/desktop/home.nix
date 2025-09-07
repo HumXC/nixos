@@ -9,27 +9,6 @@
     name = "HiddenEntry";
     noDisplay = true;
   };
-  hideDesktopEntry = package: entryNames: let
-    names = builtins.toString (map (e: "\"" + e + "\"") entryNames);
-  in
-    with pkgs;
-      lib.hiPrio
-      (runCommand "$patched-desktop-entry-for-${package.name}" {} ''
-        ${coreutils}/bin/mkdir -p $out/share/applications
-        if [ -z "${names}" ]; then
-          # 如果 names 为空，则隐藏所有的 .desktop 文件
-          for file in ${package}/share/applications/*.desktop; do
-            ${gawk}/bin/awk '/^\[/{if(flag){print "NoDisplay=true"} flag=0} /^\[Desktop Entry\]$/ { flag=1 } { print } END {if(flag) print "NoDisplay=true"}' \
-            $file > $out/share/applications/$(basename $file)
-          done
-        else
-          # 否则仅处理指定的 names 列表中的文件
-          for name in ${names}; do
-            ${gawk}/bin/awk '/^\[/{if(flag){print "NoDisplay=true"} flag=0} /^\[Desktop Entry\]$/ { flag=1 } { print } END {if(flag) print "NoDisplay=true"}' \
-            ${package}/share/applications/$name.desktop > $out/share/applications/$name.desktop
-          done
-        fi
-      '');
   cfg = config.aris.desktop;
 in {
   options.aris.desktop = with lib; {
@@ -105,6 +84,7 @@ in {
       wrappedZen = pkgs.symlinkJoin {
         name = "wrapped-zen-browser";
         paths = [zen];
+        inherit (zen) meta;
         buildInputs = [pkgs.makeWrapper];
         postBuild = ''
           rm -f $out/bin/zen
@@ -113,34 +93,22 @@ in {
           cp $out/bin/zen $out/bin/zen-beta
         '';
       };
-    in
-      (with pkgs; [
-        glib
-        xdg-utils
-        nautilus
-        gst_all_1.gst-plugins-base
-        gst_all_1.gst-plugins-ugly
-        gst_all_1.gst-plugins-good
-        gst_all_1.gst-plugins-bad
-        gst_all_1.gst-libav
-        sushi
-        easyeffects
-        kdePackages.ark
-        seahorse
-        d-spy
-      ])
-      ++ [
-        (hideDesktopEntry pkgs.unstable.fcitx5-with-addons [
-          "org.fcitx.Fcitx5"
-          "org.fcitx.fcitx5-migrator"
-          "fcitx5-configtool"
-          "kcm_fcitx5"
-          "kbd-layout-viewer5"
-        ])
-      ]
-      ++ [
-        wrappedZen
-      ];
+    in (with pkgs; [
+      glib
+      xdg-utils
+      nautilus
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-libav
+      sushi
+      easyeffects
+      kdePackages.ark
+      seahorse
+      d-spy
+      wrappedZen
+    ]);
     # xdg-mime query filetype filename
     # xdg-mime query default type
     home.activation.removeHomeMimeappsList = lib.hm.dag.entryBefore ["checkLinkTargets"] ''

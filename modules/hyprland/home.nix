@@ -26,6 +26,8 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
+    xdg.portal.config.common.default = "hyprland";
+    xdg.portal.configPackages = [pkgs.xdg-desktop-portal-hyprland];
     services.hypridle.enable = true;
     services.hypridle.settings = {
       general = {
@@ -55,7 +57,6 @@ in {
     home.packages = with pkgs; [
       libnotify
       hyprpicker
-      swww
       # 剪贴板功能
       wl-clipboard
       wf-recorder
@@ -67,19 +68,6 @@ in {
       swappy
       unstable.hyprprop
     ];
-    systemd.user.services.swww = {
-      Unit = {
-        Description = "Swww daemon";
-        After = ["graphical-session-pre.target"];
-        PartOf = ["graphical-session.target"];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.swww}/bin/swww-daemon";
-        ExecStop = "${pkgs.swww}/bin/swww kill";
-      };
-      Install = {WantedBy = ["graphical-session.target"];};
-    };
     xdg.configFile."hypr/scripts" = {
       source = ./hypr/scripts;
       recursive = true; # 递归整个文件夹

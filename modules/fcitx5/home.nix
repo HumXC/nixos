@@ -12,6 +12,13 @@ in {
     aris.desktop.execOnce = ["${config.i18n.inputMethod.package}/bin/fcitx5 -d"];
     home.packages = with pkgs; [
       fcitx5-gtk
+      (pkgs.lib.hideDesktopEntry2 pkgs.fcitx5-with-addons [
+        "org.fcitx.Fcitx5"
+        "org.fcitx.fcitx5-migrator"
+        "fcitx5-configtool"
+        "kcm_fcitx5"
+        "kbd-layout-viewer5"
+      ])
     ];
     i18n.inputMethod = {
       enable = true;

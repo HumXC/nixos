@@ -35,6 +35,7 @@ in {
       inputs.aikadm.overlays.default
       outputs.overlays.unstable-packages
       outputs.overlays.additions
+      outputs.overlays.extra-lib
     ];
     config.allowUnfree = true;
   };

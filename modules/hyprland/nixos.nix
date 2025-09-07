@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   isEnabled =
@@ -13,10 +12,5 @@ in {
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/wayland/hyprland.nix
   config = lib.mkIf isEnabled {
     programs.hyprland.enable = true;
-    xdg.portal = {
-      enable = true;
-      extraPortals = with pkgs; [xdg-desktop-portal-gtk];
-      config.common.default = ["hyprland" "gtk"];
-    };
   };
 }

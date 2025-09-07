@@ -19,6 +19,8 @@
     stylix.url = "github:danth/stylix/release-25.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     aikadm.url = "github:HumXC/aikadm";
+    mika-shell.url = "github:HumXC/mika-shell";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
   outputs = inputs @ {
     self,

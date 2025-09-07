@@ -22,7 +22,7 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
-  boot.kernelParams = ["i915.force_probe=4fa0" "amd_iommu=on"];
+  boot.kernelParams = ["mitigations=off" "i915.force_probe=4fa0" "amd_iommu=on"];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = ["i915"];
   services.udev.extraRules = ''
