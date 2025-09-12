@@ -72,7 +72,6 @@ in {
     isNormalUser = true;
     extraGroups = ["wheel" "docker" "libvirtd" "video" "audio" "dialout" "i2c" "render" "input"];
   };
-  environment.systemPackages = [pkgs.lan-mouse_git];
   boot = {
     supportedFilesystems = ["ntfs"];
     initrd.verbose = false;

@@ -127,6 +127,7 @@ in {
   };
   system.stateVersion = "24.11";
   boot.swraid.enable = false;
+  boot.tmp.cleanOnBoot = true;
   security.sudo.enable = true;
   security.doas.enable = true;
   security.sudo.wheelNeedsPassword = false;

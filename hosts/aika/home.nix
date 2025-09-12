@@ -20,7 +20,6 @@
     kitty.enable = true;
     fcitx5.enable = true;
     daw.enable = true;
-    waydroid.enable = true;
     desktop = {
       enable = true;
       x11Scale = 1.25;
@@ -77,6 +76,9 @@
         wtype
         ddcutil
         grim
+
+        scrcpy
+        android-tools
       ];
 
     file.".gitconfig" = {

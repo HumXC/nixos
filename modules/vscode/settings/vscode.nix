@@ -79,4 +79,5 @@
   remote.SSH.remotePlatform = {
     Home = "linux";
   };
+  python.analysis.typeCheckingMode = "strict";
 }

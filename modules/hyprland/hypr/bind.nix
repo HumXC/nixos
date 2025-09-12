@@ -43,20 +43,20 @@ in {
       "${mod}_BackSpace,BackSpace,killactive"
       (modWith "Q" "killactive" "")
       # 打开程序启动器
-      (execModWith "TAB" "mika-shell toggle app-launcher")
+      (execModWith "TAB" "mika-shell toggle mikami.app-launcher")
 
       # 选择区域截图打开 swappy 编辑后写入剪贴板
       # 需要安装 swappy, grim, wl-clipborad,slurp
-      (execModWith "S" "mika-shell toggle screenshot")
+      (execModWith "S" "mika-shell toggle mikami.screenshot")
       # 录制屏幕
-      (execModWith "R" "mika-shell toggle wf-recorder")
+      (execModWith "R" "mika-shell toggle mikami.wf-recorder")
       # 显示剪贴板历史
       # fcitx5 自带这个功能，默认触发键是 ctrl+; 可以在 fcitx5配置 中的 [附加组件] 里关闭
-      (execModWith "V" "mika-shell toggle clipboard")
+      (execModWith "V" "mika-shell toggle mikami.clipboard")
       # 登出界面
-      (exec "CONTROL_ALT" "DELETE" "mika-shell toggle power-menu")
-      (execModWith "L" "mika-shell open lockscreen")
-      (exec "ALT" "SPACE" "mika-shell toggle quick-run")
+      (exec "CONTROL_ALT" "DELETE" "mika-shell toggle mikami.power-menu")
+      (execModWith "L" "mika-shell open mikami.lockscreen")
+      (exec "ALT" "SPACE" "mika-shell toggle mikami.quick-run")
 
       # 切换桌面
       "SHIFT_${mod},left,workspace,-1"
