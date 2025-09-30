@@ -10,6 +10,8 @@
       btop
       trashy
       go
+      python3
+      android-tools
     ];
   };
   programs.direnv = {

@@ -12,9 +12,12 @@
   ];
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = ["amdgpu" "radeon"];
+  boot.initrd.kernelModules = ["amdgpu" "radeon" "binder_linux"];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
+  boot.extraModprobeConfig = ''
+    options binder_linux devices=binder,hwbinder,vndbinder
+  '';
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/27cc060a-95d4-4c45-a8cd-1b030c1b93cc";

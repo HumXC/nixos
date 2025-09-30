@@ -13,15 +13,14 @@
     group = "www-data";
   };
 in {
-  services.ollama.enable = true;
   services.tlp.enable = true;
-  services.upower.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
-  powerManagement.enable = true;
+  powerManagement.enable = false;
   aris.clash = {
     enable = true;
     configUrlFile = config.sops.secrets.clash_url.path;
   };
+  aris.soundSystem.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
   users.mutableUsers = false;
   users.users.root = {
@@ -42,6 +41,7 @@ in {
     enable = true;
     allowedTCPPorts = [
       22
+      25565
       8080 # web
       7890
       15136 # ntfy
