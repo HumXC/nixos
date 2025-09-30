@@ -71,6 +71,7 @@ in {
       bat
       helix
       alejandra
+      tre-command
       cachix
       nixd
     ]);

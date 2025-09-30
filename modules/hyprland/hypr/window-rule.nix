@@ -102,22 +102,15 @@ in {
       (floatClass "org.kde.kdeconnect.handler")
       # waydroid
       (fullscreen " Waydroid" "Waydroid")
-      # ardour
-      "center,class:^(Ardour-.*)$,initialTitle:negative:Ardour"
-      "dimaround,class:^(Ardour-.*)$,title:Add Track/Bus/VCA"
+    ]
+    ++ (let
+      dimaround = title: "dimaround,class:REAPER,title:${title}";
+    in [
       # reaper
       "noinitialfocus,xwayland:1"
       "tile,title:REAPER v.*"
-    ]
-    ++ (let
-      dimaround = title: "dimaround,class:^(Ardour-.*)$,title:${title}";
-    in [
-      "float, class:^(Ardour-.*)$"
-      (dimaround "Add Track/Bus/VCA")
-      (dimaround "Remove.*")
-      (dimaround "Color Selection.*")
-      (dimaround "Region.*")
-      (dimaround "^$")
+      (dimaround "^轨道路由.*")
+      (dimaround "^.*插件引脚连接器.$")
     ])
     ++ (
       if (!cfg.enableBlurAndOpacity)

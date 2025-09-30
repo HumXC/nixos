@@ -19,7 +19,7 @@
     stylix.url = "github:danth/stylix/release-25.05";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     aikadm.url = "github:HumXC/aikadm";
-    mika-shell.url = "github:HumXC/mika-shell";
+    mika-shell.url = "github:MikaShell/mika-shell";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
   outputs = inputs @ {
@@ -30,10 +30,7 @@
     inherit (self) outputs;
     forAllSystems = nixpkgs.lib.genAttrs [
       "aarch64-linux"
-      "i686-linux"
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
     ];
   in {
     nixosConfigurations = import ./hosts {inherit inputs outputs;};
