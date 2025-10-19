@@ -102,6 +102,8 @@ in {
       (floatClass "org.kde.kdeconnect.handler")
       # waydroid
       (fullscreen " Waydroid" "Waydroid")
+      # godot
+      (dimaround "Godot" "请确认...")
     ]
     ++ (let
       dimaround = title: "dimaround,class:REAPER,title:${title}";

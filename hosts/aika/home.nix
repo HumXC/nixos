@@ -31,7 +31,7 @@
           scale = 1.25;
         }
       ];
-      execOnce = ["mika-shell daemon"];
+      execOnce = ["mika-shell daemon > /tmp/mika-shell.log 2>&1"];
     };
   };
   home.sessionVariables = {
@@ -54,6 +54,8 @@
           exec ${python3}/bin/python "$@"
         '')
         foliate
+
+        pavucontrol
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
@@ -72,13 +74,15 @@
         inputs.aika-shell.packages.${system}.aika-shell
         inputs.aika-shell.packages.${system}.astal
 
-        inputs.mika-shell.packages.${system}.default
+        inputs.mika-shell.packages.${system}.debug
         wtype
         ddcutil
         grim
 
         scrcpy
         android-tools
+
+        dbeaver-bin
       ];
 
     file.".gitconfig" = {

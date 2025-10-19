@@ -66,6 +66,28 @@ in {
     enable = true;
     allowedUDPPorts = [7890];
   };
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = let
+      mirrors = [
+        "docker.1panel.live"
+        "docker.1ms.run"
+        "dytt.online"
+        "docker-0.unsee.tech"
+        "lispy.org"
+        "docker.xiaogenban1993.com"
+        "666860.xyz"
+        "hub.rat.dev"
+        "docker.m.daocloud.io"
+        "demo.52013120.xyz"
+        "proxy.vvvv.ee"
+        "registry.cyou"
+      ];
+    in {
+      registry-mirrors = map (mirror: "https://${mirror}") mirrors;
+      proxies.no-proxy = builtins.concatStringsSep "," mirrors;
+    };
+  };
   users.users.HumXC = {
     description = "Hum-XC";
     hashedPasswordFile = "${userPassFile}";

@@ -91,9 +91,4 @@ in {
     middle_click_paste = false;
     focus_on_activate = true;
   };
-
-  gestures = {
-    workspace_swipe = "yes";
-    workspace_swipe_fingers = 3;
-  };
 }

@@ -47,27 +47,6 @@ in {
       15136 # ntfy
     ];
   };
-  environment.etc."docker/daemon.json".text = ''
-    {
-      "registry-mirrors": [
-        "https://your_code.mirror.aliyuncs.com",
-        "https://reg-mirror.qiniu.com",
-        "https://gcr-mirror.qiniu.com",
-        "https://quay-mirror.qiniu.com",
-        "https://hub-mirror.c.163.com",
-        "https://mirror.ccs.tencentyun.com",
-        "https://docker.mirrors.ustc.edu.cn",
-        "https://gcr.mirrors.ustc.edu.cn",
-        "https://quay.mirrors.ustc.edu.cn",
-        "https://dockerhub.azk8s.cn",
-        "https://gcr.azk8s.cn",
-        "https://quay.azk8s.cn",
-        "http://f1361db2.m.daocloud.io",
-        "https://registry.docker-cn.com"
-      ],
-      "log-opts": {"max-size":"5m"}
-    }
-  '';
   services.openssh = {
     enable = true;
     settings = {
@@ -104,8 +83,28 @@ in {
     OS_EDITOR = "hx";
     EDITOR = "hx";
   };
-  virtualisation.docker.enable = true;
-
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = let
+      mirrors = [
+        "docker.1panel.live"
+        "docker.1ms.run"
+        "dytt.online"
+        "docker-0.unsee.tech"
+        "lispy.org"
+        "docker.xiaogenban1993.com"
+        "666860.xyz"
+        "hub.rat.dev"
+        "docker.m.daocloud.io"
+        "demo.52013120.xyz"
+        "proxy.vvvv.ee"
+        "registry.cyou"
+      ];
+    in {
+      registry-mirrors = map (mirror: "https://${mirror}") mirrors;
+      proxies.no-proxy = builtins.concatStringsSep "," mirrors;
+    };
+  };
   boot = {
     supportedFilesystems = ["ntfs"];
     initrd.verbose = false;

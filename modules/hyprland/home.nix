@@ -27,7 +27,6 @@ in {
   };
   config = lib.mkIf cfg.enable {
     xdg.portal.config.common.default = "hyprland";
-    xdg.portal.configPackages = [pkgs.xdg-desktop-portal-hyprland];
     services.hypridle.enable = true;
     services.hypridle.settings = {
       general = {
@@ -49,10 +48,10 @@ in {
       ];
     };
     wayland.windowManager.hyprland = {
+      enable = true;
       systemd.enable = true;
       package = null;
-      enable = true;
-      xwayland.enable = nixosConfig.programs.hyprland.xwayland.enable;
+      portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
     };
     home.packages = with pkgs; [
       libnotify
