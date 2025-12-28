@@ -31,14 +31,16 @@
           scale = 1.25;
         }
       ];
-      execOnce = ["mika-shell daemon > /tmp/mika-shell.log 2>&1"];
+      execOnce = [
+        "mika-shell daemon > /tmp/mika-shell.log 2>&1"
+      ];
     };
   };
   home.sessionVariables = {
     TERMINAL = "kitty"; # mika-shell uses this
   };
   home = {
-    stateVersion = "24.11"; # TODO: remove this
+    stateVersion = "25.11"; # TODO: remove this
     packages = with pkgs;
       [
         btop
@@ -56,24 +58,24 @@
         foliate
 
         pavucontrol
+        lark
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
         godot_4
         hmcl
         blender
+        orca-slicer
         mpv
         swayimg
         krita
         go-musicfox
-        (qq.override {
-          commandLineArgs = "--ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --disable-gpu";
-        })
+        # (qq.override {
+        #   commandLineArgs = "--ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --disable-gpu";
+        # })
+        qq
       ])
       ++ [
-        inputs.aika-shell.packages.${system}.aika-shell
-        inputs.aika-shell.packages.${system}.astal
-
         inputs.mika-shell.packages.${system}.debug
         wtype
         ddcutil
@@ -81,8 +83,6 @@
 
         scrcpy
         android-tools
-
-        dbeaver-bin
       ];
 
     file.".gitconfig" = {
@@ -100,9 +100,11 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
-    userName = "HumXC";
-    userEmail = "Hum-XC@outlook.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "HumXC";
+        email = "Hum-XC@outlook.com";
+      };
       init.defaultBranch = "main";
       http.postBuffer = "524288000";
     };

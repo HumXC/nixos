@@ -57,7 +57,7 @@ in {
               ];
               config.allowUnfree = true;
             };
-            programs.git.extraConfig = {
+            programs.git.settings = {
               safe.directory = "/etc/nixos";
               credential."https://github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";
               credential."https://gist.github.com".helper = "${pkgs.gh}/bin/gh auth git-credential";

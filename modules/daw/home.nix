@@ -32,7 +32,7 @@ in {
           rm $out/share/applications/cockos-reaper.desktop
           cp ${reaper}/share/applications/cockos-reaper.desktop $out/share/applications/cockos-reaper.desktop
           substituteInPlace $out/share/applications/cockos-reaper.desktop \
-            --replace-fail "Exec=\"${reaper}/opt/REAPER/reaper\" %F" "Exec=env GDK_BACKEND=x11 ${reaper}/bin/reaper %F"
+            --replace-fail "Exec=reaper %F" "Exec=env GDK_BACKEND=x11 reaper %F"
         '';
       })
       yabridge

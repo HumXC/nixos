@@ -14,4 +14,5 @@ in
     "fluent-cursors-theme"
     "orchis-gtk"
     "fcitx5-mellow-themes"
+    "lark"
   ]

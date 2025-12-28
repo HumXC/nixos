@@ -4,7 +4,7 @@
     fish.enable = true;
   };
   home = {
-    stateVersion = "25.05";
+    stateVersion = "25.11";
     packages = with pkgs; [
       htop
       btop
@@ -24,10 +24,13 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
-    userName = "HumXC";
-    userEmail = "Hum-XC@outlook.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "HumXC";
+        email = "Hum-XC@outlook.com";
+      };
       init.defaultBranch = "main";
+      http.postBuffer = "524288000";
     };
   };
 }

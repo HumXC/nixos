@@ -40,7 +40,6 @@ in {
   services.udisks2.enable = true;
   home-manager.users.HumXC.imports = [./home.nix];
   aris = {
-    greetd.enable = true;
     soundSystem.enable = true;
     easyeffects.enable = true;
     clash = {
@@ -53,9 +52,6 @@ in {
     EDITOR = "code";
   };
   programs.adb.enable = true;
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
@@ -66,6 +62,13 @@ in {
     enable = true;
     allowedUDPPorts = [7890];
   };
+  environment.systemPackages = with pkgs; [
+    cp210x-program
+  ];
+  services.udev.extraRules = ''
+    # ST-LINK/V2
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="3748", MODE="0666"
+  '';
   virtualisation.docker = {
     enable = true;
     daemon.settings = let

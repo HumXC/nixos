@@ -15,7 +15,7 @@ in {
     environment.systemPackages = [pkgs.wlsunset];
     services.greetd.enable = true;
     services.greetd.settings.default_session = {
-      command = cmd;
+      command = "${pkgs.cage}/bin/cage ${cmd}";
       user = "greeter";
     };
   };

@@ -44,9 +44,6 @@ in {
     EDITOR = "code";
   };
   programs.adb.enable = true;
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";
@@ -118,5 +115,5 @@ in {
       permit nopass keepenv :wheel
     '';
   };
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 }

@@ -2,7 +2,7 @@
   inputs,
   outputs,
   ...
-}: let
+} @ args: let
   mkHost_ = name: let
     host = import ./${name}/host.nix {inherit inputs;};
     system = host.system;
@@ -37,8 +37,12 @@
   };
   mkHost = hosts: builtins.foldl' (acc: host: acc // mkHost_ host) {} hosts;
 in
-  mkHost [
+  (mkHost [
     "roli"
     "aika"
     "sing"
-  ]
+  ])
+  // {
+    # nix build .#nixosConfigurations.livecd.config.system.build.isoImage
+    livecd = import ./livecd.nix args;
+  }

@@ -12,7 +12,7 @@ in {
     aris.desktop.execOnce = ["${config.i18n.inputMethod.package}/bin/fcitx5 -d"];
     home.packages = with pkgs; [
       fcitx5-gtk
-      (pkgs.lib.hideDesktopEntry2 pkgs.fcitx5-with-addons [
+      (pkgs.lib.hideDesktopEntry2 pkgs.qt6Packages.fcitx5-with-addons [
         "org.fcitx.Fcitx5"
         "org.fcitx.fcitx5-migrator"
         "fcitx5-configtool"
@@ -25,7 +25,7 @@ in {
       type = "fcitx5";
       fcitx5 = {
         addons = with pkgs; [
-          fcitx5-chinese-addons
+          qt6Packages.fcitx5-chinese-addons
           fcitx5-pinyin-moegirl
           fcitx5-pinyin-minecraft
           fcitx5-pinyin-zhwiki

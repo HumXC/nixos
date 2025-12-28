@@ -126,7 +126,7 @@ in {
       "!include ${config.sops.secrets.nix_access_tokens.path}"
     );
   };
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
   boot.swraid.enable = false;
   boot.tmp.cleanOnBoot = true;
   security.sudo.enable = true;

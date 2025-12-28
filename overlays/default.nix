@@ -2,7 +2,7 @@
   additions = final: _prev:
     import ../pkgs {
       nixpkgs = inputs.nixpkgs-unstable;
-      system = final.system;
+      system = final.hostPlatform.system;
     };
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {

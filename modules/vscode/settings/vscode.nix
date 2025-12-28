@@ -78,6 +78,13 @@
   remote.SSH.useLocalServer = false;
   remote.SSH.remotePlatform = {
     Home = "linux";
+    Line = "linux";
   };
   python.analysis.typeCheckingMode = "strict";
+
+  chat.tools.terminal.autoApprove = {
+    zig = true;
+    sed = true;
+    go = true;
+  };
 }
