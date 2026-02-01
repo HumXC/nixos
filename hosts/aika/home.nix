@@ -59,6 +59,8 @@
 
         pavucontrol
         lark
+
+        aria2
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
@@ -74,6 +76,7 @@
         #   commandLineArgs = "--ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --disable-gpu";
         # })
         qq
+        obsidian
       ])
       ++ [
         inputs.mika-shell.packages.${system}.debug
@@ -83,6 +86,13 @@
 
         scrcpy
         android-tools
+        chromium
+
+        inputs.comfyui.packages.${system}.default
+
+        bun
+        nodejs
+        bruno
       ];
 
     file.".gitconfig" = {

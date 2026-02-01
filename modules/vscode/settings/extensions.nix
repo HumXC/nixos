@@ -65,4 +65,20 @@
   svelte.enable-ts-plugin = true;
   fittencode.selection.showCodeLens = false;
   zig.zls.enableArgumentPlaceholders = false;
+  "roo-cline.debug" = false;
+  "roo-cline.allowedCommands" = [
+    "git log"
+    "git diff"
+    "git show"
+    "git status"
+    "zig"
+    "go"
+    "bun"
+    "python"
+    "python3"
+    "pip"
+    "grep"
+    "tail"
+    "head"
+  ];
 }

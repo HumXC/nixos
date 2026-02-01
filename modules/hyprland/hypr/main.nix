@@ -28,20 +28,6 @@ in {
       noise = 0.06;
     };
   };
-
-  layerrule =
-    (
-      if cfg.enableBlurAndOpacity
-      then [
-        "blur, .+"
-        "ignorealpha 0.5, .+"
-      ]
-      else []
-    )
-    ++ [
-      "noanim, popup-window"
-      "noanim, mikami-layer"
-    ];
   bezier = [
     "bz1,0.87, 0, 0.13, 1"
     "bz2,0.04, 0.48, 0.1, 0.79"

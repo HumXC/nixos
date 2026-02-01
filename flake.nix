@@ -20,7 +20,7 @@
     aikadm.url = "github:HumXC/aikadm";
     mika-shell.url = "github:MikaShell/mika-shell";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    nix-comfyui.url = "github:dyscorv/nix-comfyui";
+    comfyui.url = "github:HumXC/comfyui";
   };
   outputs = inputs @ {
     self,

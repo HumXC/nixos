@@ -72,7 +72,7 @@
   window.titleBarStyle = "native";
 
   # ========== 傻逼 Copilot ==========
-  github.copilot.enable = {"*" = false;};
+  chat.disableAIFeatures = true;
   remote.defaultExtensionsIfInstalledLocally = [];
 
   remote.SSH.useLocalServer = false;
@@ -81,10 +81,5 @@
     Line = "linux";
   };
   python.analysis.typeCheckingMode = "strict";
-
-  chat.tools.terminal.autoApprove = {
-    zig = true;
-    sed = true;
-    go = true;
-  };
+  terminal.integrated.suggest.enabled = false;
 }

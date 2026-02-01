@@ -4,120 +4,272 @@
   ...
 }: let
   cfg = config.aris.hyprland;
-  rule = name: class: title:
-    "${name}"
-    + "${lib.optionalString (class != "") ", class:${class}"}"
-    + "${lib.optionalString (title != "") ", title:${title}"}";
-
-  float = class: title: rule "float" class title;
-  floatClass = class: float class "";
-  floatTitle = title: float "" title;
-
-  size = width: height: class: title:
-    rule "size ${toString width} ${toString height}" class title;
-  sizeClass = width: height: class: size width height class "";
-  sizeTitle = width: height: title: size width height "" title;
-
-  dimaround = class: title: rule "dimaround " class title;
-  dimaroundClass = class: dimaround class "";
-  dimaroundTitle = title: dimaround "" title;
-
-  center = class: title: rule "center" class title;
-  centerClass = class: center class "";
-  centerTitle = title: center "" title;
-
-  pin = class: title: rule "pin" class title;
-  pinClass = class: pin class "";
-  pinTitle = title: pin "" title;
-
-  fullscreen = class: title: rule "fullscreen" class title;
-  fullscreenClass = class: fullscreen class "";
-  fullscreenTitle = title: fullscreen "" title;
-
-  tile = class: title: rule "tile" class title;
-  tileClass = class: tile class "";
-  tileTitle = title: tile "" title;
-
-  opacity = value: class: title: rule "opacity ${value}" class title;
-  opacityClass = value: class: opacity value class "";
-  opacityTitle = value: title: opacity value "" title;
 in {
-  windowrulev2 =
+  windowrule =
     [
       # 杂项
-      (opacity "0.94 override 0.94 override" ".+" "")
-      (size 950 600 "brave" "保存文件")
-      (floatClass "myproject")
-      (floatClass "org.kde.polkit-kde-authentication-agent-1")
-      (dimaroundClass "org.kde.polkit-gnome-authentication-agent-1")
-      (floatClass "nm-connection-editor")
-      (floatClass "pavucontrol")
-      (floatClass "blueman-manager")
-      (floatClass "Microsoft-edge")
-      (floatClass "vlc")
-      (floatClass "ncmpcpp")
-      (floatClass "mpv")
-      (centerClass "mpv")
-      (dimaroundTitle "Authenticate")
-      (tileClass "Microsoft-edge")
-      (dimaround "org.gnome.Nautilus" "无法访问位置")
-      (dimaroundClass "gcr-prompter")
-      (float "gjs" "clipboard")
-      (floatClass "com.nextcloud.desktopclient.nextcloud")
-      (floatClass "org.kde.ark")
-      (floatClass "xdg-desktop-portal.+")
-      (float "zen-beta" "^正在打开.+")
-      (floatTitle "^Yoshimi.+")
-      (float "zen" "画中画")
-      "allowsinput,class:Ardour"
+      {
+        name = "Global Opacity";
+        "match:class" = ".+";
+        opacity = "0.94 override 0.94 override";
+      }
+      {
+        name = "Brave Save File";
+        "match:class" = "brave";
+        "match:title" = "保存文件";
+        size = "950 600";
+      }
+      {
+        name = "MyProject";
+        "match:class" = "myproject";
+        float = true;
+      }
+      {
+        name = "KDE Polkit Agent";
+        "match:class" = "org.kde.polkit-kde-authentication-agent-1";
+        float = true;
+      }
+      {
+        name = "Gnome Polkit Agent";
+        "match:class" = "org.kde.polkit-gnome-authentication-agent-1";
+        dim_around = true;
+      }
+      {
+        name = "Network Manager Editor";
+        "match:class" = "nm-connection-editor";
+        float = true;
+      }
+      {
+        name = "Pavucontrol";
+        "match:class" = "pavucontrol";
+        float = true;
+      }
+      {
+        name = "Blueman Manager";
+        "match:class" = "blueman-manager";
+        float = true;
+      }
+      {
+        name = "Microsoft Edge";
+        "match:class" = "Microsoft-edge";
+        float = true;
+        tile = true;
+      }
+      {
+        name = "VLC";
+        "match:class" = "vlc";
+        float = true;
+      }
+      {
+        name = "Ncmpcpp";
+        "match:class" = "ncmpcpp";
+        float = true;
+      }
+      {
+        name = "MPV";
+        "match:class" = "mpv";
+        float = true;
+        center = true;
+      }
+      {
+        name = "Authenticate Title";
+        "match:title" = "Authenticate";
+        dim_around = true;
+      }
+      {
+        name = "Nautilus Inaccessible";
+        "match:class" = "org.gnome.Nautilus";
+        "match:title" = "无法访问位置";
+        dim_around = true;
+      }
+      {
+        name = "GCR Prompter";
+        "match:class" = "gcr-prompter";
+        dim_around = true;
+      }
+      {
+        name = "GJS Clipboard";
+        "match:class" = "gjs";
+        "match:title" = "clipboard";
+        float = true;
+      }
+      {
+        name = "Nextcloud Client";
+        "match:class" = "com.nextcloud.desktopclient.nextcloud";
+        float = true;
+      }
+      {
+        name = "KDE Ark";
+        "match:class" = "org.kde.ark";
+        float = true;
+      }
+      {
+        name = "XDG Desktop Portal";
+        "match:class" = "xdg-desktop-portal.+";
+        float = true;
+      }
+      {
+        name = "Zen Beta Opening";
+        "match:class" = "zen-beta";
+        "match:title" = "^正在打开.+";
+        float = true;
+      }
+      {
+        name = "Yoshimi";
+        "match:title" = "^Yoshimi.+";
+        float = true;
+      }
+      {
+        name = "Zen PIP";
+        "match:class" = "zen";
+        "match:title" = "画中画";
+        float = true;
+      }
+      {
+        name = "Ardour Input";
+        "match:class" = "Ardour";
+        allows_input = true;
+      }
+
       # steam
-      (floatClass "steam")
+      {
+        name = "Steam";
+        "match:class" = "steam";
+        float = true;
+      }
+
       # qq
-      (float "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
-      (center "(QQ)" "^(图片查看器|视频播放器|.+的聊天记录)$")
+      {
+        name = "QQ Viewer";
+        "match:class" = "(QQ)";
+        "match:title" = "^(图片查看器|视频播放器|.+的聊天记录)$";
+        float = true;
+        center = true;
+      }
+
       # Wine
-      (tileClass "explorer.exe")
-      (fullscreenClass "fl64.exe")
-      (sizeTitle 800 800 "Wine 设置")
-      (tileClass "fl64.exe")
+      {
+        name = "Wine Explorer";
+        "match:class" = "explorer.exe";
+        tile = true;
+      }
+      {
+        name = "FL Studio 64";
+        "match:class" = "fl64.exe";
+        fullscreen = true;
+        tile = true;
+      }
+      {
+        name = "Wine Settings";
+        "match:title" = "Wine 设置";
+        size = "800 800";
+      }
+
       # pot
-      (floatClass "Pot")
-      (pinClass "Pot")
+      {
+        name = "Pot";
+        "match:class" = "Pot";
+        float = true;
+        pin = true;
+      }
+
       # UPBGE
-      (float "Blender" "[UPBGE]")
+      {
+        name = "Blender UPBGE";
+        "match:class" = "Blender";
+        "match:title" = "[UPBGE]";
+        float = true;
+      }
+
       # WPS-Office
-      (tileClass "^(wps)|(et)|(wpp)|(pdf)$")
-      (floatTitle "^(wps)|(et)|(wpp)|(pdf)$")
+      {
+        name = "WPS Office";
+        "match:class" = "^(wps)|(et)|(wpp)|(pdf)$";
+        tile = true;
+      }
+      {
+        name = "WPS Office Title";
+        "match:title" = "^(wps)|(et)|(wpp)|(pdf)$";
+        float = true;
+      }
+
       # vscode
-      (center "Code" "^(打开文件夹)|(打开文件)$")
-      (dimaround "Code" "^(打开文件夹)|(打开文件)$")
+      {
+        name = "VSCode Dialogs";
+        "match:class" = "Code";
+        "match:title" = "^(打开文件夹)|(打开文件)$";
+        center = true;
+        dim_around = true;
+      }
+
       # Telegram
-      (float "org.telegram.desktop" "^(.*)(媒体查看器)$")
-      (fullscreen "org.telegram.desktop" "^(.*)(媒体查看器)$")
-      (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(媒体查看器)$")
-      (float "org.telegram.desktop" "^(.*)(Media viewer)$")
-      (fullscreen "org.telegram.desktop" "^(.*)(Media viewer)$")
-      (opacity "1.0 override 1.0 override" "org.telegram.desktop" "^(.*)(Media viewer)$")
+      {
+        name = "Telegram Media Viewer";
+        "match:class" = "org.telegram.desktop";
+        "match:title" = "^(.*)(媒体查看器)$";
+        float = true;
+        fullscreen = true;
+        opacity = "1.0 override 1.0 override";
+      }
+      {
+        name = "Telegram Media Viewer EN";
+        "match:class" = "org.telegram.desktop";
+        "match:title" = "^(.*)(Media viewer)$";
+        float = true;
+        fullscreen = true;
+        opacity = "1.0 override 1.0 override";
+      }
+
       # kdeconnect
-      (floatClass "org.kde.kdeconnect.handler")
+      {
+        name = "KDE Connect Handler";
+        "match:class" = "org.kde.kdeconnect.handler";
+        float = true;
+      }
+
       # waydroid
-      (fullscreen " Waydroid" "Waydroid")
+      {
+        name = "Waydroid";
+        "match:class" = " Waydroid";
+        "match:title" = "Waydroid";
+        fullscreen = true;
+      }
+
       # godot
-      (dimaround "Godot" "请确认...")
-    ]
-    ++ (let
-      dimaround = title: "dimaround,class:REAPER,title:${title}";
-    in [
+      {
+        name = "Godot Confirm";
+        "match:class" = "Godot";
+        "match:title" = "请确认...";
+        dim_around = true;
+      }
+
       # reaper
-      "noinitialfocus,xwayland:1"
-      "tile,title:REAPER v.*"
-      (dimaround "^轨道路由.*")
-      (dimaround "^.*插件引脚连接器.$")
-    ])
+      {
+        name = "Reaper Tile";
+        "match:title" = "REAPER v.*";
+        tile = true;
+      }
+      {
+        name = "Reaper Routing";
+        "match:class" = "REAPER";
+        "match:title" = "^轨道路由.*";
+        dim_around = true;
+      }
+      {
+        name = "Reaper Plugin Pins";
+        "match:class" = "REAPER";
+        "match:title" = "^.*插件引脚连接器.$";
+        dim_around = true;
+      }
+    ]
     ++ (
       if (!cfg.enableBlurAndOpacity)
       then [
-        (opacity "1 override 1 override" ".+" "")
+        {
+          name = "Force Opacity 1";
+          "match:class" = ".+";
+          opacity = "1 override 1 override";
+        }
       ]
       else []
     );

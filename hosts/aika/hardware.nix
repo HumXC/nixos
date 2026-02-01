@@ -17,17 +17,19 @@
       vpl-gpu-rt
       intel-media-driver
       libvdpau-va-gl
-
-      intel-compute-runtime
-      level-zero
     ];
   };
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
-  boot.kernelParams = ["mitigations=off" "i915.force_probe=4fa0" "amd_iommu=on"];
+  boot.kernelParams = [
+    "mitigations=off"
+    "amd_iommu=on"
+    "i915.force_probe=!56a0"
+    "xe.force_probe=56a0"
+  ];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = ["i915"];
+  boot.initrd.kernelModules = ["xe"];
   services.udev.extraRules = ''
     KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
   '';

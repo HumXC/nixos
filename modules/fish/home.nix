@@ -164,11 +164,14 @@ in {
       };
       shellAbbrs = {};
       shellInit = ''
-        set -gx PATH $HOME/go/bin:$PATH
-        set -gx PATH $HOME/.npm-packages/bin:$PATH
+        fish_add_path $HOME/go/bin
+        fish_add_path $HOME/.npm-packages/bin
+        fish_add_path $HOME/.npm-packages/pnpm
+        fish_add_path $HOME/.bun/bin
+
         set -gx NODE_PATH ~/.npm-packages/lib/node_modules
         set -gx PNPM_HOME ~/.npm-packages/pnpm
-        set -gx PATH $PNPM_HOME:$PATH
+
         zoxide init fish | source
       '';
       shellAliases = {

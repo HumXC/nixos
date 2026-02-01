@@ -5,14 +5,18 @@
   };
   home = {
     stateVersion = "25.11";
-    packages = with pkgs; [
-      htop
-      btop
-      trashy
-      go
-      python3
-      android-tools
-    ];
+    packages = with pkgs;
+      [
+        htop
+        btop
+        trashy
+        go
+        python3
+        android-tools
+      ]
+      ++ (with pkgs.unstable; [
+        bun
+      ]);
   };
   programs.direnv = {
     enable = true;

@@ -91,6 +91,7 @@ in {
         ./hypr/hyprland.nix
         ./hypr/main.nix
         ./hypr/window-rule.nix
+        ./hypr/layer-rule.nix
         ./hypr/bind.nix
       ];
   };
