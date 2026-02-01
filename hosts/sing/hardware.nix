@@ -10,7 +10,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
-
+  hardware.graphics.enable = true;
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = ["amdgpu" "radeon" "binder_linux"];
   boot.kernelModules = ["kvm-amd"];

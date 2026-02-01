@@ -2,6 +2,7 @@
   aris = {
     helix.enable = true;
     fish.enable = true;
+    waydroid.enable = true;
   };
   home = {
     stateVersion = "25.11";
@@ -13,6 +14,7 @@
         go
         python3
         android-tools
+        cage
       ]
       ++ (with pkgs.unstable; [
         bun

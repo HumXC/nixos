@@ -13,6 +13,7 @@
     group = "www-data";
   };
 in {
+  networking.nftables.enable = true;
   services.tlp.enable = true;
   powerManagement.cpuFreqGovernor = "performance";
   powerManagement.enable = false;
@@ -45,6 +46,7 @@ in {
       8080 # web
       7890
       15136 # ntfy
+      9090
     ];
   };
   services.openssh = {
