@@ -74,6 +74,7 @@ in {
       tre-command
       cachix
       nixd
+      gh
     ]);
   environment.variables.NIX_AUTO_RUN = "1";
   nix = {
