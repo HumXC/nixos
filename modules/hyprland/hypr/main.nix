@@ -66,14 +66,9 @@ in {
     ];
   };
 
-  dwindle = {
-    pseudotile = 0; # enable pseudotiling on dwindle
-  };
-
   misc = {
     disable_hyprland_logo = true;
     animate_mouse_windowdragging = true;
-    vfr = false;
     middle_click_paste = false;
     focus_on_activate = true;
   };

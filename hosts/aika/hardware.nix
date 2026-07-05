@@ -25,7 +25,7 @@
   boot.kernelParams = [
     "mitigations=off"
     "amd_iommu=on"
-    "i915.force_probe=!56a0"
+    # "i915.force_probe=56a0"
     "xe.force_probe=56a0"
   ];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];

@@ -10,13 +10,25 @@ in {
   config = lib.mkIf cfg.enable {
     systemd.user.services.easyeffects = {
       enable = true;
-      description = "Easyeffects daemon";
-      wantedBy = ["pipewire.socket"];
-      wants = ["pipewire.socket"];
-      after = ["pipewire.socket"];
+
+      description = "EasyEffects daemon";
+
+      wantedBy = ["graphical-session.target"];
+
+      after = [
+        "graphical-session.target"
+        "pipewire.service"
+      ];
+
+      wants = [
+        "pipewire.service"
+      ];
+
       serviceConfig = {
         Type = "simple";
         Restart = "on-failure";
+        RestartSec = 3;
+
         ExecStart = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";
       };
     };

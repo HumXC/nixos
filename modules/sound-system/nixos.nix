@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.aris.soundSystem;
@@ -13,5 +14,6 @@ in {
       alsa.enable = true;
       alsa.support32Bit = true;
     };
+    environment.systemPackages = [pkgs.pipewire.jack];
   };
 }

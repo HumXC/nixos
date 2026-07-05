@@ -78,8 +78,11 @@
   remote.SSH.useLocalServer = false;
   remote.SSH.remotePlatform = {
     Home = "linux";
-    Line = "linux";
+    DEV1 = "linux";
+    DEV2 = "linux";
+    DEV3 = "linux";
   };
   python.analysis.typeCheckingMode = "strict";
   terminal.integrated.suggest.enabled = false;
+  terminal.integrated.initialHint = false;
 }

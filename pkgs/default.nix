@@ -15,4 +15,6 @@ in
     "orchis-gtk"
     "fcitx5-mellow-themes"
     "lark"
+    "opencode"
+    "lightpanda"
   ]

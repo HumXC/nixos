@@ -81,18 +81,6 @@ in {
     };
     home.packages = let
       zen = inputs.zen-browser.packages.x86_64-linux.default;
-      wrappedZen = pkgs.symlinkJoin {
-        name = "wrapped-zen-browser";
-        paths = [zen];
-        inherit (zen) meta;
-        buildInputs = [pkgs.makeWrapper];
-        postBuild = ''
-          rm -f $out/bin/zen
-          rm -f $out/bin/zen-beta
-          makeWrapper ${zen}/bin/zen $out/bin/zen --set GTK_IM_MODULE ""
-          cp $out/bin/zen $out/bin/zen-beta
-        '';
-      };
     in (with pkgs; [
       glib
       xdg-utils
@@ -107,7 +95,8 @@ in {
       kdePackages.ark
       seahorse
       d-spy
-      wrappedZen
+      zen
+      chafa
     ]);
     # xdg-mime query filetype filename
     # xdg-mime query default type

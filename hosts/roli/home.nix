@@ -84,10 +84,6 @@
   programs.git = {
     enable = true;
     settings = {
-      user = {
-        name = "HumXC";
-        email = "Hum-XC@outlook.com";
-      };
       init.defaultBranch = "main";
       http.postBuffer = "524288000";
     };

@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  cfg = config.aris.helix;
+  cfg = config.aris.kitty;
 in {
   options.aris.kitty.enable = lib.mkEnableOption "kitty";
   config = lib.mkIf cfg.enable {

@@ -33,6 +33,7 @@ in {
     overlays = [
       inputs.nur.overlays.default
       inputs.aikadm.overlays.default
+      inputs.netease-music-webplayer.overlays.default
       outputs.overlays.unstable-packages
       outputs.overlays.additions
       outputs.overlays.extra-lib
@@ -42,7 +43,7 @@ in {
   programs.nh = {
     enable = true;
     clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
+    clean.extraArgs = "--keep-since 4d --keep 3 --no-gcroots";
     flake = "/etc/nixos";
   };
   console.useXkbConfig = true;

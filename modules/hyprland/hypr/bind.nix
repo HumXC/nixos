@@ -39,8 +39,8 @@ in {
       # 打开浏览器
       (execModWith "B" "$bin/launch-desktop.sh $BROWSER")
       # 打开终端
-      (exec "SUPER" "GRAVE" "$bin/launch-desktop.sh kitty")
-      (exec "SUPER" "BACKSLASH" "$bin/launch-desktop.sh kitty")
+      (exec "SUPER" "GRAVE" "ghostty +new-window")
+      (exec "SUPER" "BACKSLASH" "ghostty +new-window")
       # 启动资源管理器
       (execModWith "E" "nautilus")
       # 更改浮动状态
@@ -54,7 +54,7 @@ in {
 
       # 选择区域截图打开 swappy 编辑后写入剪贴板
       # 需要安装 swappy, grim, wl-clipborad,slurp
-      (execModWith "S" "mika-shell toggle mikami.screenshot")
+      (execModWith "S" "QT_SCALE_FACTOR=0.8 flameshot gui")
       # 录制屏幕
       (execModWith "R" "mika-shell toggle mikami.wf-recorder")
       # 显示剪贴板历史

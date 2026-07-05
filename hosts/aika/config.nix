@@ -51,7 +51,6 @@ in {
     OS_EDITOR = "code";
     EDITOR = "code";
   };
-  programs.adb.enable = true;
   users.mutableUsers = false;
   users.users.root = {
     hashedPasswordFile = "${rootPassFile}";

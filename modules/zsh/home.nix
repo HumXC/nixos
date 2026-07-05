@@ -194,7 +194,6 @@ in {
       '';
       shellAliases = {
         ll = "ls -l";
-        icat = "kitty +kitten icat";
         Tp = "trash put";
         Tl = "trash list";
       };

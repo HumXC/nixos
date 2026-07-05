@@ -35,12 +35,13 @@ in {
             --replace-fail "Exec=reaper %F" "Exec=env GDK_BACKEND=x11 reaper %F"
         '';
       })
-      yabridge
-      yabridgectl
-      helvum
+      # yabridge
+      # yabridgectl
+      crosspipe
       noise-repellent
       vital
       yoshimi
+      sfizz-ui
       (pkgs.lib.hideDesktopEntry lsp-plugins [])
     ];
 

@@ -92,9 +92,12 @@
     Hotkey = {
       EnumerateWithTriggerKeys = true;
       EnumerateSkipFirst = true;
+      ModifierOnlyKeyTimeout = -1;
     };
-    "Hotkey/EnumerateBackwardKeys" = {
-      "0" = "Shift+Shift_L";
+
+    "Hotkey/TriggerKeys" = {
+      "0" = "Shift_L";
+      "1" = "Shift_R";
     };
     "Hotkey/EnumerateGroupForwardKeys" = {
       "0" = "Super+space";

@@ -17,7 +17,7 @@
     };
     fish.enable = true;
     helix.enable = true;
-    kitty.enable = true;
+    ghostty.enable = true;
     fcitx5.enable = true;
     daw.enable = true;
     desktop = {
@@ -32,12 +32,14 @@
         }
       ];
       execOnce = [
-        "mika-shell daemon > /tmp/mika-shell.log 2>&1"
+        "noctalia-shell"
+        "netease-music-webplayer --silent"
+        "QT_SCALE_FACTOR=0.8 flameshot"
       ];
     };
   };
   home.sessionVariables = {
-    TERMINAL = "kitty"; # mika-shell uses this
+    TERMINAL = "ghostty"; # mika-shell uses this
   };
   home = {
     stateVersion = "25.11"; # TODO: remove this
@@ -58,28 +60,28 @@
         foliate
 
         pavucontrol
-        lark
 
         aria2
+        lightpanda
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
         godot_4
         hmcl
-        blender
         orca-slicer
         mpv
         swayimg
         krita
         go-musicfox
-        # (qq.override {
-        #   commandLineArgs = "--ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --disable-gpu";
-        # })
-        qq
+        (qq.override {
+          commandLineArgs = "--ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3 --disable-gpu";
+        })
         obsidian
+        agent-browser
       ])
       ++ [
         inputs.mika-shell.packages.${system}.debug
+        inputs.netease-music-webplayer.packages.${system}.default
         wtype
         ddcutil
         grim
@@ -89,10 +91,19 @@
         chromium
 
         inputs.comfyui.packages.${system}.default
+        inputs.noctalia.packages.${system}.default
 
         bun
         nodejs
-        bruno
+
+        wlvncc
+
+        # pi agent sandbox
+        ripgrep
+        bubblewrap
+        socat
+        kicad
+        flameshot
       ];
 
     file.".gitconfig" = {
@@ -111,10 +122,6 @@
   programs.git = {
     enable = true;
     settings = {
-      user = {
-        name = "HumXC";
-        email = "Hum-XC@outlook.com";
-      };
       init.defaultBranch = "main";
       http.postBuffer = "524288000";
     };

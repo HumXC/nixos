@@ -15,6 +15,7 @@
     ./helix
     ./hyprland
     ./kitty
+    ./ghostty
     ./mpd
     ./zsh
     ./sddm

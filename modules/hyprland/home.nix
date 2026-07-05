@@ -52,6 +52,7 @@ in {
       systemd.enable = true;
       package = null;
       portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
+      configType = "hyprlang";
     };
     home.packages = with pkgs; [
       libnotify

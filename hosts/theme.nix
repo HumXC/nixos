@@ -25,28 +25,67 @@
     size = 32;
   };
   home.packages = with pkgs; [
-    nerd-fonts.fira-code
-    twemoji-color-font
-    babelstone-han
+    maple-mono.truetype
+    maple-mono.NF-unhinted
+    maple-mono.NF-CN-unhinted
+
+    # 系统字体
     misans
+
+    # Emoji
+    twemoji-color-font
+
+    # 生僻字 fallback
+    babelstone-han
   ];
+
   stylix.fonts = {
-    serif.name = "MiSans";
-    serif.package = pkgs.misans;
-    sansSerif.name = "MiSans";
-    sansSerif.package = pkgs.misans;
-    monospace.name = "FiraCode Nerd Font";
-    monospace.package = pkgs.nerd-fonts.fira-code;
-    emoji.name = "Twitter Color Emoji";
-    emoji.package = pkgs.twemoji-color-font;
+    serif = {
+      name = "MiSans";
+      package = pkgs.misans;
+    };
+
+    sansSerif = {
+      name = "MiSans";
+      package = pkgs.misans;
+    };
+
+    monospace = {
+      name = "MiSans";
+      package = pkgs.misans;
+    };
+
+    emoji = {
+      name = "Twitter Color Emoji";
+      package = pkgs.twemoji-color-font;
+    };
   };
+
   fonts.fontconfig = {
     enable = true;
+
     defaultFonts = {
-      serif = ["MiSans" "FiraCode Nerd Font"];
-      sansSerif = ["MiSans" "FiraCode Nerd Font"];
-      monospace = ["FiraCode Nerd Font" "MiSans"];
-      emoji = ["Twitter Color Emoji"];
+      serif = [
+        "MiSans"
+        "Twitter Color Emoji"
+        "BabelStone Han"
+      ];
+
+      sansSerif = [
+        "MiSans"
+        "Twitter Color Emoji"
+        "BabelStone Han"
+      ];
+
+      monospace = [
+        "MiSans"
+        "Twitter Color Emoji"
+        "BabelStone Han"
+      ];
+
+      emoji = [
+        "Twitter Color Emoji"
+      ];
     };
   };
 }

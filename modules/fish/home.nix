@@ -168,9 +168,12 @@ in {
         fish_add_path $HOME/.npm-packages/bin
         fish_add_path $HOME/.npm-packages/pnpm
         fish_add_path $HOME/.bun/bin
+        fish_add_path $HOME/.cargo/bin
+        fish_add_path $HOME/.local/bin
 
         set -gx NODE_PATH ~/.npm-packages/lib/node_modules
         set -gx PNPM_HOME ~/.npm-packages/pnpm
+        set -gx npm_config_prefix $HOME/.npm-packages
 
         zoxide init fish | source
       '';
@@ -178,7 +181,6 @@ in {
         ls = "eza --icons";
         ll = "eza --icons -l";
         la = "eza --icons -la";
-        icat = "kitty +kitten icat";
         Tp = "trash put";
         Tl = "trash list";
       };
