@@ -55,8 +55,14 @@
     options = ["subvol=nix" "noatime" "compress=zstd"];
   };
   fileSystems."/disk/data" = {
-    device = "/dev/disk/by-uuid/5C3616BF02322C8B";
-    fsType = "ntfs";
+    device = "/dev/disk/by-uuid/B84C223B4C21F532";
+    fsType = "ntfs3";
+    options = [
+      "uid=1000"
+      "gid=100"
+      "umask=022"
+      "nofail"
+    ];
   };
 
   fileSystems."/efi" = {

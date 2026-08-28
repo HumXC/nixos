@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   imports = [../theme.nix];
@@ -40,6 +41,7 @@
   };
   home.sessionVariables = {
     TERMINAL = "ghostty"; # mika-shell uses this
+    ONNXRUNTIME_NODE_INSTALL = "skip";
   };
   home = {
     stateVersion = "25.11"; # TODO: remove this
@@ -63,6 +65,7 @@
 
         aria2
         lightpanda
+        bottles
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
@@ -104,19 +107,9 @@
         socat
         kicad
         flameshot
-      ];
 
-    file.".gitconfig" = {
-      force = true;
-      text = ''
-        [safe]
-        	directory = /etc/nixos
-        [credential "https://github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential
-        [credential "https://gist.github.com"]
-        	helper = !${pkgs.gh}/bin/gh auth git-credential
-      '';
-    };
+        blender
+      ];
   };
   programs.home-manager.enable = true;
   programs.git = {
@@ -124,6 +117,7 @@
     settings = {
       init.defaultBranch = "main";
       http.postBuffer = "524288000";
+      safe.directory = lib.mkForce ["/disk/data/*" "/etc/nixos"];
     };
   };
   programs.obs-studio = {

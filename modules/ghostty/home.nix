@@ -12,7 +12,6 @@ in {
     programs.ghostty.package = pkgs.unstable.ghostty;
     programs.ghostty.settings = {
       quit-after-last-window-closed = false;
-
       font-family = lib.mkForce "Maple Mono NF CN";
       font-family-bold = lib.mkForce "Maple Mono NF CN";
       font-family-italic = lib.mkForce "Maple Mono NF CN";

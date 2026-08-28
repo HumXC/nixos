@@ -13,7 +13,7 @@
     sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
   };
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-gray.yaml";
-  stylix.iconTheme = {
+  stylix.icons = {
     enable = true;
     package = pkgs.fluent-icon-theme;
     dark = "Fluent-dark";

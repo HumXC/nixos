@@ -25,14 +25,15 @@
       ";
     };
 in {
+  boot.kernelModules = ["nft_nat" "nft_redir"];
+  security.apparmor.enable = true;
   services.openssh = {
     enable = true;
     settings = {
       ClientAliveInterval = 60;
       ClientAliveCountMax = 3;
       PasswordAuthentication = true;
-      KbdInteractiveAuthentication = false;
-      Macs = ["hmac-sha1" "hmac-md5"];
+      KbdInteractiveAuthentication = true;
     };
   };
   services.blueman.enable = true;
@@ -59,10 +60,15 @@ in {
 
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [7890];
+    allowedTCPPorts = [
+      22
+      7890
+      3080
+    ];
   };
   environment.systemPackages = with pkgs; [
     cp210x-program
+    nftables
   ];
   services.udev.extraRules = ''
     # ST-LINK/V2

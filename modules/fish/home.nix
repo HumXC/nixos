@@ -8,11 +8,11 @@
   cfg = config.aris.fish;
   profileName = nixosConfig.aris.profileName;
   waydroidEnabled = nixosConfig.virtualisation.waydroid.enable;
-  starshipConfig = builtins.fromTOML (builtins.readFile ./starship.toml);
+  starshipConfig = fromTOML (builtins.readFile ./starship.toml);
 in {
   options.aris.fish.enable = lib.mkEnableOption "fish";
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide eza];
+    home.packages = with pkgs; [zoxide eza tmux ghostty.terminfo];
     programs.starship = {
       enable = true;
       settings =

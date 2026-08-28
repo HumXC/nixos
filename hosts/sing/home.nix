@@ -6,6 +6,9 @@
   };
   home = {
     stateVersion = "25.11";
+    sessionVariables = {
+      ONNXRUNTIME_NODE_INSTALL = "skip";
+    };
     packages = with pkgs;
       [
         htop
@@ -15,9 +18,17 @@
         python3
         android-tools
         cage
+        lightpanda
       ]
       ++ (with pkgs.unstable; [
         bun
+        nodejs
+        labwc
+        kitty
+        wlr-randr
+        hmcl
+        agent-browser
+        chromium
       ]);
   };
   programs.direnv = {

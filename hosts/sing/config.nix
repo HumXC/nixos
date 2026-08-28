@@ -43,7 +43,9 @@ in {
     allowedTCPPorts = [
       22
       25565
+      24454
       8080 # web
+      8000
       7890
       15136 # ntfy
       9090
@@ -56,9 +58,9 @@ in {
       ClientAliveCountMax = 3;
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
-      Macs = ["hmac-sha1" "hmac-md5"];
     };
   };
+  services.cron.enable = true;
   services.fail2ban = {
     enable = true;
     # Ban IP after 5 failures
