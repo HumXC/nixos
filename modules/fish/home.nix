@@ -169,7 +169,7 @@ in {
         fish_add_path $HOME/.npm-packages/pnpm
         fish_add_path $HOME/.bun/bin
         fish_add_path $HOME/.cargo/bin
-        fish_add_path $HOME/.local/bin
+        fish_add_path -m -p $HOME/.local/bin
 
         set -gx NODE_PATH ~/.npm-packages/lib/node_modules
         set -gx PNPM_HOME ~/.npm-packages/pnpm

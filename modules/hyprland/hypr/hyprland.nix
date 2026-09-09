@@ -1,57 +1,128 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
   desktop = config.aris.desktop;
+
+  toLua = lib.generators.toLua {};
+
   scripts = "${config.home.homeDirectory}/.config/hypr/scripts";
   bin = "${scripts}/bin";
 
-  monitor = map (m: "${m.name},${toString m.size}@${toString m.rate},auto,${toString m.scale}") desktop.monitor;
-  convertToKeyValue = env: builtins.attrValues (builtins.mapAttrs (name: value: "${name},${toString value}") env);
-in {
-  # 脚本目录
-  "$scripts" = scripts;
-  "$bin" = bin;
-  env =
-    (convertToKeyValue (config.home.sessionVariables))
-    ++ [
-      "GLFW_IM_MODULE,ibus"
-      "QT_QPA_PLATFORMTHEME,gtk3"
-      "MOZ_ENABLE_WAYLAND,1"
-      "SDL_VIDEODRIVER,wayland"
-      "_JAVA_AWT_WM_NONREPARENTING,1"
-      "QT_QPA_PLATFORM,wayland"
-      "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-      "CLUTTER_BACKEND,wayland"
-      "XDG_CURRENT_DESKTOP,Hyprland"
-      "XDG_SESSION_DESKTOP,Hyprland"
-      "XDG_SESSION_TYPE,wayland"
-      "HYPRCURSOR_THEME,${config.stylix.cursor.name}"
-      "HYPRCURSOR_SIZE,${builtins.toString config.stylix.cursor.size}"
-    ]
-    ++ (
-      if desktop.useNvidia
-      then [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        "NVD_BACKEND,direct"
-      ]
-      else []
-    );
-  cursor.no_hardware_cursors = desktop.useNvidia;
-  exec-once =
+  # ------------------------------------------------------------
+  # Monitor
+  # ------------------------------------------------------------
+
+  monitorsLua =
+    lib.concatMapStringsSep "\n\n"
+    (m: ''
+      hl.monitor({
+        output = ${toLua m.name},
+        mode = ${toLua "${toString m.size}@${toString m.rate}"},
+        position = "auto",
+        scale = ${toString m.scale},
+      })
+    '')
+    desktop.monitor;
+
+  # ------------------------------------------------------------
+  # Autostart
+  # ------------------------------------------------------------
+
+  startupCommands =
     desktop.execOnce
     ++ [
-      # 解决部分窗口中，鼠标指针显示为 “X” 的情况 https://wiki.archlinuxcn.org/wiki/%E5%85%89%E6%A0%87%E4%B8%BB%E9%A2%98#%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4_X_%E5%BD%A2%E5%85%89%E6%A0%87
+      # 解决部分 XWayland 窗口中鼠标指针显示为 X
       "${pkgs.xsetroot}/bin/xsetroot -cursor_name left_ptr"
+
       "${builtins.replaceStrings ["\n"] [";"] config.xsession.profileExtra}"
-      # 启动剪贴板
-      # https://wiki.hyprland.org/hyprland-wiki/pages/Useful-Utilities/Clipboard-Managers/
-      "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store" #Stores only text data
-      "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store" #Stores only image data
+
+      # Clipboard
+      "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch cliphist store"
+      "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch cliphist store"
       "${pkgs.wl-clipboard}/bin/wl-clip-persist --clipboard both"
+
       "hyprctl setcursor ${config.stylix.cursor.name} ${toString config.stylix.cursor.size}"
     ];
-  monitor = monitor;
-}
+
+  startupLua =
+    lib.concatMapStringsSep "\n"
+    (command: "  hl.exec_cmd(${toLua command})")
+    startupCommands;
+
+  # ------------------------------------------------------------
+  # NVIDIA
+  # ------------------------------------------------------------
+
+  nvidiaEnvLua = lib.optionalString desktop.useNvidia ''
+    hl.env("LIBVA_DRIVER_NAME", "nvidia")
+    hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+    hl.env("NVD_BACKEND", "direct")
+  '';
+
+  noHardwareCursors =
+    if desktop.useNvidia
+    then 1
+    else 0;
+in ''
+  -- ============================================================
+  -- Local variables
+  -- ============================================================
+
+  local scripts = ${toLua scripts}
+  local bin = ${toLua bin}
+
+
+  -- ============================================================
+  -- Environment
+  -- ============================================================
+
+  hl.env("GLFW_IM_MODULE", "ibus")
+
+  hl.env("MOZ_ENABLE_WAYLAND", "1")
+  hl.env("SDL_VIDEODRIVER", "wayland")
+  hl.env("_JAVA_AWT_WM_NONREPARENTING", "1")
+
+  hl.env("QT_QPA_PLATFORM", "wayland")
+  hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
+
+  hl.env("CLUTTER_BACKEND", "wayland")
+
+  hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+  hl.env("XDG_SESSION_DESKTOP", "Hyprland")
+  hl.env("XDG_SESSION_TYPE", "wayland")
+
+  hl.env("HYPRCURSOR_THEME", ${toLua config.stylix.cursor.name})
+  hl.env("HYPRCURSOR_SIZE", ${toLua (toString config.stylix.cursor.size)})
+
+  ${nvidiaEnvLua}
+
+
+  -- ============================================================
+  -- Cursor
+  -- ============================================================
+
+  hl.config({
+    cursor = {
+      no_hardware_cursors = ${toString noHardwareCursors},
+    },
+  })
+
+
+  -- ============================================================
+  -- Monitors
+  -- ============================================================
+
+  ${monitorsLua}
+
+
+  -- ============================================================
+  -- Autostart
+  -- ============================================================
+
+  hl.on("hyprland.start", function()
+  ${startupLua}
+  end)
+''

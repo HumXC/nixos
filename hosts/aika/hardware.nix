@@ -17,6 +17,7 @@
       vpl-gpu-rt
       intel-media-driver
       libvdpau-va-gl
+      intel-compute-runtime
     ];
   };
   hardware.bluetooth.enable = true;

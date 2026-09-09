@@ -1,75 +1,215 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.aris.hyprland;
-in {
-  xwayland = {
-    force_zero_scaling = true;
-  };
 
-  input = {
-    follow_mouse = 1;
-    float_switch_override_focus = 2;
-    touchpad = {
-      natural_scroll = true;
-    };
-    sensitivity = -1; # -1.0 - 1.0, 0 means no modification.
-  };
-  general = {
-    gaps_in = 4;
-    gaps_out = 8;
-    border_size = 2;
-  };
-  decoration = {
-    rounding = 6;
-    blur = {
-      enabled = cfg.enableBlurAndOpacity;
-      popups = true;
-      passes = 2;
-      size = 12;
-      noise = 0.06;
-    };
-  };
-  bezier = [
-    "bz1,0.87, 0, 0.13, 1"
-    "bz2,0.04, 0.48, 0.1, 0.79"
-    "bz3,0.82,0.28,0.47,0.64"
-  ];
-  animations = {
-    enabled = true;
-    layers = {
-      animation = [
-        "layersIn,1,1,bz1"
-        "layersOut,1,1,bz1"
-      ];
-    };
-    windows = {
-      animation = [
-        "windowsIn,1,2,default"
-        "windowsOut,1,2,bz1"
-        "windowsMove,1,2,default"
-      ];
-    };
-    fade = {
-      animation = [
-        "fadeIn,1,2,default"
-        "fadeOut,1,2,bz2"
-        "fadeSwitch,1,2,default"
-        "fadeShadow,1,1,default"
-        "fadeDim,1,2,bz3"
-        "fadeLayersIn,1,1,bz2"
-        "fadeLayersOut,1,1,bz2"
-      ];
-    };
-    animation = [
-      "border,1,6,bz2"
-      "borderangle,1,1,bz3,loop"
-      "workspaces,1,4,bz1"
-    ];
-  };
+  toLua = lib.generators.toLua {};
+in ''
+  -- ============================================================
+  -- General configuration
+  -- ============================================================
 
-  misc = {
-    disable_hyprland_logo = true;
-    animate_mouse_windowdragging = true;
-    middle_click_paste = false;
-    focus_on_activate = true;
-  };
-}
+  hl.config({
+    xwayland = {
+      force_zero_scaling = true,
+    },
+
+    input = {
+      follow_mouse = 1,
+      float_switch_override_focus = 2,
+
+      touchpad = {
+        natural_scroll = true,
+      },
+
+      -- -1.0 ~ 1.0, 0 means no modification.
+      sensitivity = -1,
+    },
+
+    general = {
+      gaps_in = 4,
+      gaps_out = 8,
+      border_size = 2,
+    },
+
+    decoration = {
+      rounding = 6,
+
+      blur = {
+        enabled = ${toLua cfg.enableBlurAndOpacity},
+        popups = true,
+        passes = 2,
+        size = 12,
+        noise = 0.06,
+      },
+    },
+
+    animations = {
+      enabled = true,
+    },
+
+    misc = {
+      disable_hyprland_logo = true,
+      animate_mouse_windowdragging = true,
+      middle_click_paste = false,
+      focus_on_activate = true,
+    },
+  })
+
+
+  -- ============================================================
+  -- Curves
+  -- ============================================================
+
+  hl.curve("bz1", {
+    type = "bezier",
+    points = {
+      { 0.87, 0 },
+      { 0.13, 1 },
+    },
+  })
+
+  hl.curve("bz2", {
+    type = "bezier",
+    points = {
+      { 0.04, 0.48 },
+      { 0.1, 0.79 },
+    },
+  })
+
+  hl.curve("bz3", {
+    type = "bezier",
+    points = {
+      { 0.82, 0.28 },
+      { 0.47, 0.64 },
+    },
+  })
+
+
+  -- ============================================================
+  -- Layer animations
+  -- ============================================================
+
+  hl.animation({
+    leaf = "layersIn",
+    enabled = true,
+    speed = 1,
+    bezier = "bz1",
+  })
+
+  hl.animation({
+    leaf = "layersOut",
+    enabled = true,
+    speed = 1,
+    bezier = "bz1",
+  })
+
+
+  -- ============================================================
+  -- Window animations
+  -- ============================================================
+
+  hl.animation({
+    leaf = "windowsIn",
+    enabled = true,
+    speed = 2,
+    bezier = "default",
+  })
+
+  hl.animation({
+    leaf = "windowsOut",
+    enabled = true,
+    speed = 2,
+    bezier = "bz1",
+  })
+
+  hl.animation({
+    leaf = "windowsMove",
+    enabled = true,
+    speed = 2,
+    bezier = "default",
+  })
+
+
+  -- ============================================================
+  -- Fade animations
+  -- ============================================================
+
+  hl.animation({
+    leaf = "fadeIn",
+    enabled = true,
+    speed = 2,
+    bezier = "default",
+  })
+
+  hl.animation({
+    leaf = "fadeOut",
+    enabled = true,
+    speed = 2,
+    bezier = "bz2",
+  })
+
+  hl.animation({
+    leaf = "fadeSwitch",
+    enabled = true,
+    speed = 2,
+    bezier = "default",
+  })
+
+  hl.animation({
+    leaf = "fadeShadow",
+    enabled = true,
+    speed = 1,
+    bezier = "default",
+  })
+
+  hl.animation({
+    leaf = "fadeDim",
+    enabled = true,
+    speed = 2,
+    bezier = "bz3",
+  })
+
+  hl.animation({
+    leaf = "fadeLayersIn",
+    enabled = true,
+    speed = 1,
+    bezier = "bz2",
+  })
+
+  hl.animation({
+    leaf = "fadeLayersOut",
+    enabled = true,
+    speed = 1,
+    bezier = "bz2",
+  })
+
+
+  -- ============================================================
+  -- Other animations
+  -- ============================================================
+
+  hl.animation({
+    leaf = "border",
+    enabled = true,
+    speed = 6,
+    bezier = "bz2",
+  })
+
+  hl.animation({
+    leaf = "borderangle",
+    enabled = true,
+    speed = 1,
+    bezier = "bz3",
+    style = "loop",
+  })
+
+  hl.animation({
+    leaf = "workspaces",
+    enabled = true,
+    speed = 4,
+    bezier = "bz1",
+  })
+''

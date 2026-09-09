@@ -6,12 +6,7 @@
 }: {
   imports = [../theme.nix];
   aris = {
-    hyprland = {
-      enable = true;
-      var = {
-        BROWSER = "zen-beta";
-      };
-    };
+    hyprland.enable = true;
     mpd = {
       enable = true;
       musicDirectory = "/disk/files/HumXC/Music";
@@ -40,6 +35,7 @@
     };
   };
   home.sessionVariables = {
+    BROWSER = "zen-beta";
     TERMINAL = "ghostty"; # mika-shell uses this
     ONNXRUNTIME_NODE_INSTALL = "skip";
   };
@@ -50,6 +46,8 @@
         btop
         trashy
         gcc
+        gnumake
+        cmake
         ffmpeg
         p7zip
         cowsay
@@ -81,6 +79,17 @@
         })
         obsidian
         agent-browser
+        bun
+        nodejs
+        (spec-kit.overrideAttrs (_: {
+          version = "1.0.4";
+          src = fetchFromGitHub {
+            owner = "github";
+            repo = "spec-kit";
+            tag = "v1.0.4";
+            hash = "sha256-Dt4mZjgT5X86QnfggRB5sUuOFEb+SpDUiXPo/FTFmK4=";
+          };
+        }))
       ])
       ++ [
         inputs.mika-shell.packages.${system}.debug
@@ -96,9 +105,6 @@
         inputs.comfyui.packages.${system}.default
         inputs.noctalia.packages.${system}.default
 
-        bun
-        nodejs
-
         wlvncc
 
         # pi agent sandbox
@@ -109,6 +115,7 @@
         flameshot
 
         blender
+        uv
       ];
   };
   programs.home-manager.enable = true;
@@ -138,5 +145,22 @@
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
+  };
+  systemd.user.services.deepseek-harness = {
+    Unit = {
+      Description = "DeepSeek Harness web server";
+      After = ["network.target"];
+    };
+
+    Service = {
+      Type = "exec";
+      ExecStart = "${pkgs.unstable.nodejs}/bin/node --expose-internals %h/.npm-packages/lib/node_modules/@deepseek-ai/dsh/lib/bin.js web --no-open";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+
+    Install = {
+      WantedBy = ["default.target"];
+    };
   };
 }

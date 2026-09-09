@@ -12,6 +12,7 @@
       clash_url = {};
       id_rsa = {};
       id_rsa_pub = {};
+      sub2api_crt = {};
     };
   };
 }

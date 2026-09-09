@@ -6,13 +6,10 @@
   ...
 }: let
   cfg = config.aris.hyprland;
-  var = let
-    e = cfg.var;
-  in
-    lib.attrsets.listToAttrs (map (key: {
-      name = "\$${key}";
-      value = e."${key}";
-    }) (builtins.attrNames e));
+  importLua = path:
+    import path {
+      inherit config pkgs lib;
+    };
 in {
   options.aris.hyprland = {
     enable = lib.mkEnableOption "hyprland";
@@ -52,7 +49,7 @@ in {
       systemd.enable = true;
       package = null;
       portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
-      configType = "hyprlang";
+      configType = "lua";
     };
     home.packages = with pkgs; [
       libnotify
@@ -76,24 +73,16 @@ in {
 
     # BUG 如果 monitor scale 不为整数 并且使用支持的分数 例如 1.2 1.5
     # 会导致鼠标光标的大小在 waybar(gtk) 和 hyprland 之间变化
-    wayland.windowManager.hyprland.settings = let
-      importConf = confs:
-        lib.attrsets.mergeAttrsList (
-          map
-          (c:
-            import c {
-              inherit config pkgs lib;
-            })
-          confs
-        );
-    in
-      var
-      // importConf [
-        ./hypr/hyprland.nix
-        ./hypr/main.nix
-        ./hypr/window-rule.nix
-        ./hypr/layer-rule.nix
-        ./hypr/bind.nix
-      ];
+    wayland.windowManager.hyprland.extraConfig = ''
+      ${importLua ./hypr/hyprland.nix}
+
+      ${importLua ./hypr/main.nix}
+
+      ${importLua ./hypr/window-rule.nix}
+
+      ${importLua ./hypr/layer-rule.nix}
+
+      ${importLua ./hypr/bind.nix}
+    '';
   };
 }

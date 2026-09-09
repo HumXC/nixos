@@ -32,6 +32,10 @@
       url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    reaper-flake = {
+      url = "github:9Prestidigitator/reaper-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
   outputs = inputs @ {
     self,

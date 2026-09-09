@@ -48,6 +48,7 @@ in {
       configUrlFile = config.sops.secrets.clash_url.path;
     };
   };
+  security.pki.certificateFiles = [./../../secrets/sub2api.crt];
   environment.sessionVariables = {
     OS_EDITOR = "code";
     EDITOR = "code";

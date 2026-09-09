@@ -51,6 +51,7 @@ in {
       9090
     ];
   };
+  security.pki.certificateFiles = [./../../secrets/sub2api.crt];
   services.openssh = {
     enable = true;
     settings = {
