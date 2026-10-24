@@ -23,7 +23,14 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    xdg.portal.config.common.default = "hyprland";
+    xdg.portal = {
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+      config.hyprland = {
+        default = ["hyprland" "gtk"];
+        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+      };
+    };
     services.hypridle.enable = true;
     services.hypridle.settings = {
       general = {

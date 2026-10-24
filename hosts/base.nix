@@ -28,12 +28,14 @@ in {
   programs.nix-ld.enable = true;
   environment.sessionVariables = {
     NIXPKGS_ALLOW_UNFREE = 1;
+    NODE_PATH = "$HOME/.npm-packages/lib/node_modules";
+    PNPM_HOME = "$HOME/.npm-packages/pnpm";
+    npm_config_prefix = "$HOME/.npm-packages";
   };
   nixpkgs = {
     overlays = [
       inputs.nur.overlays.default
       inputs.aikadm.overlays.default
-      inputs.netease-music-webplayer.overlays.default
       outputs.overlays.unstable-packages
       outputs.overlays.additions
       outputs.overlays.extra-lib

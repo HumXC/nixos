@@ -5,27 +5,10 @@
   ...
 }: let
   cfg = config.aris.clash;
-  Country_mmdb_url = "https://ghfast.top/https://github.com/Dreamacro/maxmind-geoip/releases/download/20240412/Country.mmdb";
-  clash-tool = pkgs.stdenv.mkDerivation {
-    name = "clash-tool";
-    clashinit = pkgs.writeText "clash-init" ''
-      #!/usr/bin/env sh
-      [ ! -e "${cfg.workDir}" ] && mkdir -p ${cfg.workDir}
-      ${lib.optionalString (cfg.configUrlFile != "") "[ ! -e \"${cfg.workDir}/config.yaml\" ] && ${pkgs.wget}/bin/wget -O ${cfg.workDir}/config.yaml \"$(${pkgs.coreutils}/bin/cat ${cfg.configUrlFile})\""}
-      [ ! -e "${cfg.workDir}/Country.mmdb" ] && ${pkgs.wget}/bin/wget ${cfg.workDir}/Country.mmdb "${Country_mmdb_url}"
-      exit 0
-    '';
-    unpackPhase = "true";
-    installPhase = ''
-      mkdir -p $out/bin
-      cp $clashinit $out/clash-init
-      chmod +x $out/clash-init
-    '';
-  };
-  yacdVersion = "0.3.8";
-  yacd = builtins.fetchTarball {
-    url = "https://mirror.ghproxy.com/https://github.com/haishanh/yacd/releases/download/v${yacdVersion}/yacd.tar.xz";
-    sha256 = "sha256:0wziqgk6lp482qss8khniqc2hbsc3ykagkglrj085d4a3i2q3fk2";
+  zashboardVersion = "3.28.0";
+  zashboard = fetchTarball {
+    url = "https://ghfast.top/https://github.com/Zephyruso/zashboard/releases/download/v${zashboardVersion}/dist-misans-only.zip";
+    sha256 = "sha256:17lx3andlg2p2y2ijqwlci7pjdlpnxabycmjjnzddbzhwcm8qb91";
   };
 in {
   options.aris.clash = {
@@ -59,10 +42,9 @@ in {
         Type = "simple";
         LimitNPROC = 500;
         LimitNOFILE = 1000000;
-        # ExecStartPre = "${clash-tool}/clash-init";
         CapabilityBoundingSet = "CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_TIME CAP_SYS_PTRACE CAP_DAC_READ_SEARCH";
         AmbientCapabilities = "CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_TIME CAP_SYS_PTRACE CAP_DAC_READ_SEARCH";
-        ExecStart = ''${pkgs.clash-meta}/bin/clash-meta -d ${cfg.workDir} -ext-ui ${yacd}'';
+        ExecStart = ''${pkgs.clash-meta}/bin/clash-meta -d ${cfg.workDir} -ext-ui ${zashboard}'';
       };
       wantedBy = ["multi-user.target"];
     };

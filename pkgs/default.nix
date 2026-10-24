@@ -17,4 +17,5 @@ in
     "lark"
     "opencode"
     "lightpanda"
+    "xppen"
   ]

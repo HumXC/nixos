@@ -8,6 +8,7 @@
 in {
   options.aris.soundSystem.enable = lib.mkEnableOption "Enable the sound system";
   config = lib.mkIf cfg.enable {
+    security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
       jack.enable = true;

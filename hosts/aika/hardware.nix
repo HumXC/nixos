@@ -13,7 +13,7 @@
   ];
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [
+    extraPackages = with pkgs.unstable; [
       vpl-gpu-rt
       intel-media-driver
       libvdpau-va-gl

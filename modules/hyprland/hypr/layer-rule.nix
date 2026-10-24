@@ -6,20 +6,10 @@ in ''
   -- ============================================================
 
   hl.layer_rule({
-    name = "popup-window",
+    name = "mika-shell",
 
     match = {
-      namespace = "popup-window",
-    },
-
-    no_anim = true,
-  })
-
-  hl.layer_rule({
-    name = "mikami-layer",
-
-    match = {
-      namespace = "mikami-layer",
+      namespace = "mika-shell",
     },
 
     no_anim = true,
@@ -36,6 +26,7 @@ in ''
         },
 
         blur = true,
+        blur_popups = true,
         ignore_alpha = 0.5,
       })
     ''

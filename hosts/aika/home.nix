@@ -28,9 +28,9 @@
         }
       ];
       execOnce = [
-        "noctalia-shell"
-        "netease-music-webplayer --silent"
+        "noctalia"
         "QT_SCALE_FACTOR=0.8 flameshot"
+        "xppen /mini"
       ];
     };
   };
@@ -64,11 +64,12 @@
         aria2
         lightpanda
         bottles
+        xppen
       ]
       ++ (with pkgs.unstable; [
         telegram-desktop
         godot_4
-        hmcl
+        gdscript-formatter
         orca-slicer
         mpv
         swayimg
@@ -81,6 +82,7 @@
         agent-browser
         bun
         nodejs
+        uv
         (spec-kit.overrideAttrs (_: {
           version = "1.0.4";
           src = fetchFromGitHub {
@@ -90,10 +92,11 @@
             hash = "sha256-Dt4mZjgT5X86QnfggRB5sUuOFEb+SpDUiXPo/FTFmK4=";
           };
         }))
+        noctalia
+        pixelorama
       ])
       ++ [
         inputs.mika-shell.packages.${system}.debug
-        inputs.netease-music-webplayer.packages.${system}.default
         wtype
         ddcutil
         grim
@@ -103,7 +106,6 @@
         chromium
 
         inputs.comfyui.packages.${system}.default
-        inputs.noctalia.packages.${system}.default
 
         wlvncc
 
@@ -115,12 +117,12 @@
         flameshot
 
         blender
-        uv
       ];
   };
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
+    lfs.enable = true;
     settings = {
       init.defaultBranch = "main";
       http.postBuffer = "524288000";
@@ -154,9 +156,14 @@
 
     Service = {
       Type = "exec";
-      ExecStart = "${pkgs.unstable.nodejs}/bin/node --expose-internals %h/.npm-packages/lib/node_modules/@deepseek-ai/dsh/lib/bin.js web --no-open";
-      Restart = "on-failure";
-      RestartSec = 3;
+      WorkingDirectory = "%h";
+
+      ExecStart = "${pkgs.bash}/bin/bash %h/.local/bin/dsh web --no-open";
+
+      Environment = [
+        "PATH=%h/.local/share/dsh-node/runtime/bin:%h/.npm-packages/bin:/run/current-system/sw/bin"
+        "NPM_CONFIG_PREFIX=%h/.npm-packages"
+      ];
     };
 
     Install = {

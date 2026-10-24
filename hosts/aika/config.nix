@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   rootPassFile = config.sops.secrets."password/root".path;
@@ -48,6 +49,10 @@ in {
       configUrlFile = config.sops.secrets.clash_url.path;
     };
   };
+  programs.nix-ld.libraries = lib.mkAfter [
+    pkgs.fontconfig
+    pkgs.freetype
+  ];
   security.pki.certificateFiles = [./../../secrets/sub2api.crt];
   environment.sessionVariables = {
     OS_EDITOR = "code";
@@ -71,12 +76,13 @@ in {
     cp210x-program
     nftables
   ];
+  services.udev.packages = [pkgs.xppen];
   services.udev.extraRules = ''
     # ST-LINK/V2
     SUBSYSTEM=="usb", ATTR{idVendor}=="0483", ATTR{idProduct}=="3748", MODE="0666"
   '';
   virtualisation.docker = {
-    enable = true;
+    enable = false;
     daemon.settings = let
       mirrors = [
         "docker.1panel.live"

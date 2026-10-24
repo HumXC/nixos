@@ -27,11 +27,6 @@
     mika-shell.url = "github:MikaShell/mika-shell";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     comfyui.url = "github:HumXC/comfyui";
-    netease-music-webplayer.url = "github:HumXC/netease-music-webplayer";
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/legacy-v4";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     reaper-flake = {
       url = "github:9Prestidigitator/reaper-flake";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

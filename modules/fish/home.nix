@@ -12,7 +12,7 @@
 in {
   options.aris.fish.enable = lib.mkEnableOption "fish";
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide eza tmux ghostty.terminfo];
+    home.packages = with pkgs; [zoxide eza ghostty.terminfo];
     programs.starship = {
       enable = true;
       settings =
@@ -170,10 +170,6 @@ in {
         fish_add_path $HOME/.bun/bin
         fish_add_path $HOME/.cargo/bin
         fish_add_path -m -p $HOME/.local/bin
-
-        set -gx NODE_PATH ~/.npm-packages/lib/node_modules
-        set -gx PNPM_HOME ~/.npm-packages/pnpm
-        set -gx npm_config_prefix $HOME/.npm-packages
 
         zoxide init fish | source
       '';
